@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,21 +9,48 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".WelcomeActivity">
+    android:background="@drawable/welcome"
+    tools:context=".WelcomeActivity"
+    android:weightSum="1">
 
-    <TextView
+
+
+    <ImageView android:src="@drawable/iiitdlobo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="INFO"
-        android:id="@+id/textView" />
+        android:layout_height="72dp"
+        android:layout_marginBottom="24dp" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <TextView android:id="@+id/textView"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/goToLoginPage"
-        android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView" />
+        android:layout_marginBottom="24dp"
+        android:text="Indraprastha Institute of Information Technology Delhi"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textColor="#ffffff"
+        />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:orientation="vertical" >
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/goToLoginPage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:text="Continue"
+            android:textColor="#ffffff"
+            android:textSize="25sp"
+            android:background="#004984"
+            />
+
+
+</LinearLayout>
 </LinearLayout>
