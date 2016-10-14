@@ -112,9 +112,6 @@ public class MainActivity extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public PlaceholderFragment() {
-        }
-
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -134,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
                 return rootView;
             } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
-                View rootView = inflater.inflate(R.layout.fragment_history_list, container, false);
+                View rootView = inflater.inflate(R.layout.history_display, container, false);
                 return rootView;
             }
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
