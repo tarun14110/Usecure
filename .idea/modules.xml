@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EntranceSecurity.iml" filepath="$PROJECT_DIR$/EntranceSecurity.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Usecure.iml" filepath="$PROJECT_DIR$/Usecure.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
