@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "887047766204",
+    "firebase_url": "https://usecure-146812.firebaseio.com",
+    "project_id": "usecure-146812",
+    "storage_bucket": "usecure-146812.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887047766204:android:cfd56475a7bfa9da",
+        "android_client_info": {
+          "package_name": "com.rocks.mafia.entrancesecurity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "887047766204-fde6n3a5a89ok9alv8iah6mvi16e48hb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8_5t2LHRii5HHfTA4FmYiCIak4WMDGIk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -22,7 +22,7 @@ public class HistoryFragment extends ListFragment {
 
     private ArrayList<HistoryNode> historyData;
     private HistoryArrayAdaptor historyNodeArrayAdapter;
-    private HistoryHandler handler;
+
     public HistoryFragment() {
         // Required empty public constructor
     }
@@ -36,8 +36,18 @@ public class HistoryFragment extends ListFragment {
                 android.R.layout.simple_list_item_1,  dummyData);
         setListAdapter(adapter);*/
 
+       HistoryHandler  handler= new HistoryHandler(getActivity());
         historyData = new ArrayList<HistoryNode>();
+
+        String n= handler.getDatabaseName();
+        handler.addHistory(new HistoryNode("Sujeet", new Time(3,4,5)));
+        handler.addHistory(new HistoryNode("Tarun", new Time(3,4,5)));
+        handler.addHistory(new HistoryNode("Mukesh", new Time(3,4,5)));
+        handler.addHistory(new HistoryNode("Sudhir", new Time(3,4,5)));
+        handler.addHistory(new HistoryNode("pankaj", new Time(3,4,5)));
         historyData= handler.getAllHistory();
+
+
         /*
         historyData.add(new HistoryNode("Tarun kumar yadav", new Time(3,4,5)));
         historyData.add(new HistoryNode("Vibha", new Time(3,4,5)));
@@ -46,7 +56,7 @@ public class HistoryFragment extends ListFragment {
         historyNodeArrayAdapter = new HistoryArrayAdaptor(getActivity(), historyData);
 
         setListAdapter(historyNodeArrayAdapter);
-
+        handler.close();
 
     }
 

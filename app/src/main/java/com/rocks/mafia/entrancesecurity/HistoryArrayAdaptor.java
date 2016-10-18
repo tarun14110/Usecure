@@ -38,7 +38,7 @@ public class HistoryArrayAdaptor extends ArrayAdapter<HistoryNode> {
         // fill the data in each view
         title.setText(historyNode.getPersonName());
         body.setText(historyNode.getVisitingTime().toString());
-        if(historyNode.getImageUrl().isEmpty())
+       // if(historyNode.getImageUrl().isEmpty())
         image.setImageResource(R.drawable.ln_logo);
 
         // return the view to be displyed
