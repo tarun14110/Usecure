@@ -85,9 +85,9 @@ public class HistoryHandler extends SQLiteOpenHelper
         return node;
     }
 
-    public List< HistoryNode> getAllHistory()
+    public ArrayList< HistoryNode> getAllHistory()
     {
-        List< HistoryNode> HistoryList = new ArrayList< HistoryNode>();
+       ArrayList< HistoryNode> HistoryList = new ArrayList< HistoryNode>();
         String selectQuery = "SELECT * FROM " + TABLE_HISTORY;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

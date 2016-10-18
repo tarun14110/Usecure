@@ -20,9 +20,8 @@ public class HistoryNode {
         this.visitingTime = visitingTime;
     }
 
-    public HistoryNode(int id,String personName,Time visitingTime)
+    public HistoryNode(String personName,Time visitingTime)
     {
-        this.id=id;
         this.personName = personName;
         this.visitingTime = visitingTime;
     }
@@ -36,11 +35,14 @@ public class HistoryNode {
         return personName;
     }
 
-    public Time getVisitingTime() {
+    public Time getVisitingTime()
+    {
         return visitingTime;
     }
 
-    public String getImageUrl() {
+    public String getImageUrl()
+    {
+
         return imageUrl;
     }
 

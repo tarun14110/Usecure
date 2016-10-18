@@ -22,7 +22,7 @@ public class HistoryFragment extends ListFragment {
 
     private ArrayList<HistoryNode> historyData;
     private HistoryArrayAdaptor historyNodeArrayAdapter;
-
+    private HistoryHandler handler;
     public HistoryFragment() {
         // Required empty public constructor
     }
@@ -37,10 +37,12 @@ public class HistoryFragment extends ListFragment {
         setListAdapter(adapter);*/
 
         historyData = new ArrayList<HistoryNode>();
+        historyData= handler.getAllHistory();
+        /*
         historyData.add(new HistoryNode("Tarun kumar yadav", new Time(3,4,5)));
         historyData.add(new HistoryNode("Vibha", new Time(3,4,5)));
         historyData.add(new HistoryNode("Chetna", new Time(3,4,5)));
-
+            */
         historyNodeArrayAdapter = new HistoryArrayAdaptor(getActivity(), historyData);
 
         setListAdapter(historyNodeArrayAdapter);
