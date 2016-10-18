@@ -24,9 +24,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-
-
-
     /**
      * @return true if the user already logged in.
      */
@@ -44,7 +41,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.goToLoginPage:
-                Intent intent = new Intent(this, LoginActivity.class);
+                Intent intent = new Intent(this,SigninActivity.class);
                 startActivity(intent);
         }
     }

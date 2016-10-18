@@ -6,32 +6,41 @@ import java.sql.Time;
  * Created by mafia on 15/10/16.
  */
 public class HistoryNode {
+    private int id;
     private String personName;
-    private int imageUrl;
+    private String imageUrl;
     private Time visitingTime;
 
 
-    public HistoryNode(String personName, Time visitingTime, int imageUrl) {
+    public HistoryNode(int id,String personName, Time visitingTime, String imageUrl)
+    {
+        this.id=id;
         this.personName = personName;
         this.imageUrl = imageUrl;
         this.visitingTime = visitingTime;
     }
 
-    public HistoryNode(String personName,Time visitingTime) {
+    public HistoryNode(int id,String personName,Time visitingTime)
+    {
+        this.id=id;
         this.personName = personName;
-        this.imageUrl = R.drawable.ln_logo;
         this.visitingTime = visitingTime;
     }
 
+
+    public int getId()
+    {
+        return id;
+    }
     public String getPersonName() {
         return personName;
     }
 
-    public String getVisitingTime() {
-        return visitingTime.toString();
+    public Time getVisitingTime() {
+        return visitingTime;
     }
 
-    public int getImageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
 

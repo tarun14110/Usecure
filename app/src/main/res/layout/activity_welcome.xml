@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/welcome"
+    android:background="@color/bg_login"
     tools:context=".WelcomeActivity"
     android:weightSum="1">
 
@@ -38,18 +38,17 @@
         android:orientation="vertical" >
 
 
-        <android.support.v7.widget.AppCompatButton
+
+        <Button
             android:id="@+id/goToLoginPage"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:padding="12dp"
+            android:layout_marginTop="20dip"
+            android:background="@color/btn_login_bg"
             android:text="Continue"
-            android:textColor="#ffffff"
-            android:textSize="25sp"
-            android:background="#004984"
-            />
+            android:textColor="@color/btn_login" />
+
+
 
 
 </LinearLayout>
