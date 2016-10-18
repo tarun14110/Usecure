@@ -11,6 +11,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,18 +32,23 @@ public class RequestFragment  extends Fragment {
 
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
+        Log.e(TAG, "YOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        txtRegId = (TextView) getView().findViewById(R.id.txt_reg_id);
-        txtMessage = (TextView) getView().findViewById(R.id.txt_push_message);
-
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+        txtRegId = (TextView) rootView.findViewById(R.id.txt_reg_id);
+        txtMessage = (TextView) rootView.findViewById(R.id.txt_push_message);
+        mRegistrationBroadcastReceiver = new BroadcastReceiver()
+        {
             @Override
-            public void onReceive(Context context, Intent intent) {
+            public void onReceive(Context context, Intent intent)
+            {
 
                 // checking for type intent filter
-                if (intent.getAction().equals(AppConfig.REGISTRATION_COMPLETE)) {
+                if (intent.getAction().equals(AppConfig.REGISTRATION_COMPLETE))
+                {
                     // gcm successfully registered
                     // now subscribe to `global` topic to receive app wide notifications
                     FirebaseMessaging.getInstance().subscribeToTopic(AppConfig.TOPIC_GLOBAL);
@@ -59,7 +68,10 @@ public class RequestFragment  extends Fragment {
         };
 
         displayFirebaseRegId();
+
+        return rootView;
     }
+
 
 
     // Fetches reg id from shared preferences

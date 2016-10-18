@@ -137,10 +137,13 @@ public class MainActivity extends AppCompatActivity {
                 View rootView = inflater.inflate(R.layout.history_display, container, false);
                 return rootView;
             }
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+            View rootView = inflater.inflate(R.layout.request_display, container, false);
             return rootView;
+/*            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            return rootView;*/
         }
     }
 
