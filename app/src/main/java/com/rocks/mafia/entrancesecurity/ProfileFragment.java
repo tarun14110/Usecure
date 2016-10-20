@@ -1,15 +1,20 @@
 package com.rocks.mafia.entrancesecurity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 
 /**
@@ -20,15 +25,18 @@ import android.view.ViewGroup;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment
+{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private static final int PICK_IMAGE = 1;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ImageView image;
+    private Button selectImageButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -45,7 +53,9 @@ public class ProfileFragment extends Fragment {
      * @return A new instance of fragment ProfileFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
+    public static ProfileFragment newInstance(String param1, String param2)
+    {
+        Log.d("Test", "pf");
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -57,6 +67,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Test", "onCreate  ");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -65,9 +76,31 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
+        Log.d("Test", "onCreateview");
         // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
+        View view =  null;
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
+        image = (ImageView)view.findViewById(R.id.uploadImage);
+        selectImageButton = (Button)view.findViewById(R.id.selectImageButton);
+
+
+
+        selectImageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Log.d("Test", "onClickListener ist gestartet");
+                Toast.makeText(getActivity().getApplicationContext(), "Test",        Toast.LENGTH_LONG).show();
+                selectImageFromGallery();
+
+            }
+        });
+
+
 
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
@@ -80,7 +113,10 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
+        Log.d("Test", "onAttach");
+
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -96,6 +132,13 @@ public class ProfileFragment extends Fragment {
         mListener = null;
     }
 
+    public void selectImageFromGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -106,8 +149,11 @@ public class ProfileFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnFragmentInteractionListener
+    {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
+
+

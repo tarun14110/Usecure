@@ -57,10 +57,6 @@ public class HistoryFragment extends ListFragment {
         recyclerView.setAdapter(adapter);
 
 
-
-
-
-
 /*
     // TARUN DATA
      String[] dummyData = new String[]{"Tarun", "Vibha", "Mukesh", "Chetna", "Shikha","Tarun", "Vibha", "Mukesh", "Chetna", "Shikha","Tarun", "Vibha", "Mukesh", "Chetna", "Shikha"};
