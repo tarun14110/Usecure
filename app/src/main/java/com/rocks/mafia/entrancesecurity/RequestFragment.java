@@ -40,6 +40,8 @@ public class RequestFragment  extends Fragment
         txtRegId = (TextView) rootView.findViewById(R.id.txt_reg_id);
         txtMessage = (TextView) rootView.findViewById(R.id.txt_push_message);
 
+        txtRegId = (TextView) rootView.findViewById(R.id.txt_reg_id);
+        txtMessage = (TextView) rootView.findViewById(R.id.txt_push_message);
         mRegistrationBroadcastReceiver = new BroadcastReceiver()
         {
             @Override
@@ -67,6 +69,9 @@ public class RequestFragment  extends Fragment
         };
 
         displayFirebaseRegId();
+
+        return rootView;
+
 
         return rootView;
     }
