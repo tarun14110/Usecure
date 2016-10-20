@@ -37,16 +37,24 @@ public class RequestFragment  extends Fragment
         Log.e(TAG, "YOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+<<<<<<< HEAD
         txtRegId = (TextView) rootView.findViewById(R.id.txt_reg_id);
         txtMessage = (TextView) rootView.findViewById(R.id.txt_push_message);
 
+=======
+
         txtRegId = (TextView) rootView.findViewById(R.id.txt_reg_id);
         txtMessage = (TextView) rootView.findViewById(R.id.txt_push_message);
+>>>>>>> 804b906e1cf974518299893f2338ab7afa1cb397
         mRegistrationBroadcastReceiver = new BroadcastReceiver()
         {
             @Override
             public void onReceive(Context context, Intent intent)
             {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 804b906e1cf974518299893f2338ab7afa1cb397
                 // checking for type intent filter
                 if (intent.getAction().equals(AppConfig.REGISTRATION_COMPLETE))
                 {
@@ -69,9 +77,18 @@ public class RequestFragment  extends Fragment
         };
 
         displayFirebaseRegId();
+<<<<<<< HEAD
 
         return rootView;
     }
+=======
+
+        return rootView;
+    }
+
+
+
+>>>>>>> 804b906e1cf974518299893f2338ab7afa1cb397
     // Fetches reg id from shared preferences
     // and displays on the screen
     private void displayFirebaseRegId()
