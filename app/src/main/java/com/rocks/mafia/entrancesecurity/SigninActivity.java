@@ -19,10 +19,18 @@ import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,13 +77,13 @@ public class SigninActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                String email = inputEmail.getText().toString().trim();
+                String contact = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
                 // Check for empty data in the form
-                if (!email.isEmpty() && !password.isEmpty()) {
+                if (!contact.isEmpty() && !password.isEmpty()) {
                     // login user
-                    checkLogin(email, password);
+                    checkLogin(contact, password);
                 } else {
                     // Prompt user to enter credentials
                     Toast.makeText(getApplicationContext(),
@@ -102,7 +110,7 @@ public class SigninActivity extends Activity {
     /**
      * function to verify login details in mysql db
      * */
-    private void checkLogin(final String email, final String password) {
+    private void checkLogin(final String contact, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
@@ -118,15 +126,14 @@ public class SigninActivity extends Activity {
                 hideDialog();
 
                 try {
-                    Log.e("papa", response.toString());
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
-                    Log.e("kakak", "yeee");
                     // Check for error node in json
                     if (!error) {
                         // user successfully logged in
                         // Create login session
                         session.setLogin(true);
+                        session.setContact(contact);
 
                         // Now store the user in SQLite
                         //String uid = jObj.getString("contact");
@@ -139,9 +146,12 @@ public class SigninActivity extends Activity {
                         // Inserting row in users table
                         db.addUser(name, email, contact);
 
+
+                        // sending new regId token to the server
+                        sendRegistrationToServer(FirebaseInstanceId.getInstance().getToken(), session.getContact());
+
                         // Launch main activity
-                        Intent intent = new Intent(SigninActivity.this,
-                                MainActivity.class);
+                        Intent intent = new Intent(SigninActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
@@ -172,7 +182,7 @@ public class SigninActivity extends Activity {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("contact",email);
+                params.put("contact",contact);
                 params.put("password", password);
                 Log.e(TAG, "Posting params: " + params.toString());
                 return params;
@@ -193,5 +203,82 @@ public class SigninActivity extends Activity {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+    public void sendRegistrationToServer(final String token, String contact) {
+        // sending gcm token to server
+        // Create data variable for sent values to server
+
+        String data = null;
+        try {
+            data = URLEncoder.encode("contact", "UTF-8")
+                    + "=" + URLEncoder.encode(contact, "UTF-8");
+            data += "&" + URLEncoder.encode("regId", "UTF-8") + "="
+                    + URLEncoder.encode(token, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+        String text = "";
+        BufferedReader reader=null;
+
+        // Send data
+        try
+        {
+
+            // Defined URL  where to send data
+            URL url = new URL("http://usecure.site88.net/updateRegId.php");
+
+            // Send POST data request
+
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write( data );
+            wr.flush();
+
+            // Get the server response
+
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+
+            // Read Server Response
+            while((line = reader.readLine()) != null)
+            {
+                // Append server response in string
+                sb.append(line + "\n");
+            }
+
+
+            text = sb.toString();
+        }
+        catch(Exception ex)
+        {
+
+        }
+        finally
+        {
+            try
+            {
+
+                reader.close();
+            }
+
+            catch(Exception ex) {}
+        }
+
+        // Show response on activity
+        // content.setText( text  );
+        if (text.contains("error")) {
+            Log.e(TAG, "Error while passing new token to the server" + text);
+        } else {
+            Log.v(TAG, "Succesfully updated new token to the server");
+
+        }
+
+
+        Log.e(TAG, "sendRegistrationToServer: " + token);
     }
 }

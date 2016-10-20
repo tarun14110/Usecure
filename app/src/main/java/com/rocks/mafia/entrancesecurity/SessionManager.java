@@ -25,6 +25,7 @@ public class SessionManager {
     private static final String PREF_NAME = "uSecureLogin";
 
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
+    private static final String LOGGEDIN_CONTACT = "loggedInPersonContact";
 
     public SessionManager(Context context) {
         this._context = context;
@@ -40,6 +41,21 @@ public class SessionManager {
         editor.commit();
 
         Log.d(TAG, "User login session modified!");
+    }
+
+    public void setContact(String contact) {
+
+        editor.putString(LOGGEDIN_CONTACT, contact);
+
+        // commit changes
+        editor.commit();
+
+        Log.d(TAG, "Logged in person contact session modified!");
+    }
+
+    public String getContact() {
+
+        return pref.getString(LOGGEDIN_CONTACT, null);
     }
 
     public boolean isLoggedIn(){

@@ -344,7 +344,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             SharedPreferences.Editor editor = sharedPref.edit();
             if (success) {
                 finish();
-                editor.putBoolean(getString(R.string.isLogin), true);
+                editor.putBoolean(getString(R.string.isLoggedIn), true);
                 editor.commit();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);

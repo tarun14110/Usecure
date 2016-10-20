@@ -18,10 +18,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database Name
-    private static final String DATABASE_NAME = "android_api";
+    private static final String DATABASE_NAME = "uSecure";
 
     // Login table name
     private static final String TABLE_USER = "user";
@@ -41,10 +41,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_EMAIL + " TEXT UNIQUE" + KEY_CONTACT + " TEXT UNIQUE" + ")";
+                + KEY_EMAIL + " TEXT UNIQUE," + KEY_CONTACT + " TEXT UNIQUE" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
 
-        Log.d(TAG, "Database tables created");
+        Log.d(TAG, "Database tables created " + CREATE_LOGIN_TABLE);
     }
 
     // Upgrading database

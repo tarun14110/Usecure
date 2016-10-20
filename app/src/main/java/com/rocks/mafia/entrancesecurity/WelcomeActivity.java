@@ -28,10 +28,12 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
      * @return true if the user already logged in.
      */
     private void passToLoginPageIfUserNotLoggedIn() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean islogin = sharedPref.getBoolean(getString(R.string.isLogin), false);                         // get value of last login status
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
 
-        if(islogin){                                                                 // if user not logged in, take him to log in page
+       /* SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean islogin = sharedPref.getBoolean(getString(R.string.isLogin), false);                         // get value of last login status
+*/
+        if(sessionManager.isLoggedIn()){                                                                 // if user not logged in, take him to log in page
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
         }

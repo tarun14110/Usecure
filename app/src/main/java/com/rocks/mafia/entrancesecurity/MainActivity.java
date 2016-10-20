@@ -120,10 +120,8 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id) {
             case R.id.action_logout:
-                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putBoolean(getString(R.string.isLogin), false);
-                editor.commit();
+                SessionManager session = new SessionManager(getApplicationContext());
+                session.setLogin(false);
                 Intent intent = new Intent(this, WelcomeActivity.class);
                 startActivity(intent);
                 break;
