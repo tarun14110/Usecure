@@ -5,6 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +18,7 @@ import android.widget.ListView;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -20,23 +26,53 @@ import java.util.ArrayList;
  */
 public class HistoryFragment extends ListFragment {
 
-    private ArrayList<HistoryNode> historyData;
-    private HistoryArrayAdaptor historyNodeArrayAdapter;
+    //private ArrayList<HistoryNode> historyData;
+    //private HistoryArrayAdaptor historyNodeArrayAdapter;
 
-    public HistoryFragment() {
+    public HistoryFragment()
+    {
         // Required empty public constructor
     }
+    public static List<HistoryNode> history;
+    HistoryArrayAdaptor  adapter;
+    RecyclerView recyclerView;
+    private static List<HistoryNode> demoData;
+
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
         super.onActivityCreated(savedInstanceState);
+        HistoryHandler  handler= new HistoryHandler(getActivity());
+        recyclerView = (RecyclerView) getView().findViewById(R.id.allHistory);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
 
-/*        String[] dummyData = new String[]{"Tarun", "Vibha", "Mukesh", "Chetna", "Shikha","Tarun", "Vibha", "Mukesh", "Chetna", "Shikha","Tarun", "Vibha", "Mukesh", "Chetna", "Shikha"};
+        demoData = handler.getAllHistory();
+        int i;
+        adapter = new HistoryArrayAdaptor(demoData);
+
+        recyclerView.setAdapter(adapter);
+
+
+
+
+
+
+/*
+    // TARUN DATA
+     String[] dummyData = new String[]{"Tarun", "Vibha", "Mukesh", "Chetna", "Shikha","Tarun", "Vibha", "Mukesh", "Chetna", "Shikha","Tarun", "Vibha", "Mukesh", "Chetna", "Shikha"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1,  dummyData);
         setListAdapter(adapter);*/
 
-       HistoryHandler  handler= new HistoryHandler(getActivity());
+
+/*
+//PANKAJ DATA WORKING-part1
+
+HistoryHandler  handler= new HistoryHandler(getActivity());
         historyData = new ArrayList<HistoryNode>();
 
         String n= handler.getDatabaseName();
@@ -47,17 +83,15 @@ public class HistoryFragment extends ListFragment {
         handler.addHistory(new HistoryNode("pankaj", new Time(3,4,5)));
         historyData= handler.getAllHistory();
 
+*/
 
-        /*
-        historyData.add(new HistoryNode("Tarun kumar yadav", new Time(3,4,5)));
-        historyData.add(new HistoryNode("Vibha", new Time(3,4,5)));
-        historyData.add(new HistoryNode("Chetna", new Time(3,4,5)));
-            */
-        historyNodeArrayAdapter = new HistoryArrayAdaptor(getActivity(), historyData);
 
+     /*
+       //PANKAJ DATA WORKING-part2
+       historyNodeArrayAdapter = new HistoryArrayAdaptor(getActivity(), historyData);
         setListAdapter(historyNodeArrayAdapter);
         handler.close();
-
+*/
     }
 
     @Override
@@ -72,6 +106,6 @@ public class HistoryFragment extends ListFragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.history_display, container, false);
     }
-*/
 
+*/
 }

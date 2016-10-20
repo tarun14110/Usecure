@@ -1,47 +1,71 @@
 package com.rocks.mafia.entrancesecurity;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by mafia on 15/10/16.
- */
-public class HistoryArrayAdaptor extends ArrayAdapter<HistoryNode> {
+public class HistoryArrayAdaptor
+        extends RecyclerView.Adapter
+        <HistoryArrayAdaptor.ListItemViewHolder> {
 
-    public HistoryArrayAdaptor(Context context, ArrayList<HistoryNode> historyArray) {
-        super(context, 0, historyArray);
+    private List<HistoryNode> items;
+    private SparseBooleanArray selectedItems;
+
+
+    HistoryArrayAdaptor(List<HistoryNode> modelData)
+    {
+        if (modelData == null)
+        {
+            throw new IllegalArgumentException("modelData must not be null");
+        }
+
+        items = modelData;
+        selectedItems = new SparseBooleanArray();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public ListItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
+    {
+        View itemView = LayoutInflater.
+                from(viewGroup.getContext()).
+                inflate(R.layout.history_list_view, viewGroup, false);
+        return new ListItemViewHolder(itemView);
+    }
 
-        // Get the data item for this position
-        HistoryNode historyNode = getItem(position);
+    @Override
+    public void onBindViewHolder(ListItemViewHolder viewHolder, int position) {
+        HistoryNode model = items.get(position);
+        viewHolder.name.setText(String.valueOf(model.getPersonName()));
+        viewHolder.age.setText(String.valueOf(model.getVisitingTime()));
+        viewHolder.itemView.setActivated(selectedItems.get(position, false));
+    }
 
-        // check if an existing view is being reused, otherwise inflate new view from custom layout
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.history_list_view, parent, false);
+    @Override
+    public int getItemCount()
+    {
+        return items.size();
+    }
+
+    public final static class ListItemViewHolder extends RecyclerView.ViewHolder
+    {
+        TextView name;
+        TextView age;
+
+        public ListItemViewHolder(View itemView)
+        {
+            super(itemView);
+            name = (TextView) itemView.findViewById(R.id.listItemHistoryTitle);
+            age = (TextView) itemView.findViewById(R.id.listItemHistoryBody);
         }
-
-        // get views, so that we can populate data into them
-        TextView title = (TextView) convertView.findViewById(R.id.listItemHistoryTitle);
-        TextView body = (TextView) convertView.findViewById(R.id.listItemHistoryBody);
-        ImageView image = (ImageView) convertView.findViewById(R.id.listItemHistoryImage);
-
-        // fill the data in each view
-        title.setText(historyNode.getPersonName());
-        body.setText(historyNode.getVisitingTime().toString());
-       // if(historyNode.getImageUrl().isEmpty())
-        image.setImageResource(R.drawable.ln_logo);
-
-        // return the view to be displyed
-        return convertView;
     }
 }

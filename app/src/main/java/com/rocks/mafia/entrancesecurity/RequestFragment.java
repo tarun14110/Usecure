@@ -21,15 +21,15 @@ import android.widget.Toast;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 /**
- * Created by ubuntu on 10/18/16.
+ * Created by mafia on 10/18/16.
  */
 
-public class RequestFragment  extends Fragment {
+public class RequestFragment  extends Fragment
+{
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private TextView txtRegId, txtMessage;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -37,25 +37,24 @@ public class RequestFragment  extends Fragment {
         Log.e(TAG, "YOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
         txtRegId = (TextView) rootView.findViewById(R.id.txt_reg_id);
         txtMessage = (TextView) rootView.findViewById(R.id.txt_push_message);
+
         mRegistrationBroadcastReceiver = new BroadcastReceiver()
         {
             @Override
             public void onReceive(Context context, Intent intent)
             {
-
                 // checking for type intent filter
                 if (intent.getAction().equals(AppConfig.REGISTRATION_COMPLETE))
                 {
                     // gcm successfully registered
                     // now subscribe to `global` topic to receive app wide notifications
                     FirebaseMessaging.getInstance().subscribeToTopic(AppConfig.TOPIC_GLOBAL);
-
                     displayFirebaseRegId();
 
-                } else if (intent.getAction().equals(AppConfig.PUSH_NOTIFICATION)) {
+                } else if (intent.getAction().equals(AppConfig.PUSH_NOTIFICATION))
+                {
                     // new push notification is received
 
                     String message = intent.getStringExtra("message");
@@ -71,15 +70,12 @@ public class RequestFragment  extends Fragment {
 
         return rootView;
     }
-
-
-
     // Fetches reg id from shared preferences
     // and displays on the screen
-    private void displayFirebaseRegId() {
+    private void displayFirebaseRegId()
+    {
         SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences(AppConfig.SHARED_PREF, 0);
         String regId = pref.getString("regId", null);
-
         Log.e(TAG, "Firebase reg id: " + regId);
 
         if (!TextUtils.isEmpty(regId))
@@ -91,14 +87,13 @@ public class RequestFragment  extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         // register GCM registration complete receiver
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mRegistrationBroadcastReceiver,
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(AppConfig.REGISTRATION_COMPLETE));
 
         // register new push message receiver
         // by doing this, the activity will be notified each time a new message arrives
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mRegistrationBroadcastReceiver,
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(AppConfig.PUSH_NOTIFICATION));
 
         // clear the notification area when the app is opened
@@ -106,7 +101,8 @@ public class RequestFragment  extends Fragment {
     }
 
     @Override
-    public void onPause() {
+    public void onPause()
+    {
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mRegistrationBroadcastReceiver);
         super.onPause();
     }

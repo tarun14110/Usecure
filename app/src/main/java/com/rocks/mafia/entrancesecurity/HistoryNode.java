@@ -1,6 +1,7 @@
 package com.rocks.mafia.entrancesecurity;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 /**
  * Created by mafia on 15/10/16.
@@ -46,9 +47,27 @@ public class HistoryNode {
         return imageUrl;
     }
 
-    public String toString() {
+    public String toString()
+    {
         return "person name: " + personName + " visiting time:" + visitingTime.toString();
     }
+    private static int lastHistoryId = 0;
 
+    public static ArrayList<HistoryNode> createContactsList(int numContacts)
+    {
+        java.util.Date today = new java.util.Date();
+       // System.out.println(new java.sql.Timestamp(today.getTime()));
+
+        ArrayList<HistoryNode> contacts = new ArrayList<HistoryNode>();
+
+        for (int i = 1; i <= numContacts; i++)
+        {
+            contacts.add(new HistoryNode("Person " ,new java.sql.Time(today.getTime()) ));
+
+        }
+
+
+        return contacts;
+    }
 
 }

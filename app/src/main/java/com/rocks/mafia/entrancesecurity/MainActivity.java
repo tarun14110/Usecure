@@ -22,6 +22,9 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import java.sql.Time;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+
+    private ArrayList<HistoryNode> historyData;
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
@@ -40,8 +45,27 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+//Dummy data insertion in sqlLite for history page
+        //TODO remove  this Sqllite insertion
+
+
+        HistoryHandler  handler= new HistoryHandler(this);
+        handler.deleteAll();
+        historyData = new ArrayList<HistoryNode>();
+
+        String n= handler.getDatabaseName();
+        handler.addHistory(new HistoryNode("Sujeet", new Time(3,4,5)));
+        handler.addHistory(new HistoryNode("Tarun", new Time(3,4,5)));
+        handler.addHistory(new HistoryNode("Mukesh", new Time(3,4,5)));
+        handler.addHistory(new HistoryNode("Sudhir", new Time(3,4,5)));
+        handler.addHistory(new HistoryNode("pankaj", new Time(3,4,5)));
+        historyData= handler.getAllHistory();
+
+
+
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

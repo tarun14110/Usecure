@@ -31,10 +31,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-/**
- * Created by Ravi on 31/03/15.
- */
 public class NotificationUtils {
 
     private static String TAG = NotificationUtils.class.getSimpleName();
