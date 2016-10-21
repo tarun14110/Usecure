@@ -7,19 +7,20 @@
         android:id="@+id/historyFrag"
         android:name="com.rocks.mafia.entrancesecurity.HistoryFragment"
         android:layout_width="match_parent"
-        android:background="@drawable/bg"
+        android:background="@drawable/blur"
         android:layout_height="match_parent">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg"
+            android:background="@drawable/blur"
             >
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/allHistory"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                />
 
         </RelativeLayout>
 
