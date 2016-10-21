@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/activity_horizontal_margin"
     android:padding="@dimen/activity_horizontal_margin"
-    android:background="@drawable/iiitdx"
+    android:background="@drawable/blur"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/fragment_profile">
 

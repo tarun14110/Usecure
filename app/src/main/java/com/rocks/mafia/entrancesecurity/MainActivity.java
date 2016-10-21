@@ -1,14 +1,7 @@
 package com.rocks.mafia.entrancesecurity;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -22,8 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.TextView;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -40,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private ArrayList<HistoryNode> historyData;
-    private ArrayList<ProfileNode> ProfileData;
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
@@ -67,24 +57,7 @@ public class MainActivity extends AppCompatActivity {
         handler.addHistory(new HistoryNode("Sudhir", new Time(3,4,5)));
         handler.addHistory(new HistoryNode("pankaj", new Time(3,4,5)));
         historyData= handler.getAllHistory();
-
-        //Dummy data insertion in sqlLite for history page
-        //TODO remove  this Sqllite insertion
-
-        ProfileHandler handler2= new ProfileHandler(this);
-        handler2.deleteAll();
-        ProfileData = new ArrayList<ProfileNode>();
-
-         n= handler.getDatabaseName();
-        handler2.addProfile(new ProfileNode("Sujeet kumar","contact","email"));
-        handler2.addProfile(new ProfileNode("Mukesh kumar","contact","email"));
-        handler2.addProfile(new ProfileNode("sudhir yadav","contact","email"));
-        handler2.addProfile(new ProfileNode("tarun yadav","contact","email"));
-        handler2.addProfile(new ProfileNode("pankaj anuragi","contact","email"));
-        ProfileData= handler2.getAllProfile();
-
-
-
+        
 
         setContentView(R.layout.activity_main);
 
@@ -107,14 +80,6 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
     }
 
