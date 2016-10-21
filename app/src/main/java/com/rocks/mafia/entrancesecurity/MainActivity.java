@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         handler.addHistory(new HistoryNode("Sudhir", new Time(3,4,5)));
         handler.addHistory(new HistoryNode("pankaj", new Time(3,4,5)));
         historyData= handler.getAllHistory();
-        
+
 
         setContentView(R.layout.activity_main);
 
