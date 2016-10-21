@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,77 +12,90 @@
         android:clickable="true"
         android:padding="@dimen/activity_horizontal_margin">
 
-        <TextView
-        android:layout_marginTop="10dp"
-            android:textColor="#000000"
-            android:textSize="25dp"
-            android:layout_width="242dp"
-            android:layout_height="wrap_content"
-            android:text="Enter Your Details"
-            android:id="@+id/details"
-            android:layout_gravity="center_horizontal" />
+    <TextView
+
+        android:text="Create Request"
+        android:id="@+id/details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/TextColor"
+
+        />
 
         <TextView
+            android:id="@+id/Name"
+            android:layout_below="@+id/details"
+            android:text="Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Name"
-            android:layout_marginLeft="100dp"
-            android:id="@+id/Name"
-            android:textSize="20dp"
-            />
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:textSize="30sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/TextColor" />
 
         <EditText
-            android:layout_marginLeft="100dp"
-
-            android:layout_marginTop="5dp"
-            android:layout_height="25dp"
-            android:layout_width="150dp"
-            android:id="@+id/editname" />
+            android:id="@+id/editname"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/TextColor"
+            android:layout_below="@id/Name"></EditText>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:textSize="30sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/TextColor"
+            android:layout_below="@+id/editname"
             android:text="Reason"
             android:layout_marginLeft="100dp"
-            android:id="@+id/Address"
-            android:textSize="20dp"
+            android:id="@+id/Reason"
+
             />
 
         <EditText
-            android:layout_marginLeft="100dp"
 
-            android:layout_marginTop="5dp"
-            android:layout_height="25dp"
-            android:layout_width="150dp"
+            android:layout_below="@+id/Reason"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/TextColor"
             android:id="@+id/editReason" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:textSize="30sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/TextColor"
+            android:layout_below="@+id/editReason"
             android:text="Time"
             android:layout_marginLeft="100dp"
             android:id="@+id/phone"
-            android:textSize="20dp"
+
             />
 
         <EditText
-            android:layout_marginLeft="100dp"
 
-            android:layout_marginTop="5dp"
-            android:layout_height="25dp"
-            android:layout_width="150dp"
-            android:id="@+id/editTime" />
-
-        <Button
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:layout_below="@+id/phone"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Save"
-            android:id="@+id/save" />
+            android:textColor="@color/TextColor"
+            android:id="@+id/editTime" />
+        <Button
+            android:id="@+id/addPhoto"
+            android:layout_below="@id/editTime"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_login"
+            android:text="Take Image"
+            android:layout_margin="10dp"
+            android:textColor="@color/TextColor" />
 
     </RelativeLayout>
 

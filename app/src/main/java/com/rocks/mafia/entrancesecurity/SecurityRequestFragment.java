@@ -87,14 +87,16 @@ public class SecurityRequestFragment extends Fragment {
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
         View promptView = layoutInflater.inflate(R.layout.security_create_request, null);
-       final EditText name=(EditText) view.findViewById(R.id.editname);
-        final EditText reason=(EditText) view.findViewById(R.id.editReason);
-        final EditText time=(EditText) view.findViewById(R.id.editTime);
+
+        final EditText name = (EditText) promptView.findViewById(R.id.editname);
+        final EditText reason = (EditText) promptView.findViewById(R.id.editReason);
+        final EditText time = (EditText) promptView.findViewById(R.id.editTime);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setView(promptView);
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)
+
                 .setPositiveButton("OK", new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int id)
@@ -102,19 +104,7 @@ public class SecurityRequestFragment extends Fragment {
                         String givenName=name.getText().toString();
                         String givenReason=reason.getText().toString();
                         String givenTime=time.getText().toString();
-                        //DELETINNG ALL USERS and ADDING CURRENT USER
-
-                     /*   SQLiteHandler handler= new SQLiteHandler(getActivity());
-                        HashMap<String, String> user =  handler.getUserDetails();
-                        handler.deleteUsers();
-                        handler.addUser(editName.getText().toString(),editEmail.getText().toString(),user.get("contact"));
-                        user =  handler.getUserDetails();
-                        String s=user.get("name");
-                        Log.e("CHANGE : ",s);
-
-                        handler.close();
-*/
-
+                        dialog.cancel();
                     }
                 })
                 .setNegativeButton("Cancel",

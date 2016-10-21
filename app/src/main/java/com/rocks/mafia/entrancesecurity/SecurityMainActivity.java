@@ -25,12 +25,15 @@ public class SecurityMainActivity extends AppCompatActivity {
     private static TabLayout tabLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.security_activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("SmartSec");
+        setSupportActionBar(toolbar);;
 
         if (findViewById(R.id.viewPager) == null) {
             Log.e("WOWOWOW", "HOHOHO");
@@ -79,9 +82,6 @@ public class SecurityMainActivity extends AppCompatActivity {
         Log.e(adapter.toString(), "PPOOOO");
         Log.e(viewPager.toString(), "YOOOO");
         viewPager.setAdapter(adapter);
-    }
-    public void fabclick(View view){
-System.out.println("pankaj oo")   ;
     }
 
     //View Pager fragments setting adapter class

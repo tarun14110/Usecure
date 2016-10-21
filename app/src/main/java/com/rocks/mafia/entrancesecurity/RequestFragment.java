@@ -1,12 +1,15 @@
 package com.rocks.mafia.entrancesecurity;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
@@ -14,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,12 +40,18 @@ public class RequestFragment  extends Fragment
     {
         Log.e(TAG, "YOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         super.onCreateView(inflater, container, savedInstanceState);
+
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        txtRegId = (TextView) rootView.findViewById(R.id.txt_reg_id);
-        txtMessage = (TextView) rootView.findViewById(R.id.txt_push_message);
 
         txtRegId = (TextView) rootView.findViewById(R.id.txt_reg_id);
+
         txtMessage = (TextView) rootView.findViewById(R.id.txt_push_message);
+
+
+        txtRegId = (TextView) rootView.findViewById(R.id.txt_reg_id);
+
+        txtMessage = (TextView) rootView.findViewById(R.id.txt_push_message);
+
         mRegistrationBroadcastReceiver = new BroadcastReceiver()
         {
             @Override
@@ -67,6 +77,19 @@ public class RequestFragment  extends Fragment
                 }
             }
         };
+
+        Log.e(TAG, "USER CREATE REQUEST ");
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        FloatingActionButton fab=(FloatingActionButton)view.findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                showInputDialog();
+            }
+        });
 
         displayFirebaseRegId();
 
@@ -107,6 +130,43 @@ public class RequestFragment  extends Fragment
     {
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mRegistrationBroadcastReceiver);
         super.onPause();
+    }
+
+    protected void showInputDialog() {
+
+        // get prompts.xml view
+        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+        View promptView = layoutInflater.inflate(R.layout.security_create_request, null);
+
+        final EditText name = (EditText) promptView.findViewById(R.id.editname);
+        final EditText reason = (EditText) promptView.findViewById(R.id.editReason);
+        final EditText time = (EditText) promptView.findViewById(R.id.editTime);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setView(promptView);
+        // setup a dialog window
+        alertDialogBuilder.setCancelable(false)
+
+                .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        String givenName=name.getText().toString();
+                        String givenReason=reason.getText().toString();
+                        String givenTime=time.getText().toString();
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
     }
 
 }
