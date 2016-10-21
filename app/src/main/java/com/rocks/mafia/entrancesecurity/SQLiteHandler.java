@@ -75,6 +75,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Log.d(TAG, "New user inserted into sqlite: " + id);
     }
 
+    public void deleteUser(String contact)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_USER, KEY_CONTACT+ " = ?",
+                new String[] { contact});
+        db.close();
+    }
+
     /**
      * Getting user data from database
      * */

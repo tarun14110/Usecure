@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment
     private OnFragmentInteractionListener mListener;
 
     public ProfileFragment()
-    {
+    {   Log.e("TEST", "CHA");
         // Required empty public constructor
     }
 
@@ -61,7 +61,7 @@ public class ProfileFragment extends Fragment
     // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance(String param1, String param2)
     {
-        Log.d("Test", "pf");
+        Log.e("Test", "pf");
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -73,7 +73,7 @@ public class ProfileFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("Test", "onCreate  ");
+        Log.e("Testtttttt", "onCreate  ");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -89,7 +89,7 @@ public class ProfileFragment extends Fragment
         Log.d("Test", "onCreateview");
         // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.content_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         Button editdetails = (Button) view.findViewById(R.id.editDetails);
         final Button savedetails = (Button) view.findViewById(R.id.saveDetails);
