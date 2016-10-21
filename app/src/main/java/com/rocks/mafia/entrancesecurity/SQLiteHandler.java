@@ -86,6 +86,13 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 new String[] {contact});
     }
 
+    public void deleteUser(String contact)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_USER, KEY_CONTACT+ " = ?",
+                new String[] { contact});
+        db.close();
+    }
 
     /**
      * Getting user data from database

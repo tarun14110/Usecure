@@ -71,7 +71,7 @@ public class SecurityMainActivity extends AppCompatActivity {
     //Setting View Pager
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new SecurityRequestFragment("Pre Informed"), "Pre Informed");
+        adapter.addFrag(new SecurityPreRequestFragment("Pre Informed"), "Pre Informed");
         adapter.addFrag(new SecurityRequestFragment("Pending confirms"), "Pending confirms");
         adapter.addFrag(new SecurityRequestFragment("History"), "History");
         Log.e(adapter.toString(), "PPOOOO");
