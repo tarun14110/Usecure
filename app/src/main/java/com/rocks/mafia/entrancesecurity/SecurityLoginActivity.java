@@ -127,6 +127,9 @@ public class SecurityLoginActivity extends Activity {
                 hideDialog();
 
                 try {
+
+                    Log.e("OOOOOO", response.toString());
+                   // response =response.split("\\{")[1];
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
                     // Check for error node in json
@@ -186,6 +189,7 @@ public class SecurityLoginActivity extends Activity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("contact",contact);
                 params.put("password", password);
+                params.put("isSecurity", "true");
                 Log.e(TAG, "Posting params: " + params.toString());
                 return params;
             }
