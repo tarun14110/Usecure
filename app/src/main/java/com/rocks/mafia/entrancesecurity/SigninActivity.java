@@ -8,6 +8,7 @@ package com.rocks.mafia.entrancesecurity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -148,7 +149,8 @@ public class SigninActivity extends Activity {
 
 
                         // sending new regId token to the server
-                        sendRegistrationToServer(FirebaseInstanceId.getInstance().getToken(), session.getContact());
+                        SendRegIddata senddata = new SendRegIddata();
+                        senddata.execute();
 
                         // Launch main activity
                         Intent intent = new Intent(SigninActivity.this, MainActivity.class);
@@ -212,7 +214,7 @@ public class SigninActivity extends Activity {
         String data = null;
         try {
             data = URLEncoder.encode("contact", "UTF-8")
-                    + "=" + URLEncoder.encode(contact, "UTF-8");
+                    + "=" + URLEncoder.encode(session.getContact(), "UTF-8");
             data += "&" + URLEncoder.encode("regId", "UTF-8") + "="
                     + URLEncoder.encode(token, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -256,7 +258,7 @@ public class SigninActivity extends Activity {
         }
         catch(Exception ex)
         {
-
+            Log.e(TAG, "Error while sending RegId data " + ex.toString());
         }
         finally
         {
@@ -274,11 +276,26 @@ public class SigninActivity extends Activity {
         if (text.contains("error")) {
             Log.e(TAG, "Error while passing new token to the server" + text);
         } else {
-            Log.v(TAG, "Succesfully updated new token to the server");
+            Log.e(TAG, "Succesfully updated new token to the server" + text);
 
         }
 
 
-        Log.e(TAG, "sendRegistrationToServer: " + token);
+        Log.e(TAG, "sendRegistrationToServer: " + token + "  to contact " +session.getContact());
+    }
+
+    public class SendRegIddata extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            // sending new regId token to the server
+            sendRegistrationToServer(FirebaseInstanceId.getInstance().getToken(), session.getContact());
+            return null;
+        }
     }
 }

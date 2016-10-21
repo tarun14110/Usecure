@@ -7,6 +7,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -137,5 +138,20 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("regId", token);
         editor.commit();
+    }
+
+    public class SendRegIddata extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            // sending new regId token to the server
+            sendRegistrationToServer(FirebaseInstanceId.getInstance().getToken());
+            return null;
+        }
     }
 }
