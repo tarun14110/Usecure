@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,9 @@ public class ProfileFragment extends Fragment
     private String mParam2;
     private ImageView image;
     private Button selectImageButton;
-
+    private TextView editName;
+    private TextView editContact;
+    private TextView editEmail;
     private OnFragmentInteractionListener mListener;
 
     public ProfileFragment()
@@ -86,17 +89,45 @@ public class ProfileFragment extends Fragment
         Log.d("Test", "onCreateview");
         // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.content_profile, container, false);
 
-        TextView test = (TextView) view.findViewById(R.id.editDetails);
+        Button editdetails = (Button) view.findViewById(R.id.editDetails);
+        final Button savedetails = (Button) view.findViewById(R.id.saveDetails);
+            editName=(TextView)view.findViewById(R.id.name);
+        editEmail=(TextView)view.findViewById(R.id.email);
+        editContact=(TextView)view.findViewById(R.id.contact);
 
-        test.setOnClickListener(new View.OnClickListener() {
+        //MAKE EDITABLE TEXTVIEW ON CLICK edit details
+
+        editdetails.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
-                InputMethodManager imgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imgr.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            public void onClick(View view)
+            {
+
+                editName.setCursorVisible(true);
+                editName.setFocusableInTouchMode(true);
+                editName.setInputType(InputType.TYPE_CLASS_TEXT);
+                editName.requestFocus();
+                savedetails.setVisibility(View.VISIBLE);
             }// end onClick
         });
+
+// savedetails make button disable
+
+        savedetails.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+                editName.setCursorVisible(false);
+                editName.setFocusableInTouchMode(false);
+                savedetails.setVisibility(View.INVISIBLE);
+            }// end onClick
+        });
+
+
 
         image = (ImageView)view.findViewById(R.id.uploadImage);
         selectImageButton = (Button)view.findViewById(R.id.selectImageButton);

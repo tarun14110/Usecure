@@ -43,7 +43,8 @@ public class HistoryArrayAdaptor
     }
 
     @Override
-    public void onBindViewHolder(ListItemViewHolder viewHolder, int position) {
+    public void onBindViewHolder(ListItemViewHolder viewHolder, int position)
+    {
         HistoryNode model = items.get(position);
         viewHolder.name.setText(String.valueOf(model.getPersonName()));
         viewHolder.age.setText(String.valueOf(model.getVisitingTime()));

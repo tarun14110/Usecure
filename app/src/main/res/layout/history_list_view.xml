@@ -15,7 +15,7 @@
         card_view:cardElevation="4dp"
         card_view:cardMaxElevation="6dp"
         android:shape="ring"
-        card_view:cardBackgroundColor="@color/colorPrimaryLight"
+        card_view:cardBackgroundColor="@color/historyBackground"
         >
         <RelativeLayout
             android:layout_width="match_parent"

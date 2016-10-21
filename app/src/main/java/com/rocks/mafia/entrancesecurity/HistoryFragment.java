@@ -53,7 +53,6 @@ public class HistoryFragment extends ListFragment
         demoData = handler.getAllHistory();
         int i;
         adapter = new HistoryArrayAdaptor(demoData);
-
         recyclerView.setAdapter(adapter);
 
 
