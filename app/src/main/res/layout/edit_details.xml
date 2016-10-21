@@ -4,17 +4,53 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="fill_parent"
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
-        />
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:padding="@dimen/activity_horizontal_margin">
+
+    <TextView
+
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:editable="true"
+        android:text="Name "
+        android:textSize="30sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/TextColor" />
+
     <EditText
         android:id="@+id/edtbox"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/TextColor"
+        android:layout_below="@id/name"></EditText>
 
+        <TextView
 
+            android:id="@+id/emailt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:editable="true"
+            android:text="Email "
+            android:layout_below="@id/edtbox"
+            android:textSize="30sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/TextColor" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailt"
+            android:textColor="@color/TextColor"
         />
+    </RelativeLayout>
 </LinearLayout>

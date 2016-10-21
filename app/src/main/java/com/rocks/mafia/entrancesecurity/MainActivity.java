@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         historyData = new ArrayList<HistoryNode>();
 
         String n= handler.getDatabaseName();
+
         handler.addHistory(new HistoryNode("Sujeet", new Time(3,4,5)));
         handler.addHistory(new HistoryNode("Tarun", new Time(3,4,5)));
         handler.addHistory(new HistoryNode("Mukesh", new Time(3,4,5)));
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+                View rootView = inflater.inflate(R.layout.profile_display, container, false);
                 return rootView;
             } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
                 View rootView = inflater.inflate(R.layout.history_display, container, false);

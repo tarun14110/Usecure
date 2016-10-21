@@ -57,6 +57,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
     /**
      * Storing user details in database
      * */
@@ -72,8 +73,19 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         long id = db.insert(TABLE_USER, null, values);
         db.close(); // Closing database connection
 
-        Log.d(TAG, "New user inserted into sqlite: " + id);
+        Log.d(TAG, "New user inserted into sqlite: " +name);
     }
+
+    public int updateUser(String name, String email,String contact)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, name);
+        values.put(KEY_EMAIL,email);
+        return db.update(TABLE_USER, values, KEY_CONTACT + " = ?",
+                new String[] {contact});
+    }
+
 
     /**
      * Getting user data from database
@@ -86,7 +98,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         // Move to first row
         cursor.moveToFirst();
-        if (cursor.getCount() > 0) {
+        if (cursor.getCount() > 0)
+        {
             user.put("name", cursor.getString(1));
             user.put("email", cursor.getString(2));
             user.put("contact", cursor.getString(3));
@@ -110,5 +123,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         Log.d(TAG, "Deleted all user info from sqlite");
     }
+
 
 }

@@ -43,10 +43,12 @@ public class ProfileFragment extends Fragment
     private TextView editName;
     private TextView editContact;
     private TextView editEmail;
+
     private OnFragmentInteractionListener mListener;
 
     public ProfileFragment()
     {
+        Log.e("Test", "WORKING OR NOT ???");
         // Required empty public constructor
     }
 
@@ -89,7 +91,7 @@ public class ProfileFragment extends Fragment
         Log.d("Test", "onCreateview");
         // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.content_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         Button editdetails = (Button) view.findViewById(R.id.editDetails);
         final Button savedetails = (Button) view.findViewById(R.id.saveDetails);

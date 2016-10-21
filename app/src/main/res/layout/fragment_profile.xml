@@ -34,7 +34,7 @@
                     android:layout_width="350dp"
                     android:layout_height="350dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/iiitd"
+                    android:src="@drawable/iiitdx"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.7" />
                 <Button
@@ -49,8 +49,6 @@
         </android.support.design.widget.AppBarLayout>
 
         <include layout="@layout/content_profile" />
-
-
 
     </android.support.design.widget.CoordinatorLayout>
 
