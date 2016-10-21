@@ -13,6 +13,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +80,9 @@ public class SecurityMainActivity extends AppCompatActivity {
         Log.e(viewPager.toString(), "YOOOO");
         viewPager.setAdapter(adapter);
     }
-
+    public void fabclick(View view){
+System.out.println("pankaj oo")   ;
+    }
 
     //View Pager fragments setting adapter class
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -111,4 +115,6 @@ public class SecurityMainActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+
 }
