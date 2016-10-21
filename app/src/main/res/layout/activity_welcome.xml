@@ -14,13 +14,6 @@
     android:weightSum="1">
 
 
-
-
-    <ImageView android:src="@drawable/iiitdlobo"
-        android:layout_width="wrap_content"
-        android:layout_height="72dp"
-        android:layout_marginBottom="24dp" />
-
     <TextView android:id="@+id/textView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -31,26 +24,26 @@
         android:textColor="#ffffff"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center|bottom"
-        android:orientation="vertical" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|bottom"
+                android:orientation="vertical" >
+
+
+                <Button
+                    android:id="@+id/goToLoginPage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dip"
+                    android:background="@color/btn_login_bg"
+                    android:text="Continue"
+                    android:textColor="@color/btn_login" />
+
+            </LinearLayout>
 
 
 
-        <Button
-            android:id="@+id/goToLoginPage"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@color/btn_login_bg"
-            android:text="Continue"
-            android:textColor="@color/btn_login" />
 
-
-
-
-</LinearLayout>
 </LinearLayout>

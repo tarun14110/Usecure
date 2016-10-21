@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private ArrayList<HistoryNode> historyData;
+    private ArrayList<ProfileNode> ProfileData;
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
@@ -66,6 +67,22 @@ public class MainActivity extends AppCompatActivity {
         handler.addHistory(new HistoryNode("Sudhir", new Time(3,4,5)));
         handler.addHistory(new HistoryNode("pankaj", new Time(3,4,5)));
         historyData= handler.getAllHistory();
+
+        //Dummy data insertion in sqlLite for history page
+        //TODO remove  this Sqllite insertion
+
+        ProfileHandler handler2= new ProfileHandler(this);
+        handler2.deleteAll();
+        ProfileData = new ArrayList<ProfileNode>();
+
+         n= handler.getDatabaseName();
+        handler2.addProfile(new ProfileNode("Sujeet kumar","contact","email"));
+        handler2.addProfile(new ProfileNode("Mukesh kumar","contact","email"));
+        handler2.addProfile(new ProfileNode("sudhir yadav","contact","email"));
+        handler2.addProfile(new ProfileNode("tarun yadav","contact","email"));
+        handler2.addProfile(new ProfileNode("pankaj anuragi","contact","email"));
+        ProfileData= handler2.getAllProfile();
+
 
 
 

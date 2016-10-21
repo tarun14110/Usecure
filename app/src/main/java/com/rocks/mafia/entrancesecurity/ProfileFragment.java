@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -40,7 +42,8 @@ public class ProfileFragment extends Fragment
 
     private OnFragmentInteractionListener mListener;
 
-    public ProfileFragment() {
+    public ProfileFragment()
+    {
         // Required empty public constructor
     }
 
@@ -72,6 +75,8 @@ public class ProfileFragment extends Fragment
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
@@ -81,13 +86,20 @@ public class ProfileFragment extends Fragment
         Log.d("Test", "onCreateview");
         // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
-        View view =  null;
-        view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        TextView test = (TextView) view.findViewById(R.id.editDetails);
+
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager imgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imgr.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            }// end onClick
+        });
+
         image = (ImageView)view.findViewById(R.id.uploadImage);
         selectImageButton = (Button)view.findViewById(R.id.selectImageButton);
-
-
-
         selectImageButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -102,7 +114,7 @@ public class ProfileFragment extends Fragment
 
 
 
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

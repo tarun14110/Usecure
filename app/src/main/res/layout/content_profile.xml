@@ -31,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:editable="true"
                 android:text="Ramesh Kumar"
                 android:textSize="30sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -69,6 +70,7 @@
 
             <TextView
                 android:id="@+id/tvNumber2"
+                android:editable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -111,6 +113,7 @@
             <TextView
                 android:id="@+id/tvNumber3"
                 android:layout_width="wrap_content"
+                android:editable="true"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_toEndOf="@id/ivContactItem3"
@@ -154,6 +157,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:editable="true"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_toEndOf="@id/ivContactItem5"
                 android:ellipsize="end"

@@ -24,8 +24,8 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HistoryFragment extends ListFragment {
-
+public class HistoryFragment extends ListFragment
+{
     //private ArrayList<HistoryNode> historyData;
     //private HistoryArrayAdaptor historyNodeArrayAdapter;
 
