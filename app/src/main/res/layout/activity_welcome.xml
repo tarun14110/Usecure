@@ -9,41 +9,41 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/welcome"
+    android:background="@drawable/smackthat"
     tools:context=".WelcomeActivity"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:textAlignment="inherit">
 
 
-    <TextView android:id="@+id/textView"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="Indraprastha Institute of Information Technology Delhi"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:textColor="#ffffff"
-        />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center|bottom"
-                android:orientation="vertical" >
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:orientation="vertical"
+        android:weightSum="1">
 
 
-                <Button
-                    android:id="@+id/goToLoginPage"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dip"
-                    android:background="@color/btn_login_bg"
-                    android:text="Continue"
-                    android:textColor="@color/btn_login" />
+        <TextView android:id="@+id/textView"
+            android:layout_width="291dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/wel"
+            android:gravity="center"
+            android:layout_weight="0.18"
+            android:textColor="?android:attr/colorLongPressedHighlight" />
 
-            </LinearLayout>
+        <Button
+            android:id="@+id/goToLoginPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dip"
+            android:layout_marginBottom="60dp"
+            android:background="@color/btn_login_bg"
+            android:text="Continue"
+            android:textColor="@color/bg_login" />
 
-
+    </LinearLayout>
 
 
 </LinearLayout>
