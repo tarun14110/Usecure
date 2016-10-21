@@ -25,12 +25,23 @@ public class SessionManager {
     private static final String PREF_NAME = "uSecureLogin";
 
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
+    private static final String KEY_IS_SECURITYLOGGEDIN = "isSecurityLoggedIn";
     private static final String LOGGEDIN_CONTACT = "loggedInPersonContact";
 
     public SessionManager(Context context) {
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
+    }
+
+    public void setSecurityLogin(boolean isSecurityLoggedIn) {
+
+        editor.putBoolean(KEY_IS_LOGGEDIN, isSecurityLoggedIn);
+
+        // commit changes
+        editor.commit();
+
+        Log.d(TAG, "User login session modified!");
     }
 
     public void setLogin(boolean isLoggedIn) {
@@ -60,5 +71,8 @@ public class SessionManager {
 
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
+    }
+    public boolean isSecurityLoggedIn(){
+        return pref.getBoolean(KEY_IS_SECURITYLOGGEDIN, false);
     }
 }

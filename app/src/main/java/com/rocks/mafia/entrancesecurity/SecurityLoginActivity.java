@@ -1,7 +1,7 @@
 package com.rocks.mafia.entrancesecurity;
 
 /**
- * Created by mafia on 10/16/16.
+ * Created by mafia on 21/10/16.
  */
 
 
@@ -36,7 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class SigninActivity extends Activity {
+public class SecurityLoginActivity extends Activity {
     private static final String TAG = SecurityLoginActivity.class.getSimpleName();
     private Button btnLogin;
     private Button btnLinkToRegister;
@@ -49,13 +49,13 @@ public class SigninActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signin);
+        setContentView(R.layout.activity_register);
 
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
-        Log.e("INNNNNNN","USERLOGIn");
+        btnLogin = (Button) findViewById(R.id.btnRegister);
+        //btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
+
         // Progress dialog
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
@@ -65,11 +65,11 @@ public class SigninActivity extends Activity {
 
         // Session manager
         session = new SessionManager(getApplicationContext());
-
+        Log.e("INNNNNNN","SECURLOGIn");
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, SecurityMainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -96,7 +96,7 @@ public class SigninActivity extends Activity {
         });
 
         // Link to Register Screen
-        btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
+/*        btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
@@ -104,7 +104,7 @@ public class SigninActivity extends Activity {
                 startActivity(i);
                 finish();
             }
-        });
+        });*/
 
     }
 
@@ -133,7 +133,7 @@ public class SigninActivity extends Activity {
                     if (!error) {
                         // user successfully logged in
                         // Create login session
-                        session.setLogin(true);
+                        session.setSecurityLogin(true);
                         session.setContact(contact);
 
                         // Now store the user in SQLite
@@ -145,7 +145,7 @@ public class SigninActivity extends Activity {
                         String contact = user.getString("contact");
 
                         // Inserting row in users table
-                        db.addUser(name, email, contact);
+                        //db.addUser(name, email, contact);
 
 
                         // sending new regId token to the server
@@ -153,7 +153,7 @@ public class SigninActivity extends Activity {
                         senddata.execute();
 
                         // Launch main activity
-                        Intent intent = new Intent(SigninActivity.this, MainActivity.class);
+                        Intent intent = new Intent(SecurityLoginActivity.this, SecurityMainActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
