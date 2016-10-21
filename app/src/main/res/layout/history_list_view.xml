@@ -26,7 +26,6 @@
                 android:id="@+id/listItemHistoryImage"
                 android:layout_width="100dp"
                 android:layout_height="200dp"
-                android:src="@drawable/muk"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="8dp"
