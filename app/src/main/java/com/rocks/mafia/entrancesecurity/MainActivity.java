@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Usecure");
+        toolbar.setTitle("SmartSec");
         setSupportActionBar(toolbar);
 
         // Create the adapter that will return a fragment for each of the three
