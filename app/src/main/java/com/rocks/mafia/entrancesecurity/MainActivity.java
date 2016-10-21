@@ -1,5 +1,6 @@
 package com.rocks.mafia.entrancesecurity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+    public static Context contextOfApplication;
+    public static Context getContextOfApplication()
+    {
+        return contextOfApplication;
+    }
 
     private ArrayList<HistoryNode> historyData;
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -43,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
 
+        // setting this context to use in fragments
+        contextOfApplication = getApplicationContext();
 //Dummy data insertion in sqlLite for history page
         //TODO remove  this Sqllite insertion
 
@@ -83,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 
 
     @Override
