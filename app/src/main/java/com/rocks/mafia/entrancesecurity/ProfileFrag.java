@@ -75,10 +75,14 @@ public class ProfileFrag extends Fragment
                              Bundle savedInstanceState)
     {
 
-
         Log.e("Test","FRAAAGGG");
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        TextView userinfo=(TextView)view.findViewById(R.id.user);
+                SessionManager sm=new SessionManager(getActivity());
+        if(sm.isSecurityLoggedIn())
+                userinfo.setText("Security Staff");
+
         SQLiteHandler handler= new SQLiteHandler(getActivity());
         HashMap<String, String> user =  handler.getUserDetails();
 
