@@ -12,18 +12,22 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 public class SecurityPreRequestRecyclerViewAdapter extends
-        RecyclerView.Adapter<SecurityPreRequestViewHolder> {
+        RecyclerView.Adapter<SecurityPreRequestViewHolder>
+{
     private ArrayList<String> arrayList;
+    private ArrayList<String> arrayTime;
+    private ArrayList<String> arrayd;
+    private ArrayList<String> arrayby;
     private Context context;
 
-
     public SecurityPreRequestRecyclerViewAdapter(Context context,
-                                              ArrayList<String> arrayList) {
+                                                 ArrayList<String> arrayList,ArrayList<String> arrayTime,ArrayList<String> arrayd,ArrayList<String> arrayby) {
         this.context = context;
         this.arrayList = arrayList;
-
+        this.arrayTime = arrayTime;
+        this.arrayd = arrayd;
+        this.arrayby = arrayby;
     }
-
 
     @Override
     public int getItemCount() {
@@ -39,6 +43,9 @@ public class SecurityPreRequestRecyclerViewAdapter extends
         final SecurityPreRequestViewHolder mainHolder = (SecurityPreRequestViewHolder) holder;
         //Setting text over textview
         mainHolder.title.setText(arrayList.get(position));
+        mainHolder.time.setText(arrayTime.get(position));
+        mainHolder.d.setText(arrayd.get(position));
+        mainHolder.by.setText(arrayby.get(position));
 
     }
 

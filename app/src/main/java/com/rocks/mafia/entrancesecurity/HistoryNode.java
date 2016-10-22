@@ -21,12 +21,12 @@ public class HistoryNode {
         this.visitingTime = visitingTime;
     }
 
+
     public HistoryNode(String personName,Time visitingTime)
     {
         this.personName = personName;
         this.visitingTime = visitingTime;
     }
-
 
 
     public int getId()

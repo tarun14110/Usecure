@@ -46,7 +46,7 @@ public class HistoryArrayAdaptor
     {
         HistoryNode model = items.get(position);
         viewHolder.name.setText("Name : "+String.valueOf(model.getPersonName()));
-        viewHolder.age.setText("Time  : "+String.valueOf(model.getVisitingTime()));
+        viewHolder.age.setText("Time :"+ String.valueOf(model.getVisitingTime()));
         viewHolder.imageView.setImageResource(Integer.parseInt(model.getImageUrl()));
         viewHolder.itemView.setActivated(selectedItems.get(position, false));
     }

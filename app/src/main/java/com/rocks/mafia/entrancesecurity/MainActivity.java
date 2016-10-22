@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
         handler.addHistory(new HistoryNode("Mukesh", new Time(3,4,5),String.valueOf(R.drawable.p3)));
         handler.addHistory(new HistoryNode("Sudhir", new Time(3,4,5),String.valueOf(R.drawable.p4)));
         handler.addHistory(new HistoryNode("pankaj", new Time(3,4,5),String.valueOf(R.drawable.p5)));
+        handler.addHistory(new HistoryNode("Rahul", new Time(3,4,5),String.valueOf(R.drawable.p3)));
+        handler.addHistory(new HistoryNode("pinku", new Time(3,4,5),String.valueOf(R.drawable.p4)));
+        handler.addHistory(new HistoryNode("ram", new Time(3,4,5),String.valueOf(R.drawable.p5)));
         historyData= handler.getAllHistory();
 
 

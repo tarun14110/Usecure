@@ -9,12 +9,9 @@ android:layout_marginLeft="10dp"
 android:layout_marginRight="10dp"
 android:layout_marginTop="10dp"
 app:cardCornerRadius="5dp"
-    android:background="@color/TextColor"
+    android:background="#ffffff"
 app:cardElevation="7dp"
 >
-
-
-
 
 <RelativeLayout
     android:layout_width="fill_parent"
@@ -31,28 +28,27 @@ app:cardElevation="7dp"
         android:textColor="#232323"
         android:layout_alignParentTop="true"/>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+    android:layout_width="match_parent"
+    android:layout_height="0dip"
+    android:background="#000000" />
     <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cardTitle"
-        android:maxLines="3"
         android:padding="8dp"
         android:text="time"
-        android:textColor="#ffa600"
+        android:textColor="#ce0000"
         android:textStyle="bold"
         android:textSize="22dp" />
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="0dip"
+        android:background="#000000" />
     <TextView
         android:id="@+id/description"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="80dp"
         android:layout_below="@+id/time"
         android:maxLines="3"
         android:padding="8dp"
@@ -61,8 +57,20 @@ app:cardElevation="7dp"
         android:textSize="14dp" />
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="0dip"
+        android:background="#000000" />
+    <TextView
+        android:id="@+id/by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Card Title"
+        android:gravity="right"
+        android:textStyle="italic"
+        android:padding="10dp"
+        android:textSize="15dp"
+        android:textColor="#020202"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
 
