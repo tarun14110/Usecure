@@ -150,7 +150,7 @@ public class SigninActivity extends Activity {
                         String contact = user.getString("contact");
 
                         // Inserting row in users table
-                        db.deleteUser(contact);
+                        db.deleteUsers();
                         db.addUser(name, email, contact);
 
 

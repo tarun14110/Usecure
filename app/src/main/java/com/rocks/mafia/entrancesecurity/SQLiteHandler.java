@@ -94,6 +94,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+
+
     /**
      * Getting user data from database
      * */
@@ -120,7 +122,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Re crate database Delete all tables and create them again
+     * Re crate database Delete all rows and create table again
      * */
     public void deleteUsers() {
         SQLiteDatabase db = this.getWritableDatabase();
