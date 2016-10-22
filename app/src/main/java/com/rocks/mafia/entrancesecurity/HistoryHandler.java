@@ -83,7 +83,7 @@ public class HistoryHandler extends SQLiteOpenHelper
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        HistoryNode node = new HistoryNode(id,cursor.getString(1),timeValue, cursor.getString(3));
+        HistoryNode node = new HistoryNode(cursor.getString(1),timeValue, cursor.getString(3));
 
         return node;
     }
@@ -104,7 +104,7 @@ public class HistoryHandler extends SQLiteOpenHelper
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                HistoryNode node = new HistoryNode(Integer.parseInt(cursor.getString(0)),cursor.getString(1),timeValue, cursor.getString(3));
+                HistoryNode node = new HistoryNode(cursor.getString(1),timeValue, cursor.getString(3));
                 HistoryList.add(node);
             } while (cursor.moveToNext());
         }

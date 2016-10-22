@@ -40,7 +40,6 @@ public class RequestFragment  extends Fragment
     {
         Log.e(TAG, "YOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         super.onCreateView(inflater, container, savedInstanceState);
-
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         txtRegId = (TextView) rootView.findViewById(R.id.txt_reg_id);
@@ -77,19 +76,6 @@ public class RequestFragment  extends Fragment
                 }
             }
         };
-
-        Log.e(TAG, "USER CREATE REQUEST ");
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-
-        FloatingActionButton fab=(FloatingActionButton)view.findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view) {
-                showInputDialog();
-            }
-        });
 
         displayFirebaseRegId();
 
@@ -132,7 +118,8 @@ public class RequestFragment  extends Fragment
         super.onPause();
     }
 
-    protected void showInputDialog() {
+    protected void showInputDialog()
+    {
 
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());

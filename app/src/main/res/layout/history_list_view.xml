@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp">
+    android:padding="5dp">
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view_top"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         card_view:cardCornerRadius="10dp"
-        card_view:contentPadding="25dp"
+        card_view:contentPadding="15dp"
         card_view:cardElevation="4dp"
         card_view:cardMaxElevation="6dp"
         android:shape="ring"
@@ -20,17 +20,17 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:padding="2dp"
             >
             <ImageView
                 android:id="@+id/listItemHistoryImage"
                 android:layout_width="100dp"
-                android:layout_height="200dp"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="8dp"
                 android:layout_marginLeft="1dp"
-
+                android:src="@drawable/muk"
                 />
 
             <TextView
@@ -51,7 +51,18 @@
                 android:id="@+id/listItemHistoryBody"
                 android:layout_toRightOf="@+id/listItemHistoryImage"
                 android:textColor="#ffffff"
+                android:textSize="20sp"
                 android:layout_below="@+id/listItemHistoryTitle"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="description about the aim of visiting institute and further details"
+                android:id="@+id/description"
+                android:layout_toRightOf="@+id/listItemHistoryImage"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:layout_below="@+id/listItemHistoryBody"
                 />
 
 </RelativeLayout>

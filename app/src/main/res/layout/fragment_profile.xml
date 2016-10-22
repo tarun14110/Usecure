@@ -34,8 +34,8 @@
                     android:layout_width="350dp"
                     android:layout_height="350dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/iiitdx"
                     app:layout_collapseMode="parallax"
+                    android:src="@drawable/iiitdx"
                     app:layout_collapseParallaxMultiplier="0.7" />
                 <Button
                     android:id="@+id/selectImageButton"

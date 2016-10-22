@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:card_view="http://schemas.android.com/tools"
 android:id="@+id/cardView"
@@ -9,8 +9,9 @@ android:layout_marginLeft="10dp"
 android:layout_marginRight="10dp"
 android:layout_marginTop="10dp"
 app:cardCornerRadius="5dp"
+    android:background="@color/TextColor"
 app:cardElevation="7dp"
-card_view:cardBackgroundColor="@color/historyBackground">
+>
 
 
 
@@ -27,8 +28,12 @@ card_view:cardBackgroundColor="@color/historyBackground">
         android:textStyle="bold"
         android:padding="25dp"
         android:textSize="30dp"
-        android:textColor="#3100ac"
+        android:textColor="#232323"
         android:layout_alignParentTop="true"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
     <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
@@ -37,10 +42,13 @@ card_view:cardBackgroundColor="@color/historyBackground">
         android:maxLines="3"
         android:padding="8dp"
         android:text="time"
-        android:textColor="#d96200"
+        android:textColor="#ffa600"
         android:textStyle="bold"
         android:textSize="22dp" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
     <TextView
         android:id="@+id/description"
         android:layout_width="wrap_content"
@@ -49,9 +57,13 @@ card_view:cardBackgroundColor="@color/historyBackground">
         android:maxLines="3"
         android:padding="8dp"
         android:text="description"
-        android:textColor="#666"
+        android:textColor="#666666"
         android:textSize="14dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
 
 </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+</LinearLayout>
