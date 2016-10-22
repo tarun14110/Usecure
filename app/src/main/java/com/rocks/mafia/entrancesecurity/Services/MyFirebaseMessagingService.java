@@ -4,6 +4,7 @@ package com.rocks.mafia.entrancesecurity.Services;
  * Created by ubuntu on 10/18/16.
  */
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
@@ -13,11 +14,19 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.rocks.mafia.entrancesecurity.AppConfig;
+import com.rocks.mafia.entrancesecurity.HistoryHandler;
+import com.rocks.mafia.entrancesecurity.HistoryNode;
 import com.rocks.mafia.entrancesecurity.MainActivity;
 import com.rocks.mafia.entrancesecurity.NotificationUtils;
+import com.rocks.mafia.entrancesecurity.R;
+import com.rocks.mafia.entrancesecurity.RequestHandler;
+import com.rocks.mafia.entrancesecurity.RequestNode;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.sql.Time;
+import java.util.ArrayList;
 
 /**
  * Created by mafia on 19/10/16.
@@ -43,6 +52,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
         {
             Log.e(TAG, "Notification Body: " + remoteMessage.getNotification().getBody());
             handleNotification(remoteMessage.getNotification().getBody());
+            Intent i = new Intent(this,getClass());
+            i.putExtra("NOTIFICATION","Notification Body: " + remoteMessage.getNotification().getBody());
+
+
+            //DATA TO REQUEST MESSAGE DSIPLAY
+
+            RequestHandler handler= new RequestHandler(this);
+            String n= handler.getDatabaseName();
+            Time now = new Time(2,4,5);
+            handler.addRequest(new RequestNode(remoteMessage.getNotification().getBody(),now));
+
         }
 
         // Check if message contains a data payload.

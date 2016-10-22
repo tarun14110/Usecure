@@ -48,6 +48,7 @@ public class HistoryFragment extends ListFragment
         super.onActivityCreated(savedInstanceState);
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.allHistory);
+        Log.e("FOFA","TATA" +String.valueOf(recyclerView==null));
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());

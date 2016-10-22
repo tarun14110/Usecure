@@ -1,6 +1,7 @@
 package com.rocks.mafia.entrancesecurity;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +36,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 /**
  * Created by mafia on 10/18/16.
@@ -52,15 +56,21 @@ public class RequestFragment  extends Fragment
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
+
+/*       RequestHandler  handler= new  RequestHandler(getContext());
+        ArrayList< RequestNode> list=handler.getAllRequest();
+        String s= list.get(list.size()-1).getMessage();*/
+
         txtRegId = (TextView) rootView.findViewById(R.id.txt_reg_id);
 
         txtMessage = (TextView) rootView.findViewById(R.id.txt_push_message);
+        /*txtMessage.setText(s);*/
 
-
-        txtRegId = (TextView) rootView.findViewById(R.id.txt_reg_id);
-
-        txtMessage = (TextView) rootView.findViewById(R.id.txt_push_message);
-
+        Bundle extras = getActivity().getIntent().getExtras();
+        if(extras !=null)
+        {
+            String value = extras.getString("NOTIFICATION");
+        }
         mRegistrationBroadcastReceiver = new BroadcastReceiver()
         {
             @Override
@@ -87,7 +97,8 @@ public class RequestFragment  extends Fragment
             }
         };
 
-        displayFirebaseRegId();
+
+
 
         return rootView;
     }
@@ -167,5 +178,6 @@ public class RequestFragment  extends Fragment
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
+
 
 }
