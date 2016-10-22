@@ -77,11 +77,19 @@ public class HistoryFragment extends ListFragment
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Void doInBackground(Void... voids)
+        {
             HistoryHandler  handler= new HistoryHandler(getActivity());
+            String[] d={"To attend workshop conducted by Adobe for Future technologies","want to meet my friend tarun room no. c111"," from Flipkart for customer Rahul Vedh ,Room no.c231","meeting with Prof.Jalote at the auditorium C11","To attend workshop conducted by Adobe for Future technologies","want to meet my friend tarun room no. c111"," from Flipkart for customer Rahul Vedh ,Room no.c231"," Want to meet Faculty Prof. Rajiv Raman","Invited to attend seminar by Prof. Raj ayyer","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","meeting with Prof.Jalote at the auditorium C11"," Want to meet Faculty Prof. Rajiv Raman","Invited to attend seminar by Prof. Raj ayyer","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","meeting with Prof.Jalote at the auditorium C11","To attend workshop conducted by Adobe for Future technologies","want to meet my friend tarun room no. c111"," from Flipkart for customer Rahul Vedh ,Room no.c231"," Want to meet Faculty Prof. Rajiv Raman","Invited to attend seminar by Prof. Raj ayyer","want to meet my son Mukesh Kumar Yadav (Student of IIITD)"};
+            ArrayList<String> arrayd = new ArrayList<>();
+            for (int i = 0; i < 20; i++)
+            {
+                arrayd.add(d[i]);
+            }
+
             // get all history data
             demoData = handler.getAllHistory();
-            adapter = new HistoryArrayAdaptor(demoData);
+            adapter = new HistoryArrayAdaptor(demoData,arrayd);
 
             return null;
         }
