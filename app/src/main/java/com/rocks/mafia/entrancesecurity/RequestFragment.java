@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -22,7 +23,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 
 /**
  * Created by mafia on 10/18/16.
@@ -129,6 +139,7 @@ public class RequestFragment  extends Fragment
         final EditText reason = (EditText) promptView.findViewById(R.id.editReason);
         final EditText time = (EditText) promptView.findViewById(R.id.editTime);
 
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setView(promptView);
         // setup a dialog window
@@ -141,6 +152,7 @@ public class RequestFragment  extends Fragment
                         String givenName=name.getText().toString();
                         String givenReason=reason.getText().toString();
                         String givenTime=time.getText().toString();
+
                         dialog.cancel();
                     }
                 })
