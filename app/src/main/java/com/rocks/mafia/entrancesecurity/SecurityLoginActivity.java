@@ -67,7 +67,7 @@ public class SecurityLoginActivity extends Activity {
         session = new SessionManager(getApplicationContext());
         Log.e("INNNNNNN","SECURLOGIn");
         // Check if user is already logged in or not
-        if (session.isLoggedIn()) {
+        if (session.isSecurityLoggedIn()) {
             // User is already logged in. Take him to main activity
             Intent intent = new Intent(this, SecurityMainActivity.class);
             startActivity(intent);

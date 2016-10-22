@@ -72,6 +72,11 @@ public class SigninActivity extends Activity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
+        } else if (session.isSecurityLoggedIn()) {
+            // Security User is already logged in. Take him to security main activity
+            Intent intent = new Intent(this, SecurityMainActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         // Login button Click Event

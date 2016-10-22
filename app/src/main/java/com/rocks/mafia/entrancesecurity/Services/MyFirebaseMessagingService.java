@@ -1,8 +1,5 @@
 package com.rocks.mafia.entrancesecurity.Services;
 
-/**
- * Created by ubuntu on 10/18/16.
- */
 
 import android.app.DownloadManager;
 import android.content.Context;
