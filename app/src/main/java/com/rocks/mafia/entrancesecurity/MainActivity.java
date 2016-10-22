@@ -118,7 +118,12 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_logout:
                 SessionManager session = new SessionManager(getApplicationContext());
-                session.setLogin(false);
+                if(session.isSecurityLoggedIn()) {
+                    session.setSecurityLogin(false);
+                } else {
+                    session.setLogin(false);
+                }
+
                 Intent intent = new Intent(this, WelcomeActivity.class);
                 startActivity(intent);
                 break;

@@ -36,7 +36,7 @@ public class SessionManager {
 
     public void setSecurityLogin(boolean isSecurityLoggedIn) {
 
-        editor.putBoolean(KEY_IS_LOGGEDIN, isSecurityLoggedIn);
+        editor.putBoolean(KEY_IS_SECURITYLOGGEDIN, isSecurityLoggedIn);
 
         // commit changes
         editor.commit();
