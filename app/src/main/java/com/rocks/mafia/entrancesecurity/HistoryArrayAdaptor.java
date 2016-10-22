@@ -28,7 +28,6 @@ public class HistoryArrayAdaptor
         {
             throw new IllegalArgumentException("modelData must not be null");
         }
-
         items = modelData;
         selectedItems = new SparseBooleanArray();
     }
@@ -46,8 +45,9 @@ public class HistoryArrayAdaptor
     public void onBindViewHolder(ListItemViewHolder viewHolder, int position)
     {
         HistoryNode model = items.get(position);
-        viewHolder.name.setText(String.valueOf(model.getPersonName()));
-        viewHolder.age.setText(String.valueOf(model.getVisitingTime()));
+        viewHolder.name.setText("Name : "+String.valueOf(model.getPersonName()));
+        viewHolder.age.setText("Time  : "+String.valueOf(model.getVisitingTime()));
+        viewHolder.imageView.setImageResource(Integer.parseInt(model.getImageUrl()));
         viewHolder.itemView.setActivated(selectedItems.get(position, false));
     }
 
@@ -61,12 +61,13 @@ public class HistoryArrayAdaptor
     {
         TextView name;
         TextView age;
-
+        ImageView imageView;
         public ListItemViewHolder(View itemView)
         {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.listItemHistoryTitle);
             age = (TextView) itemView.findViewById(R.id.listItemHistoryBody);
+            imageView=(ImageView)itemView.findViewById(R.id.listItemHistoryImage);
         }
     }
 }

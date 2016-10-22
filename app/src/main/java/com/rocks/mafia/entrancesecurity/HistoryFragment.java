@@ -49,12 +49,18 @@ public class HistoryFragment extends ListFragment
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.allHistory);
         recyclerView.setHasFixedSize(true);
+
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+
         llm.setOrientation(LinearLayoutManager.VERTICAL);
+
         recyclerView.setLayoutManager(llm);
+
         FetchHistoryDataFromSQL fetchHistoryDataFromSQL = new FetchHistoryDataFromSQL();
+
         fetchHistoryDataFromSQL.execute();
     }
+
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
