@@ -42,7 +42,7 @@ import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
-public class single_item_search extends AppCompatActivity {
+public class single_item_search extends AppCompatActivity  {
 
     private static final String TAG = SecurityMainActivity.class.getSimpleName();
     public static final String ACCOUNT_SID = "AC5590c4ed74e1ba927995055348e6e3ca";
@@ -104,7 +104,7 @@ public class single_item_search extends AppCompatActivity {
         });
 
     }
-    protected void showInputDialog()
+    public void showInputDialog()
     {
 
         // get prompts.xml view
@@ -151,7 +151,7 @@ public class single_item_search extends AppCompatActivity {
         HttpClient httpclient = new DefaultHttpClient();
 //
         HttpPost httppost = new HttpPost(
-                "https://api.twilio.com/2010-04-01/Accounts/{ACCOUNT_SID}/SMS/Messages");
+                "https://api.twilio.com/2010-04-01/Accounts/"+ACCOUNT_SID+"/SMS/Messages");
         String base64EncodedCredentials = "Basic "
                 + Base64.encodeToString(
                 (ACCOUNT_SID + ":" + AUTH_TOKEN).getBytes(),

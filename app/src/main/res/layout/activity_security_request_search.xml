@@ -13,7 +13,7 @@
     tools:context="com.rocks.mafia.entrancesecurity.security_request_search">
     <android.support.v7.widget.SearchView
         android:id="@+id/searchView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:background="@color/colorPrimary"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"

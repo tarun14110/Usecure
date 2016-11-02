@@ -42,8 +42,11 @@ public class HistoryHandler extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_HISTORY + "("
-                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +KEY_PERSON_NAME+" TEXT,"
-                + KEY_VISIT_TIME + " TIME,"  +KEY_IMAGE_URL + " TEXT"+ ")";
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
+                +KEY_PERSON_NAME+" TEXT,"
+                + KEY_VISIT_TIME + " TIME,"
+                +KEY_IMAGE_URL + " TEXT"
+                + ")";
 
         Log.v("CHECK :  ",CREATE_CONTACTS_TABLE);
         db.execSQL(CREATE_CONTACTS_TABLE);

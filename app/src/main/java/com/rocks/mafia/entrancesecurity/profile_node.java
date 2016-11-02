@@ -7,35 +7,44 @@ package com.rocks.mafia.entrancesecurity;
 public class profile_node
 {
 
-    private String name,email,contact,address ;
+    private String name,email,contact,address,rollNumber ;
 
-    private  int img;
+    private  String image;
     public String getName() {
         return name;
     }
     public String getEmail(){ return email; }
     public  String getAddress() { return address;}
     public  String getContact(){ return  contact;}
-
-    public int getImg() {
-        return img;
+    public  String getRollNumber(){ return rollNumber;}
+    public String getImg() {
+        return image;
     }
 
-    public  profile_node(String name, String contact, String email, String address, int img)
+    public  profile_node(String name, String contact, String email, String address, String img)
    {
        this.name=name;
        this.email=email;
        this.contact=contact;
        this.address=address;
-       this.img=img;
+       this.image=img;
 
    }
-    public  profile_node(String name,String contact,String address,int img)
+    public  profile_node(String name,String contact,String address,String image)
     {
         this.name=name;
-        this.img=img;
+        this.image=image;
         this.contact=contact;
         this.address=address;
 
+    }
+    public  profile_node(String name, String contact, String email, String address,String rollNumber, String image)
+    {
+        this.name=name;
+        this.email=email;
+        this.contact=contact;
+        this.address=address;
+        this.image=image;
+        this.rollNumber=rollNumber;
     }
 }

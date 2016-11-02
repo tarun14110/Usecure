@@ -4,6 +4,7 @@
     <color name="colorPrimaryLight">#1A000000</color>
     <color name="historyBackground">#80000000</color>
     <color name="Light">#00dfc5</color>
+    <color name="LightGreen">#00ff19</color>
     <color name="colorPrimaryLightLight">#f4f1f1</color>
     <color name="colorAccent">#FF4081</color>
     <color name="TextColor">#ffffff</color>

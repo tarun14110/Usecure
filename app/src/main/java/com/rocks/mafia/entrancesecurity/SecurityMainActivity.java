@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.rocks.mafia.entrancesecurity.Services.ProfileHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,22 @@ public class SecurityMainActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.security_activity_main);
+
+//dummy data in search prpfile part
+
+        ProfileHandler handler= new ProfileHandler(this);
+       handler.addUser("pankajA","pankaj14073@iiitd.ac.in","993772568","RAI pur,New Delhi");
+        handler.addUser("pankajB","pankajB14073@iiitd.ac.in","9937789668","chattarpur,New Delhi");
+       handler.addUser("pankajC","pankajC14073@iiitd.ac.in","992342568","satbari beri,New Delhi");
+        handler.addUser("RAHUL","rahul14073@iiitd.ac.in","9968123456","fatehpur beri sikri ,New Delhi");
+                        //profile_node(String name, String contact, String email, String address, String img)
+
+
+        ArrayList<profile_node>list=new ArrayList<profile_node>();
+            list= handler.getAllProfiles();
+      int i ;
+        for(i=0;i<list.size();i++)
+            Log.v("PROFILE: ",list.get(i).toString());
 
          toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("SmartSec");
