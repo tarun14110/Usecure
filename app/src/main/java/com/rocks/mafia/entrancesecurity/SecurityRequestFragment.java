@@ -36,12 +36,17 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 public class SecurityRequestFragment extends Fragment {
     private View view;
     private static final String TAG = SecurityMainActivity.class.getSimpleName();
     private String title;//String for tab title
+    public static final String ACCOUNT_SID = "AC5590c4ed74e1ba927995055348e6e3ca";
+    public static final String AUTH_TOKEN = "ab215f3f60a90eb52c9d69c38c1f7697";
 
     private static RecyclerView recyclerView;
 
@@ -179,6 +184,19 @@ String[] s={"Ramesh Kumar ","ujeet singh","rahul sharma","jay singh","sujeet kum
 
 
     public void sendOutsiderData(String name, String reason, String time, String whomToContact) {
+
+        // send sms
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        Message message = Message.creator(new PhoneNumber("+919971949716"),
+                new PhoneNumber("+12018905759"),
+                "This is the ship that made the Kessel Run in fourteen parsecs?").create();
+
+        System.out.println(message.getSid());
+
+
+
+
         // sending gcm token to server
         // Create data variable for sent values to server
         SessionManager session = new SessionManager(getActivity());
