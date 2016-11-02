@@ -19,19 +19,35 @@ import android.widget.TextView;
 //import com.twilio.type.PhoneNumber;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.NameValuePair;
+import cz.msebera.android.httpclient.client.ClientProtocolException;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.extras.Base64;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+import cz.msebera.android.httpclient.message.BasicNameValuePair;
+import cz.msebera.android.httpclient.util.EntityUtils;
 
 public class single_item_search extends AppCompatActivity {
 
     private static final String TAG = SecurityMainActivity.class.getSimpleName();
     public static final String ACCOUNT_SID = "AC5590c4ed74e1ba927995055348e6e3ca";
     public static final String AUTH_TOKEN = "ab215f3f60a90eb52c9d69c38c1f7697";
+
 
     TextView textName;
     TextView textContact;
@@ -132,15 +148,42 @@ public class single_item_search extends AppCompatActivity {
     }
     public void sendOutsiderData(String name, String reason, String time, String whomToContact) {
 
-//        // send sms
-//        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+        HttpClient httpclient = new DefaultHttpClient();
 //
-//        Message message = Message.creator(new PhoneNumber("+919971949716"),
-//                new PhoneNumber("+12018905759"),
-//                "This is the ship that made the Kessel Run in fourteen parsecs?").create();
-//
-//        System.out.println(message.getSid());
+        HttpPost httppost = new HttpPost(
+                "https://api.twilio.com/2010-04-01/Accounts/{ACCOUNT_SID}/SMS/Messages");
+        String base64EncodedCredentials = "Basic "
+                + Base64.encodeToString(
+                (ACCOUNT_SID + ":" + AUTH_TOKEN).getBytes(),
+                Base64.NO_WRAP);
 
+        httppost.setHeader("Authorization",
+                base64EncodedCredentials);
+        try {
+
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+            nameValuePairs.add(new BasicNameValuePair("From",
+                    "+12018905759"));
+            nameValuePairs.add(new BasicNameValuePair("To",
+                    "+917053359258"));
+            nameValuePairs.add(new BasicNameValuePair("Body",
+                    "Welcome to Twilio"));
+
+            httppost.setEntity(new UrlEncodedFormEntity(
+                    nameValuePairs));
+
+            // Execute HTTP Post Request
+            HttpResponse response = httpclient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+            System.out.println("Entity post is: "
+                    + EntityUtils.toString(entity));
+
+
+        } catch (ClientProtocolException e) {
+
+        } catch (IOException e) {
+
+        }
 
 
 
