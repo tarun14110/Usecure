@@ -50,7 +50,6 @@ import cz.msebera.android.httpclient.extras.Base64;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
-
 public class SecurityRequestFragment extends Fragment {
     private View view;
     private static final String TAG = SecurityMainActivity.class.getSimpleName();
@@ -195,9 +194,9 @@ String[] s={"Ramesh Kumar ","ujeet singh","rahul sharma","jay singh","sujeet kum
 
     public void sendOutsiderData(String name, String reason, String time, String whomToContact) {
 
-
+//
         HttpClient httpclient = new DefaultHttpClient();
-
+//
         HttpPost httppost = new HttpPost(
                 "https://api.twilio.com/2010-04-01/Accounts/{ACCOUNT_SID}/SMS/Messages");
         String base64EncodedCredentials = "Basic "

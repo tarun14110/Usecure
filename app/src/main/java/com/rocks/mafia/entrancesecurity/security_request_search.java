@@ -26,6 +26,10 @@ import java.util.List;
 import java.util.Locale;
 
 import static android.R.id.list;
+/*
+activity for search in contacts to send Confirmation requests.
+ */
+
 
 public class security_request_search extends AppCompatActivity {
 
@@ -33,6 +37,7 @@ public class security_request_search extends AppCompatActivity {
     SearchView searchView;
     ListViewAdapter adapter;
     ArrayList<profile_node> arraylist ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
