@@ -30,8 +30,8 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:9.6.1'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.twilio:client-android:1.2.18'
     testCompile 'junit:junit:4.12'
-    compile files('libs/twilio-7.1.0-jar-with-dependencies.jar')
 }
 
 
