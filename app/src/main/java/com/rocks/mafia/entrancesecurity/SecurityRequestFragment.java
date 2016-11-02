@@ -37,10 +37,6 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
-
 public class SecurityRequestFragment extends Fragment {
     private View view;
     private static final String TAG = SecurityMainActivity.class.getSimpleName();
@@ -185,14 +181,14 @@ String[] s={"Ramesh Kumar ","ujeet singh","rahul sharma","jay singh","sujeet kum
 
     public void sendOutsiderData(String name, String reason, String time, String whomToContact) {
 
-        // send sms
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-
-        Message message = Message.creator(new PhoneNumber("+919971949716"),
-                new PhoneNumber("+12018905759"),
-                "This is the ship that made the Kessel Run in fourteen parsecs?").create();
-
-        System.out.println(message.getSid());
+//        // send sms
+//        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+//
+//        Message message = Message.creator(new PhoneNumber("+919971949716"),
+//                new PhoneNumber("+12018905759"),
+//                "This is the ship that made the Kessel Run in fourteen parsecs?").create();
+//
+//        System.out.println(message.getSid());
 
 
 

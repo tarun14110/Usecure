@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+//import com.twilio.Twilio;
+//import com.twilio.rest.api.v2010.account.Message;
+//import com.twilio.type.PhoneNumber;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -26,6 +30,8 @@ import java.util.HashMap;
 public class single_item_search extends AppCompatActivity {
 
     private static final String TAG = SecurityMainActivity.class.getSimpleName();
+    public static final String ACCOUNT_SID = "AC5590c4ed74e1ba927995055348e6e3ca";
+    public static final String AUTH_TOKEN = "ab215f3f60a90eb52c9d69c38c1f7697";
 
     TextView textName;
     TextView textContact;
@@ -125,6 +131,19 @@ public class single_item_search extends AppCompatActivity {
         alert.show();
     }
     public void sendOutsiderData(String name, String reason, String time, String whomToContact) {
+
+//        // send sms
+//        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+//
+//        Message message = Message.creator(new PhoneNumber("+919971949716"),
+//                new PhoneNumber("+12018905759"),
+//                "This is the ship that made the Kessel Run in fourteen parsecs?").create();
+//
+//        System.out.println(message.getSid());
+
+
+
+
         // sending gcm token to server
         // Create data variable for sent values to server
         SessionManager session = new SessionManager(this);
@@ -231,8 +250,8 @@ public class single_item_search extends AppCompatActivity {
             sendOutsiderData(name, reason, time, whomToContact);
             return null;
         }
-
     }
+
 
 }
 
