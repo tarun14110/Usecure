@@ -45,11 +45,13 @@ public class SecurityRequestFragment extends Fragment {
 
     private static RecyclerView recyclerView;
 
-    public SecurityRequestFragment() {
+    public SecurityRequestFragment()
+    {
+
     }
 
     public SecurityRequestFragment(String title) {
-        this.title = title;//Setting tab title
+      this.title = title;//Setting tab title
     }
 
     @Nullable
@@ -58,16 +60,19 @@ public class SecurityRequestFragment extends Fragment {
     {
         Log.e("LISTEN","EDIT");
         view = inflater.inflate(R.layout.security_request_layout, container, false);
-        FloatingActionButton fab=(FloatingActionButton)view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                showInputDialog();
-            }
-        });
-
-        setRecyclerView();
+//        FloatingActionButton fab=(FloatingActionButton)view.findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view)
+//            {
+//                Intent intent = new Intent(getContext(), security_request_search.class);
+//                startActivity(intent);
+//               // showInputDialog();
+//            }
+//        });
+//
+       setRecyclerView();
         return view;
 
     }
@@ -125,7 +130,10 @@ String[] s={"Ramesh Kumar ","ujeet singh","rahul sharma","jay singh","sujeet kum
         recyclerView.setAdapter(adapter);// set adapter on recyclerview
 
     }
-    protected void showInputDialog() {
+    protected void showInputDialog()
+    {
+
+
 
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
@@ -165,6 +173,8 @@ String[] s={"Ramesh Kumar ","ujeet singh","rahul sharma","jay singh","sujeet kum
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
+
+
     }
 
 

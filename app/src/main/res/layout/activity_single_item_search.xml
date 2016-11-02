@@ -192,27 +192,6 @@
             android:clickable="true"
             android:padding="@dimen/activity_horizontal_margin">
 
-
-            <Button
-                android:id="@+id/editDetails"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryLight"
-                android:text="Edit  Details"
-                android:layout_margin="10dp"
-                android:textColor="@color/TextColor" />
-            <Button
-                android:id="@+id/saveDetails"
-                android:layout_below="@id/editDetails"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryLight"
-                android:text="Save Details"
-                android:layout_margin="10dp"
-
-                android:visibility="invisible"
-                android:textColor="@color/TextColor" />
-
         </RelativeLayout>
     </LinearLayout>
 

@@ -6,12 +6,14 @@ package com.rocks.mafia.entrancesecurity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -22,11 +24,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.security.AccessController.getContext;
+
 public class SecurityMainActivity extends AppCompatActivity {
     private static Toolbar toolbar;
     private static ViewPager viewPager;
     private static TabLayout tabLayout;
 
+    SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState)
 
@@ -73,7 +78,22 @@ public class SecurityMainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+      //  searchView = (SearchView)this.findViewById(R.id.searchView);
+        FloatingActionButton fab=(FloatingActionButton)this.findViewById(R.id.fab);
+       fab.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view)
+            {
+               Intent intent = new Intent(view.getContext(), security_request_search.class);
+                startActivity(intent);
+
+               Toast.makeText(view.getContext(),"NEW ACITVITY", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

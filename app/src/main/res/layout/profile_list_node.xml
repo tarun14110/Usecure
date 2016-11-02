@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:background="#fdfdfd"
+    android:padding="2dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/pro"
+        android:layout_marginLeft="1dp"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Title"
+        android:id="@+id/name"
+        android:layout_toRightOf="@+id/image"
+        android:layout_alignParentTop="true"
+        android:textColor="#201e1e"
+        android:textSize="30sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This is how the content looks here, Isn't it cool ? This is how the content looks here, Isn't it cool ?"
+        android:id="@+id/contact"
+        android:layout_toRightOf="@+id/image"
+        android:textColor="#1a1818"
+        android:textSize="20sp"
+        android:layout_below="@+id/name"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="description about the aim of visiting institute and further details"
+        android:id="@+id/address"
+        android:layout_toRightOf="@+id/image"
+        android:textColor="#161515"
+        android:textSize="20sp"
+        android:layout_below="@+id/contact"
+        />
+</RelativeLayout>
