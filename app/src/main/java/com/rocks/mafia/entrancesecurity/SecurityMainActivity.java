@@ -21,18 +21,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.rocks.mafia.entrancesecurity.Services.ProfileHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.rocks.mafia.entrancesecurity.R.id.listView;
 import static java.security.AccessController.getContext;
 
 public class SecurityMainActivity extends AppCompatActivity {
     private static Toolbar toolbar;
     private static ViewPager viewPager;
     private static TabLayout tabLayout;
-
+    public static final String JSON_URL = "http://usecure.site88.net/getAllUsers.php";
     SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,6 +47,7 @@ public class SecurityMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.security_activity_main);
 
+/*
 //dummy data in search prpfile part
 
         ProfileHandler handler= new ProfileHandler(this);
@@ -49,13 +56,16 @@ public class SecurityMainActivity extends AppCompatActivity {
        handler.addUser("pankajC","pankajC14073@iiitd.ac.in","992342568","satbari beri,New Delhi");
         handler.addUser("RAHUL","rahul14073@iiitd.ac.in","9968123456","fatehpur beri sikri ,New Delhi");
                         //profile_node(String name, String contact, String email, String address, String img)
+*/
+
+        sendRequest();
 
 
-        ArrayList<profile_node>list=new ArrayList<profile_node>();
+ /*       ArrayList<profile_node>list=new ArrayList<profile_node>();
             list= handler.getAllProfiles();
       int i ;
         for(i=0;i<list.size();i++)
-            Log.v("PROFILE: ",list.get(i).toString());
+            Log.v("PROFILE: ",list.get(i).toString());*/
 
          toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("SmartSec");
@@ -112,6 +122,37 @@ public class SecurityMainActivity extends AppCompatActivity {
 
     }
 
+
+    private void sendRequest(){
+
+        StringRequest stringRequest = new StringRequest(JSON_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        showJSON(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(SecurityMainActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void showJSON(String json){
+        ParseJSON pj = new ParseJSON(json);
+        pj.parseJSON();
+        ProfileHandler handler= new ProfileHandler(this);
+        handler.deleteUsers();
+        for (int i = 0; i < ParseJSON.contacts.length; ++i) {
+            handler.addUser(ParseJSON.names[i],ParseJSON.emails[i],ParseJSON.contacts[i],ParseJSON.address[i]);
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
