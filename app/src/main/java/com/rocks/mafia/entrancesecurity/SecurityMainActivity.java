@@ -5,6 +5,7 @@ package com.rocks.mafia.entrancesecurity;
  */
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -19,15 +20,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.rocks.mafia.entrancesecurity.Services.ProfileHandler;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -148,10 +152,50 @@ public class SecurityMainActivity extends AppCompatActivity {
         pj.parseJSON();
         ProfileHandler handler= new ProfileHandler(this);
         handler.deleteUsers();
+        // updated users table
         for (int i = 0; i < ParseJSON.contacts.length; ++i) {
             handler.addUser(ParseJSON.names[i],ParseJSON.emails[i],ParseJSON.contacts[i],ParseJSON.address[i]);
+            if (!ParseJSON.profilePicUrls[i].isEmpty()){
+                getImage(ParseJSON.profilePicUrls[i], i);
+            }
+
         }
 
+    }
+
+    private void getImage(String path, final int i) {
+        String url = "http://usecure.site88.net/userProfilePics/";
+        url = url + path;
+        byte[] image;
+
+        ImageRequest request = new ImageRequest(url,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        Log.e("HEEEEEEEEEYYYYYYYYYYYYY", bitmap.toString());
+                        updateImageInDatabase(bitmap, i);
+                    }
+                }, 0, 0, null,
+                new Response.ErrorListener() {
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(SecurityMainActivity.this, error.toString(), Toast.LENGTH_LONG);
+                    }
+                });
+// Access the RequestQueue through your singleton class.
+        MySingleton.getInstance(this).addToRequestQueue(request);
+    }
+
+    private void updateImageInDatabase(Bitmap imageBitmap, int i) {
+        ProfileHandler handler= new ProfileHandler(this);
+        Log.e("PICCCCCCCCCCCCCCC", String.valueOf(i));
+        handler.updateImage(ParseJSON.contacts[i],getImageBytes(imageBitmap));
+    }
+
+    // convert from bitmap to byte array
+    public static byte[] getImageBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        return stream.toByteArray();
     }
 
     @Override

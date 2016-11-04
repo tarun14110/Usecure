@@ -3,6 +3,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.graphics.Color;
@@ -179,8 +181,8 @@ public class security_request_search extends AppCompatActivity {
             holder.address.setText(profile_nodelist.get(position)
                     .getAddress());
             // Set the results into ImageView
-            // holder.img.setImageResource(profile_nodelist.get(position)
-            //       .getImg());
+             holder.img.setImageBitmap(getBitmapImage(profile_nodelist.get(position)
+                   .getImg()));
             // Listen for ListView Item Click
             Button sendRequest = (Button) view.findViewById(R.id.sendRequest);
             sendRequest.setOnClickListener(new View.OnClickListener() {
@@ -215,6 +217,13 @@ public class security_request_search extends AppCompatActivity {
             });
 
             return view;
+        }
+
+        // convert from byte array to bitmap
+        public Bitmap getBitmapImage(byte[] image) {
+            if(image == null)
+                return null;
+            return BitmapFactory.decodeByteArray(image, 0, image.length);
         }
 
         // Filter Class

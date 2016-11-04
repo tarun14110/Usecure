@@ -27,7 +27,7 @@ public class ProfileHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     // Database Name
     private static final String DATABASE_NAME = "uSecure";
@@ -59,7 +59,7 @@ public class ProfileHandler extends SQLiteOpenHelper {
                 + KEY_CONTACT + " TEXT UNIQUE,"
                 + KEY_ADDRESS + " TEXT,"
                 + KEY_ROLLNUMBER + " TEXT UNIQUE,"
-                + KEY_IMAGE + " TEXT "
+                + KEY_IMAGE + " BLOB "
                 + ")";
         db.execSQL(CREATE_PROFILE_TABLE);
         Log.d(TAG, "Database tables created " + CREATE_PROFILE_TABLE);
@@ -79,7 +79,7 @@ public class ProfileHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      */
-    public void addUser(String name, String email, String contact,String address,String image) {
+    public void addUser(String name, String email, String contact,String address,byte[] image) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -102,7 +102,6 @@ public class ProfileHandler extends SQLiteOpenHelper {
         values.put(KEY_EMAIL, email); // Email
         values.put(KEY_CONTACT, contact); // Contact
         values.put(KEY_ADDRESS,address);  //address
-        values.put(KEY_IMAGE,"NULL");
         // Inserting Row
         long id = db.insert(TABLE_PROFILE, null, values);
         db.close(); // Closing database connection
@@ -111,13 +110,21 @@ public class ProfileHandler extends SQLiteOpenHelper {
     }
 
 
-    public int updateUser(String name, String email, String contact,String address,String image) {
+    public int updateUser(String name, String email, String contact,String address,byte[] image) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
         values.put(KEY_EMAIL, email);
         values.put(KEY_ADDRESS,address);  //address
         values.put(KEY_IMAGE,image);
+        return db.update(TABLE_PROFILE, values, KEY_CONTACT + " = ?",
+                new String[]{contact});
+    }
+
+    public int updateImage(String contact, byte[] image) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_IMAGE, image);
         return db.update(TABLE_PROFILE, values, KEY_CONTACT + " = ?",
                 new String[]{contact});
     }
@@ -142,7 +149,7 @@ public class ProfileHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst())
         {
             do {
-                profile_node node = new profile_node (cursor.getString(1),cursor.getString(2), cursor.getString(3),cursor.getString(4),cursor.getString(1));
+                profile_node node = new profile_node (cursor.getString(1),cursor.getString(2), cursor.getString(3),cursor.getString(4),cursor.getBlob(6));
                 profileList.add(node);
             } while (cursor.moveToNext());
         }

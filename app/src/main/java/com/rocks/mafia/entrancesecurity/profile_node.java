@@ -9,7 +9,7 @@ public class profile_node
 
     private String name,email,contact,address,rollNumber ;
 
-    private  String image;
+    private  byte[] image;
     public String getName() {
         return name;
     }
@@ -17,11 +17,11 @@ public class profile_node
     public  String getAddress() { return address;}
     public  String getContact(){ return  contact;}
     public  String getRollNumber(){ return rollNumber;}
-    public String getImg() {
+    public byte[] getImg() {
         return image;
     }
 
-    public  profile_node(String name, String contact, String email, String address, String img)
+    public  profile_node(String name, String contact, String email, String address, byte[] img)
    {
        this.name=name;
        this.email=email;
@@ -30,7 +30,7 @@ public class profile_node
        this.image=img;
 
    }
-    public  profile_node(String name,String contact,String address,String image)
+    public  profile_node(String name,String contact,String address,byte[] image)
     {
         this.name=name;
         this.image=image;
@@ -38,7 +38,7 @@ public class profile_node
         this.address=address;
 
     }
-    public  profile_node(String name, String contact, String email, String address,String rollNumber, String image)
+    public  profile_node(String name, String contact, String email, String address,String rollNumber, byte[] image)
     {
         this.name=name;
         this.email=email;
