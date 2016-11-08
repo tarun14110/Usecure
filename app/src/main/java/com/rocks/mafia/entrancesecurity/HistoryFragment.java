@@ -29,8 +29,6 @@ import java.util.List;
  */
 public class HistoryFragment extends ListFragment
 {
-    //private ArrayList<HistoryNode> historyData;
-    //private HistoryArrayAdaptor historyNodeArrayAdapter;
 
     public HistoryFragment()
     {
@@ -52,13 +50,9 @@ public class HistoryFragment extends ListFragment
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-
         recyclerView.setLayoutManager(llm);
-
         FetchHistoryDataFromSQL fetchHistoryDataFromSQL = new FetchHistoryDataFromSQL();
-
         fetchHistoryDataFromSQL.execute();
     }
 

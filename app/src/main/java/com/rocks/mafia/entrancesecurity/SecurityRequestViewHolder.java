@@ -2,6 +2,7 @@ package com.rocks.mafia.entrancesecurity;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 /**
@@ -13,6 +14,8 @@ public class SecurityRequestViewHolder extends RecyclerView.ViewHolder {
     public TextView time;
     public TextView d;
     public  TextView by;
+    public CheckedTextView status;
+
     public SecurityRequestViewHolder(View view) {
         super(view);
 
@@ -20,5 +23,7 @@ public class SecurityRequestViewHolder extends RecyclerView.ViewHolder {
         this.time=(TextView) view.findViewById(R.id.time);
         this.d=(TextView) view.findViewById(R.id.description);
         this.by=(TextView) view.findViewById(R.id.by);
+        this.status=(CheckedTextView)view.findViewById(R.id.status);
+
     }
 }

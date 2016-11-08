@@ -6,6 +6,7 @@ package com.rocks.mafia.entrancesecurity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.icu.text.SymbolTable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -32,7 +33,13 @@ import com.android.volley.toolbox.Volley;
 import com.rocks.mafia.entrancesecurity.Services.ProfileHandler;
 
 import java.io.ByteArrayOutputStream;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+
 import java.util.List;
 
 import static com.rocks.mafia.entrancesecurity.R.id.listView;
@@ -42,6 +49,11 @@ public class SecurityMainActivity extends AppCompatActivity {
     private static Toolbar toolbar;
     private static ViewPager viewPager;
     private static TabLayout tabLayout;
+    public final static long SECOND_MILLIS = 1000;
+    public final static long MINUTE_MILLIS = SECOND_MILLIS*60;
+    public final static long HOUR_MILLIS = MINUTE_MILLIS*60;
+    public final static long DAY_MILLIS = HOUR_MILLIS*24;
+    public final static long YEAR_MILLIS = DAY_MILLIS*365;
     public static final String JSON_URL = "http://usecure.site88.net/getAllUsers.php";
     SearchView searchView;
     @Override
@@ -62,6 +74,29 @@ public class SecurityMainActivity extends AppCompatActivity {
                         //profile_node(String name, String contact, String email, String address, String img)
 */
 
+        SecurityRequestHandler requestHandler= new SecurityRequestHandler(this);
+        Time t= new Time(3,4,5);
+        requestHandler.delete();
+        SecurityRequestNode x=new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1);
+        System.out.println("XXXXXXXXXX:"+x.getEntryTime().toString());
+        requestHandler.addSecurityRequest(new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1));
+        requestHandler.addSecurityRequest(new SecurityRequestNode("Ramesh Kumar ","meeting with Prof.Jalote at the auditorium C11","888888888", t,2));
+        requestHandler.addSecurityRequest(new SecurityRequestNode( "Sujeet singh","meeting with Prof.Jalote at the auditorium C11","888888888", t,3));
+        requestHandler.addSecurityRequest(new SecurityRequestNode( "rahul sharma","want to meet my friend tarun room no. c111","888888888", t,2));
+        requestHandler.addSecurityRequest(new SecurityRequestNode("jay singh","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,1));
+        requestHandler.addSecurityRequest(new SecurityRequestNode("sujeet kumar","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,1));
+        requestHandler.addSecurityRequest(new SecurityRequestNode("mukesh yadav","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,3));
+        requestHandler.addSecurityRequest(new SecurityRequestNode( "tarun","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,2));
+        requestHandler.addSecurityRequest(new SecurityRequestNode( "Ramesh Kumar ","want to meet my friend tarun room no. c111","888888888", t,1));
+        requestHandler.addSecurityRequest(new SecurityRequestNode("ujeet singh","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,1));
+        requestHandler.addSecurityRequest(new SecurityRequestNode("rahul sharma","want to meet my friend tarun room no. c111","888888888", t,1));
+        ArrayList<SecurityRequestNode>  temp= requestHandler.getAllSecurityRequest();
+        int i;
+        for(i=0;i<temp.size();i++)
+        {
+            Log.e("PROFILE: ",temp.get(i).getOutsiderName()+temp.get(i).getEntryTime());
+        }
+        Log.e("MAIN",temp.get(0).getOutsiderName());
         sendRequest();
 
 
@@ -275,6 +310,9 @@ public class SecurityMainActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-
+    public static java.sql.Time newTime()
+    {
+        return new java.sql.Time( System.currentTimeMillis()%DAY_MILLIS);
+    }
 
 }

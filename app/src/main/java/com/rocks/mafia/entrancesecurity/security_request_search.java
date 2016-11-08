@@ -1,4 +1,5 @@
 package com.rocks.mafia.entrancesecurity;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,14 +17,18 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,17 +82,17 @@ public class security_request_search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_security_request_search);
         searchView = (SearchView) this.findViewById(R.id.searchView);
+
+
+
         EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(getResources().getColor(R.color.white));
         searchEditText.setHintTextColor(getResources().getColor(R.color.white));
         searchView.setIconifiedByDefault(false);
         listView = (ListView) findViewById(R.id.listView);
-
         arraylist = new ArrayList<profile_node>();
          ProfileHandler handler= new ProfileHandler(this);
         arraylist =  handler.getAllProfiles();
-
-
 
 //
 //        for (int i = 0; i < 10; i++) {
@@ -96,13 +101,12 @@ public class security_request_search extends AppCompatActivity {
 //            // Binds all strings into an array
 //            arraylist.add(wp);
 //        }
-
-
         adapter = new ListViewAdapter(this, arraylist);
 
         // Binds the Adapter to the ListView
         listView.setAdapter(adapter);
         // Capture Text in EditText
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String text) {
@@ -227,6 +231,7 @@ public class security_request_search extends AppCompatActivity {
         }
 
         // Filter Class
+        // Filter Class
         public void filter(String charText) {
             charText = charText.toLowerCase(Locale.getDefault());
             profile_nodelist.clear();
@@ -257,12 +262,14 @@ public class security_request_search extends AppCompatActivity {
         final EditText whomToContact = (EditText) promptView.findViewById(R.id.whomToContactText);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+       // dialog.setCanceledOnTouchOutside(true);
         alertDialogBuilder.setView(promptView);
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)
 
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
                         String givenName = name.getText().toString();
                         String givenReason = reason.getText().toString();
                         String givenTime = time.getText().toString();
@@ -270,6 +277,7 @@ public class security_request_search extends AppCompatActivity {
                         Log.e("BHAI", givenWhomToContact);
                        SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
                         sendOutsiderdata.execute();
+                       // dialog.setCanceledOnTouchOutside(false);
                         dialog.cancel();
                     }
                 })
@@ -416,6 +424,13 @@ public class security_request_search extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
         }
+//
+//        public boolean onTouchEvent(MotionEvent event) {
+//            InputMethodManager imm = (InputMethodManager)getSystemService(Context.
+//                    INPUT_METHOD_SERVICE);
+//            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+//            return true;
+//        }
 
         @Override
         protected Void doInBackground(Void... voids) {
