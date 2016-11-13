@@ -2,22 +2,21 @@ package com.rocks.mafia.entrancesecurity;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Created by mafia on 21/10/16.
+ * Created by pankaj on 13/11/16.
  */
 
-public class SecurityRequestViewHolder extends RecyclerView.ViewHolder {
+public class SecurityHistoryViewHolder extends RecyclerView.ViewHolder {
     public TextView title;
     public TextView time;
     public TextView d;
     public  TextView by;
     public ImageView status;
 
-    public SecurityRequestViewHolder(View view)
+    public SecurityHistoryViewHolder(View view)
     {
         super(view);
 

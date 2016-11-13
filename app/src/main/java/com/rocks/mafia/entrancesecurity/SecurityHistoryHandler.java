@@ -12,16 +12,30 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 
 /**
- * Created by pankaj on 7/11/16.
+ * Created by pankaj on 12/11/16.
  */
 
-public class SecurityRequestHandler extends SQLiteOpenHelper
+
+public class SecurityHistoryHandler extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "SecurityRequest";
-    private static final String TABLE_REQUEST = "SecurityRequestTable";
+    private static final String DATABASE_NAME = "SecurityHistory";
+    private static final String TABLE_HISTORY = "SecurityHistoryTable";
     private static final String KEY_ID = "_id";
     private static final String KEY_TIME = "Time";
     private static final String KEY_OUTSIDERNAME= "OutsiderName";
@@ -31,7 +45,7 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
 
 
 
-    public SecurityRequestHandler(Context context)
+    public SecurityHistoryHandler(Context context)
     {
 
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,7 +55,7 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_REQUEST + "("
+        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_HISTORY + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + KEY_OUTSIDERNAME+" TEXT,"
                 +KEY_REASON+" TEXT ,"
@@ -56,18 +70,18 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_REQUEST);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
         onCreate(db);
     }
     public void delete()
     {
         Log.v("DELETING TABLE  :","lol");
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_REQUEST);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
         onCreate(db);
     }
 
-    public void addSecurityRequest(SecurityRequestNode node)
+    public void addSecurityHistory(SecurityRequestNode node)
 
     {
         System.out.println("XXXXXXXXXX:"+node.getEntryTime().toString());
@@ -78,15 +92,15 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
         values.put(KEY_INSIDERCONTACT, node.getInsiderContact());
         values.put(KEY_TIME, String.valueOf(node.getEntryTime()));
         values.put(KEY_STATUS,String.valueOf(node.getStatus()));
-        db.insert(TABLE_REQUEST, null, values);
+        db.insert(TABLE_HISTORY, null, values);
         db.close();
 
     }
 
-    public ArrayList< SecurityRequestNode> getAllSecurityRequest()
+    public ArrayList< SecurityRequestNode> getAllSecurityHistory()
     {
-        ArrayList<SecurityRequestNode> RequestList = new ArrayList< SecurityRequestNode>();
-        String selectQuery = "SELECT * FROM " + TABLE_REQUEST;
+        ArrayList<SecurityRequestNode> HistoryList = new ArrayList< SecurityRequestNode>();
+        String selectQuery = "SELECT * FROM " + TABLE_HISTORY;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst())
@@ -100,11 +114,11 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
                     e.printStackTrace();
                 }
                 SecurityRequestNode node = new  SecurityRequestNode (cursor.getString(1),cursor.getString(2),cursor.getString(3),timeValue,Integer.parseInt(cursor.getString(5)));
-                RequestList.add(node);
+                HistoryList.add(node);
             } while (cursor.moveToNext());
         }
         db.close();
-        return RequestList;
+        return HistoryList;
     }
 }
 

@@ -49,11 +49,6 @@ public class SecurityMainActivity extends AppCompatActivity {
     private static Toolbar toolbar;
     private static ViewPager viewPager;
     private static TabLayout tabLayout;
-    public final static long SECOND_MILLIS = 1000;
-    public final static long MINUTE_MILLIS = SECOND_MILLIS*60;
-    public final static long HOUR_MILLIS = MINUTE_MILLIS*60;
-    public final static long DAY_MILLIS = HOUR_MILLIS*24;
-    public final static long YEAR_MILLIS = DAY_MILLIS*365;
     public static final String JSON_URL = "http://usecure.site88.net/getAllUsers.php";
     SearchView searchView;
     @Override
@@ -63,17 +58,7 @@ public class SecurityMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.security_activity_main);
 
-/*
-//dummy data in search prpfile part
-
-        ProfileHandler handler= new ProfileHandler(this);
-       handler.addUser("pankajA","pankaj14073@iiitd.ac.in","993772568","RAI pur,New Delhi");
-        handler.addUser("pankajB","pankajB14073@iiitd.ac.in","9937789668","chattarpur,New Delhi");
-       handler.addUser("pankajC","pankajC14073@iiitd.ac.in","992342568","satbari beri,New Delhi");
-        handler.addUser("RAHUL","rahul14073@iiitd.ac.in","9968123456","fatehpur beri sikri ,New Delhi");
-                        //profile_node(String name, String contact, String email, String address, String img)
-*/
-
+        //Request tab dummy data
         SecurityRequestHandler requestHandler= new SecurityRequestHandler(this);
         Time t= new Time(3,4,5);
         requestHandler.delete();
@@ -97,14 +82,16 @@ public class SecurityMainActivity extends AppCompatActivity {
             Log.e("PROFILE: ",temp.get(i).getOutsiderName()+temp.get(i).getEntryTime());
         }
         Log.e("MAIN",temp.get(0).getOutsiderName());
+        //dummy data for History TAB
+
+        SecurityHistoryHandler historyHandler= new SecurityHistoryHandler(this);
+         t= new Time(3,4,5);
+        historyHandler.delete();
+        historyHandler.addSecurityHistory(new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1));
+
+//
         sendRequest();
 
-
- /*       ArrayList<profile_node>list=new ArrayList<profile_node>();
-            list= handler.getAllProfiles();
-      int i ;
-        for(i=0;i<list.size();i++)
-            Log.v("PROFILE: ",list.get(i).toString());*/
 
          toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("SmartSec");
@@ -269,11 +256,14 @@ public class SecurityMainActivity extends AppCompatActivity {
     }
 
     //Setting View Pager
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager)
+    {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new SecurityPreRequestFragment("Pre Informed"), "Pre Informed");
+        Log.e("MAIN","  : STEP 1");
         adapter.addFrag(new SecurityRequestFragment("Pending confirms"), "Pending confirms");
-        adapter.addFrag(new SecurityRequestFragment("History"), "History");
+        Log.e("MAIN","  : STEP 2");
+        adapter.addFrag(new SecurityHistoryFragment("History"), "History");
         Log.e(adapter.toString(), "PPOOOO");
         Log.e(viewPager.toString(), "YOOOO");
         viewPager.setAdapter(adapter);
@@ -309,10 +299,6 @@ public class SecurityMainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-    }
-    public static java.sql.Time newTime()
-    {
-        return new java.sql.Time( System.currentTimeMillis()%DAY_MILLIS);
     }
 
 }
