@@ -63,18 +63,6 @@ public class SecurityRequestFragment extends Fragment {
     {
         Log.e("LISTEN","EDIT");
         view = inflater.inflate(R.layout.security_request_layout, container, false);
-//        FloatingActionButton fab=(FloatingActionButton)view.findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view)
-//            {
-//                Intent intent = new Intent(getContext(), security_request_search.class);
-//                startActivity(intent);
-//               // showInputDialog();
-//            }
-//        });
-//
        setRecyclerView();
         return view;
 

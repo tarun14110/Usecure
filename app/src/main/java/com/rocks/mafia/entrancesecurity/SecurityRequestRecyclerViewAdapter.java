@@ -47,16 +47,10 @@ public class SecurityRequestRecyclerViewAdapter extends
         System.out.println("STATUS"+s);
         if(s==1)
             mainHolder.status.setBackgroundResource(R.drawable.cross);
-        else
+        else if(s==2)
             mainHolder.status.setBackgroundResource(R.drawable.tick);
-
-//        if(s==2)
-//            mainHolder.status.setBackgroundColor(16711936);
-//        else if(s==3)
-//            mainHolder.status.setBackgroundColor(65536);
-//        else
-//            mainHolder.status.setBackgroundColor(256);
-
+        else
+            mainHolder.status.setBackgroundResource(R.mipmap.ic_yello);
     }
 
     @Override

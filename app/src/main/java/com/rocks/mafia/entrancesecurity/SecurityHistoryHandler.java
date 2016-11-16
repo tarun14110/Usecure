@@ -60,7 +60,7 @@ public class SecurityHistoryHandler extends SQLiteOpenHelper
                 + KEY_OUTSIDERNAME+" TEXT,"
                 +KEY_REASON+" TEXT ,"
                 +KEY_INSIDERCONTACT+" TEXT ,"
-                + KEY_TIME+ " TIME ,"
+                + KEY_TIME+ " TEXT ,"
                 +KEY_STATUS+" INTEGER"
                 +")";
 
@@ -75,7 +75,7 @@ public class SecurityHistoryHandler extends SQLiteOpenHelper
     }
     public void delete()
     {
-        Log.v("DELETING TABLE  :","lol");
+       // Log.v("DELETING TABLE  :","lol");
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
         onCreate(db);
@@ -90,7 +90,7 @@ public class SecurityHistoryHandler extends SQLiteOpenHelper
         values.put(KEY_OUTSIDERNAME, node.getOutsiderName());
         values.put(KEY_REASON, node.getReason());
         values.put(KEY_INSIDERCONTACT, node.getInsiderContact());
-        values.put(KEY_TIME, String.valueOf(node.getEntryTime()));
+        values.put(KEY_TIME, node.getEntryTime());
         values.put(KEY_STATUS,String.valueOf(node.getStatus()));
         db.insert(TABLE_HISTORY, null, values);
         db.close();
@@ -106,14 +106,8 @@ public class SecurityHistoryHandler extends SQLiteOpenHelper
         if (cursor.moveToFirst())
         {
             do {
-                DateFormat formatter = new SimpleDateFormat("HH:mm");
-                Time timeValue = null;
-                try {
-                    timeValue = new Time(formatter.parse(cursor.getString(4)).getTime());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                SecurityRequestNode node = new  SecurityRequestNode (cursor.getString(1),cursor.getString(2),cursor.getString(3),timeValue,Integer.parseInt(cursor.getString(5)));
+
+                SecurityRequestNode node = new  SecurityRequestNode (cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),Integer.parseInt(cursor.getString(5)));
                 HistoryList.add(node);
             } while (cursor.moveToNext());
         }

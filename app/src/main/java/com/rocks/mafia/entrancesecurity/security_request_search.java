@@ -42,7 +42,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -94,13 +96,7 @@ public class security_request_search extends AppCompatActivity {
          ProfileHandler handler= new ProfileHandler(this);
         arraylist =  handler.getAllProfiles();
 
-//
-//        for (int i = 0; i < 10; i++) {
-//            profile_node wp = new profile_node("name" + i, "contact" + i,
-//                    "address" + i, Integer.toString(i));
-//            // Binds all strings into an array
-//            arraylist.add(wp);
-//        }
+
         adapter = new ListViewAdapter(this, arraylist);
 
         // Binds the Adapter to the ListView
@@ -259,38 +255,61 @@ public class security_request_search extends AppCompatActivity {
         final EditText name = (EditText) promptView.findViewById(R.id.editname);
         final EditText reason = (EditText) promptView.findViewById(R.id.editReason);
         final EditText time = (EditText) promptView.findViewById(R.id.editTime);
+        time.setText(getDateTime());
+        time.setEnabled(false);
+         int x=0;
         final EditText whomToContact = (EditText) promptView.findViewById(R.id.whomToContactText);
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-       // dialog.setCanceledOnTouchOutside(true);
+       final  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(promptView);
-        // setup a dialog window
         alertDialogBuilder.setCancelable(false)
 
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                {
+                    @Override
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        String givenName = name.getText().toString();
-                        String givenReason = reason.getText().toString();
-                        String givenTime = time.getText().toString();
-                        String givenWhomToContact = whomToContact.getText().toString();
-                        Log.e("BHAI", givenWhomToContact);
-                       SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
-                        sendOutsiderdata.execute();
-                       // dialog.setCanceledOnTouchOutside(false);
+
+                    }
+
+                })
+        .setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
-                })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                });
+
 
         // create an alert dialog
-        AlertDialog alert = alertDialogBuilder.create();
+       final AlertDialog alert = alertDialogBuilder.create();
         alert.show();
+    alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
+        {
+            Boolean wantToCloseDialog = false;
+            String givenName = name.getText().toString();
+            String givenReason = reason.getText().toString();
+            String givenTime = time.getText().toString();
+            String givenWhomToContact = whomToContact.getText().toString();
+
+            if((givenName.length()>0)&&(givenReason.length()>0)&&(givenTime.length()>0)&&(givenWhomToContact.length()>0))
+            {
+                Log.e("BHAI", givenWhomToContact);
+                SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
+                sendOutsiderdata.execute();
+                alert.dismiss();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(), "Please fill completely !", Toast.LENGTH_LONG).show();
+
+            }
+        }
+    });
+
     }
 
     public void sendOutsiderData(String name, String reason, String time, String whomToContact) {
@@ -439,6 +458,12 @@ public class security_request_search extends AppCompatActivity {
             return null;
         }
 
+    }
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }
 

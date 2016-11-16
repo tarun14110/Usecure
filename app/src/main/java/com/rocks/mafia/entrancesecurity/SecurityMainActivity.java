@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import java.util.List;
+import java.util.Locale;
 
 import static com.rocks.mafia.entrancesecurity.R.id.listView;
 import static java.security.AccessController.getContext;
@@ -60,7 +61,7 @@ public class SecurityMainActivity extends AppCompatActivity {
 
         //Request tab dummy data
         SecurityRequestHandler requestHandler= new SecurityRequestHandler(this);
-        Time t= new Time(3,4,5);
+        String  t= getDateTime();
         requestHandler.delete();
         SecurityRequestNode x=new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1);
         System.out.println("XXXXXXXXXX:"+x.getEntryTime().toString());
@@ -85,7 +86,7 @@ public class SecurityMainActivity extends AppCompatActivity {
         //dummy data for History TAB
 
         SecurityHistoryHandler historyHandler= new SecurityHistoryHandler(this);
-         t= new Time(3,4,5);
+         t= getDateTime();
         historyHandler.delete();
         historyHandler.addSecurityHistory(new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1));
 
@@ -299,6 +300,12 @@ public class SecurityMainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        java.util.Date date = new java.util.Date();
+        return dateFormat.format(date);
     }
 
 }

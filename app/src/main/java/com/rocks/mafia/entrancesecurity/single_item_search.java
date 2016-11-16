@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 //import com.twilio.Twilio;
 //import com.twilio.rest.api.v2010.account.Message;
@@ -26,9 +27,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
@@ -41,6 +45,11 @@ import cz.msebera.android.httpclient.extras.Base64;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
+
+
+
+// after item searched from the search activity this activity start
+//this activity handle direct request sending
 
 public class single_item_search extends AppCompatActivity  {
 
@@ -104,8 +113,7 @@ public class single_item_search extends AppCompatActivity  {
         });
 
     }
-    public void showInputDialog()
-    {
+    public void showInputDialog() {
 
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(this);
@@ -114,26 +122,23 @@ public class single_item_search extends AppCompatActivity  {
         final EditText name = (EditText) promptView.findViewById(R.id.editname);
         final EditText reason = (EditText) promptView.findViewById(R.id.editReason);
         final EditText time = (EditText) promptView.findViewById(R.id.editTime);
+        time.setText(getDateTime());
+        time.setEnabled(false);
+        int x=0;
         final EditText whomToContact = (EditText) promptView.findViewById(R.id.whomToContactText);
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        final  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(promptView);
-        // setup a dialog window
         alertDialogBuilder.setCancelable(false)
 
                 .setPositiveButton("OK", new DialogInterface.OnClickListener()
                 {
+                    @Override
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        String givenName=name.getText().toString();
-                        String givenReason=reason.getText().toString();
-                        String givenTime=time.getText().toString();
-                        String givenWhomToContact = whomToContact.getText().toString();
-                        Log.e("BHAI", givenWhomToContact);
-                       SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
-                        sendOutsiderdata.execute();
-                        dialog.cancel();
+
                     }
+
                 })
                 .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
@@ -142,10 +147,39 @@ public class single_item_search extends AppCompatActivity  {
                             }
                         });
 
+
         // create an alert dialog
-        AlertDialog alert = alertDialogBuilder.create();
+        final AlertDialog alert = alertDialogBuilder.create();
         alert.show();
+        alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Boolean wantToCloseDialog = false;
+                String givenName = name.getText().toString();
+                String givenReason = reason.getText().toString();
+                String givenTime = time.getText().toString();
+                String givenWhomToContact = whomToContact.getText().toString();
+
+                if((givenName.length()>0)&&(givenReason.length()>0)&&(givenTime.length()>0)&&(givenWhomToContact.length()>0))
+                {
+                    Log.e("BHAI", givenWhomToContact);
+                    SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
+                    sendOutsiderdata.execute();
+
+                    alert.dismiss();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Please fill completely !", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+
     }
+
     public void sendOutsiderData(String name, String reason, String time, String whomToContact) {
 
         HttpClient httpclient = new DefaultHttpClient();
@@ -295,6 +329,12 @@ public class single_item_search extends AppCompatActivity  {
         }
     }
 
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 
 }
 

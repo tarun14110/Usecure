@@ -65,10 +65,10 @@
         android:padding="2dp">
         <Button
             android:id="@+id/sendRequest"
-            android:layout_width="fill_parent"
+            android:layout_width="40dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:background="@color/white"
             android:drawableTop="@mipmap/ic_launcher"
             android:textColor="@color/TextColor"
