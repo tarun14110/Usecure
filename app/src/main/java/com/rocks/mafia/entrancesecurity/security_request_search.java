@@ -48,6 +48,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
@@ -312,6 +313,18 @@ public class security_request_search extends AppCompatActivity {
 
     }
 
+
+    private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
+
+    private static String getRandomString(final int sizeOfRandomString)
+    {
+        final Random random=new Random();
+        final StringBuilder sb=new StringBuilder(sizeOfRandomString);
+        for(int i=0;i<sizeOfRandomString;++i)
+            sb.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
+        return sb.toString();
+    }
+
     public void sendOutsiderData(String name, String reason, String time, String whomToContact) {
 
         HttpClient httpclient = new DefaultHttpClient();
@@ -365,7 +378,8 @@ public class security_request_search extends AppCompatActivity {
                     + "=" + URLEncoder.encode(reason, "UTF-8");
             data += "&" + URLEncoder.encode("time", "UTF-8") + "="
                     + URLEncoder.encode(time, "UTF-8");
-
+            data += "&" + URLEncoder.encode("requestId", "UTF-8") + "="
+                    + URLEncoder.encode(getRandomString(10), "UTF-8");
             Log.e("DATATATA", data);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -421,7 +435,6 @@ public class security_request_search extends AppCompatActivity {
             Log.e(TAG, "Succesfully Sent request to the server" + text);
 
         }
-
 
         Log.e(TAG, "sendRegistrationToServer: " + whomToContact + "  to contact " + session.getContact());
     }
