@@ -176,14 +176,17 @@ public class security_request_search extends AppCompatActivity {
             } else {
                 holder = (ViewHolder) view.getTag();
             }
+
             // Set the results into TextViews
             holder.name.setText(profile_nodelist.get(position).getName());
             holder.contact.setText(profile_nodelist.get(position).getContact());
             holder.address.setText(profile_nodelist.get(position)
                     .getAddress());
             // Set the results into ImageView
-             holder.img.setImageBitmap(getBitmapImage(profile_nodelist.get(position)
-                   .getImg()));
+
+            Log.e("JOOKK" + position, profile_nodelist.get(position).getImg().toString());
+            holder.img.setImageBitmap(getBitmapImage(profile_nodelist.get(position)
+                    .getImg()));
             // Listen for ListView Item Click
             Button sendRequest = (Button) view.findViewById(R.id.sendRequest);
             sendRequest.setOnClickListener(new View.OnClickListener() {
@@ -197,7 +200,7 @@ public class security_request_search extends AppCompatActivity {
                 @Override
                 public void onClick(View arg0) {
 
-                    Toast.makeText(arg0.getContext(), "person" + profile_nodelist.get(position).getName(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(arg0.getContext(), "person" + profile_nodelist.get(position).getImg(), Toast.LENGTH_LONG).show();
                     // Send single item click data to SingleItemView Class
                     Intent intent = new Intent(mContext, single_item_search.class);
                     // Pass all data rank
