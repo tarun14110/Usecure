@@ -3,6 +3,8 @@ package com.rocks.mafia.entrancesecurity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,7 +67,7 @@ public class single_item_search extends AppCompatActivity  {
     ImageView imageView;
     Button  sendRequest;
     String name,contact,address,email;
-    int img;
+    byte[] img;
 
     public single_item_search()
     {
@@ -86,7 +88,8 @@ public class single_item_search extends AppCompatActivity  {
         // Get the results of address
         address = i.getStringExtra("address");
         // Get the results of img
-        img = i.getIntExtra("img", img);
+        img = i.getByteArrayExtra("img");
+
 
         // Locate the TextViews in singleitemview.xml
         textName = (TextView) findViewById(R.id.name);
@@ -99,13 +102,12 @@ public class single_item_search extends AppCompatActivity  {
         // Load the results into the TextViews
         textName.setText(name);
         textContact.setText(contact);
-        //kmtextAddress.setText(address);
-        // Load the image into the ImageView
-       // imgflag.setImageResource(flag);
+
+
+        imageView.setImageBitmap(getBitmapImage(img));
 
         sendRequest=(Button)findViewById(R.id.sendRequest);
         sendRequest.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 showInputDialog();
@@ -113,6 +115,15 @@ public class single_item_search extends AppCompatActivity  {
         });
 
     }
+
+
+    // convert from byte array to bitmap
+    public Bitmap getBitmapImage(byte[] image) {
+        if(image == null)
+            return null;
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
+
     public void showInputDialog() {
 
         // get prompts.xml view

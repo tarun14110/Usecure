@@ -48,6 +48,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
@@ -175,14 +176,17 @@ public class security_request_search extends AppCompatActivity {
             } else {
                 holder = (ViewHolder) view.getTag();
             }
+
             // Set the results into TextViews
             holder.name.setText(profile_nodelist.get(position).getName());
             holder.contact.setText(profile_nodelist.get(position).getContact());
             holder.address.setText(profile_nodelist.get(position)
                     .getAddress());
             // Set the results into ImageView
-             holder.img.setImageBitmap(getBitmapImage(profile_nodelist.get(position)
-                   .getImg()));
+
+            Log.e("JOOKK" + position, profile_nodelist.get(position).getImg().toString());
+            holder.img.setImageBitmap(getBitmapImage(profile_nodelist.get(position)
+                    .getImg()));
             // Listen for ListView Item Click
             Button sendRequest = (Button) view.findViewById(R.id.sendRequest);
             sendRequest.setOnClickListener(new View.OnClickListener() {
@@ -196,7 +200,7 @@ public class security_request_search extends AppCompatActivity {
                 @Override
                 public void onClick(View arg0) {
 
-                    Toast.makeText(arg0.getContext(), "person" + profile_nodelist.get(position).getName(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(arg0.getContext(), "person" + profile_nodelist.get(position).getImg(), Toast.LENGTH_LONG).show();
                     // Send single item click data to SingleItemView Class
                     Intent intent = new Intent(mContext, single_item_search.class);
                     // Pass all data rank
@@ -312,6 +316,18 @@ public class security_request_search extends AppCompatActivity {
 
     }
 
+
+    private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
+
+    private static String getRandomString(final int sizeOfRandomString)
+    {
+        final Random random=new Random();
+        final StringBuilder sb=new StringBuilder(sizeOfRandomString);
+        for(int i=0;i<sizeOfRandomString;++i)
+            sb.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
+        return sb.toString();
+    }
+
     public void sendOutsiderData(String name, String reason, String time, String whomToContact) {
 
         HttpClient httpclient = new DefaultHttpClient();
@@ -365,7 +381,8 @@ public class security_request_search extends AppCompatActivity {
                     + "=" + URLEncoder.encode(reason, "UTF-8");
             data += "&" + URLEncoder.encode("time", "UTF-8") + "="
                     + URLEncoder.encode(time, "UTF-8");
-
+            data += "&" + URLEncoder.encode("requestId", "UTF-8") + "="
+                    + URLEncoder.encode(getRandomString(10), "UTF-8");
             Log.e("DATATATA", data);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -421,7 +438,6 @@ public class security_request_search extends AppCompatActivity {
             Log.e(TAG, "Succesfully Sent request to the server" + text);
 
         }
-
 
         Log.e(TAG, "sendRegistrationToServer: " + whomToContact + "  to contact " + session.getContact());
     }
