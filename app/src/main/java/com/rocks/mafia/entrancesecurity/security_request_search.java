@@ -443,13 +443,6 @@ public class security_request_search extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
         }
-//
-//        public boolean onTouchEvent(MotionEvent event) {
-//            InputMethodManager imm = (InputMethodManager)getSystemService(Context.
-//                    INPUT_METHOD_SERVICE);
-//            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-//            return true;
-//        }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -457,11 +450,12 @@ public class security_request_search extends AppCompatActivity {
             sendOutsiderData(name, reason, time, whomToContact);
             return null;
         }
-
     }
-    private String getDateTime() {
+
+    private String getDateTime()
+    {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                "HH:mm:ss dd-MM-yyyy ", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
     }

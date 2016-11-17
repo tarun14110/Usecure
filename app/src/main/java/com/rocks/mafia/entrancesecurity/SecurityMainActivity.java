@@ -303,7 +303,7 @@ public class SecurityMainActivity extends AppCompatActivity {
     }
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                "  HH:mm:ss dd-MM-yyyy ", Locale.getDefault());
         java.util.Date date = new java.util.Date();
         return dateFormat.format(date);
     }

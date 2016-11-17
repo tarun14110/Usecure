@@ -94,7 +94,7 @@ public class single_item_search extends AppCompatActivity  {
         textAddress = (TextView) findViewById(R.id.address);
 
         // Locate the ImageView in singleitemview.xml
-        imageView = (ImageView) findViewById(R.id.uploadImage);
+        imageView = (ImageView) findViewById(R.id.image);
 
         // Load the results into the TextViews
         textName.setText(name);
@@ -331,7 +331,7 @@ public class single_item_search extends AppCompatActivity  {
 
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                "  HH:mm:ss dd-MM-yyyy ", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
     }
