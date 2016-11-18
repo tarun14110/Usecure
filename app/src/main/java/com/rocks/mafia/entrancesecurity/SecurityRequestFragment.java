@@ -26,6 +26,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cz.msebera.android.httpclient.HttpEntity;
@@ -82,6 +83,7 @@ public class SecurityRequestFragment extends Fragment {
        ArrayList<SecurityRequestNode> arrayList=handler.getAllSecurityRequest();
         Log.e("REQUEST ","  : STEP 2");
         //  System.out.println("DATATATA : "+ arrayList.get(0).getOutsiderName());
+        Collections.reverse(arrayList);
         SecurityRequestRecyclerViewAdapter adapter = new SecurityRequestRecyclerViewAdapter(getActivity(), arrayList);
         Log.e("REQUEST ","  : STEP 3");
         recyclerView.setAdapter(adapter);// set adapter on recyclerview
