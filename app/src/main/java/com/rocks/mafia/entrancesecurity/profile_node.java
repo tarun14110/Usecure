@@ -21,7 +21,7 @@ public class profile_node
         return image;
     }
 
-    public  profile_node(String name, String contact, String email, String address, byte[] img)
+    public  profile_node(String name, String email, String contact, String address, byte[] img)
    {
        this.name=name;
        this.email=email;
@@ -30,15 +30,15 @@ public class profile_node
        this.image=img;
 
    }
-    public  profile_node(String name,String contact,String address,byte[] image)
+    public  profile_node(String name,String email,String address,byte[] image)
     {
         this.name=name;
         this.image=image;
-        this.contact=contact;
+        this.email=email;
         this.address=address;
 
     }
-    public  profile_node(String name, String contact, String email, String address,String rollNumber, byte[] image)
+    public  profile_node(String name, String email, String contact, String address,String rollNumber, byte[] image)
     {
         this.name=name;
         this.email=email;

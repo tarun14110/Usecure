@@ -1,6 +1,9 @@
 package com.rocks.mafia.entrancesecurity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,8 +12,11 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -48,6 +54,7 @@ import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
+import static com.twilio.client.impl.TwilioImpl.context;
 
 
 // after item searched from the search activity this activity start
@@ -85,25 +92,37 @@ public class single_item_search extends AppCompatActivity  {
         name = i.getStringExtra("name");
         // Get the results of contact
         contact = i.getStringExtra("contact");
+
+        //get email data
+        email=i.getStringExtra("email");
         // Get the results of address
         address = i.getStringExtra("address");
         // Get the results of img
         img = i.getByteArrayExtra("img");
 
 
+        Log.e("PROFILE DATA ", name +contact+address);
+
         // Locate the TextViews in singleitemview.xml
         textName = (TextView) findViewById(R.id.name);
         textContact = (TextView) findViewById(R.id.contact);
         textAddress = (TextView) findViewById(R.id.address);
+        textEmail=(TextView) findViewById(R.id.email);
 
         // Locate the ImageView in singleitemview.xml
         imageView = (ImageView) findViewById(R.id.image);
 
         // Load the results into the TextViews
+        if(name!=null)
         textName.setText(name);
+        if(contact !=null)
         textContact.setText(contact);
-
-
+        if(email!=null)
+        textEmail.setText(email);
+        if(address.length()>0)
+            textAddress.setText(address);
+        else
+            textAddress.setText("Address");
         imageView.setImageBitmap(getBitmapImage(img));
 
         sendRequest=(Button)findViewById(R.id.sendRequest);
@@ -135,9 +154,10 @@ public class single_item_search extends AppCompatActivity  {
         final EditText time = (EditText) promptView.findViewById(R.id.editTime);
         time.setText(getDateTime());
         time.setEnabled(false);
+
         int x=0;
         final EditText whomToContact = (EditText) promptView.findViewById(R.id.whomToContactText);
-
+                whomToContact.setText(contact);
         final  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(promptView);
         alertDialogBuilder.setCancelable(false)
@@ -152,7 +172,8 @@ public class single_item_search extends AppCompatActivity  {
 
                 })
                 .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
+                        new DialogInterface.OnClickListener()
+                        {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
@@ -178,7 +199,10 @@ public class single_item_search extends AppCompatActivity  {
                     Log.e("BHAI", givenWhomToContact);
                     SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
                     sendOutsiderdata.execute();
-
+                    SecurityRequestHandler requestHandler= new SecurityRequestHandler(getApplicationContext());
+                    requestHandler.addSecurityRequest(new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,1));
+                    System.out.println("LOOOOOOK " +requestHandler.getAllSecurityRequest().size());
+                    Toast.makeText(getApplicationContext(), "Sent!", Toast.LENGTH_LONG).show();
                     alert.dismiss();
                 }
                 else
@@ -186,6 +210,21 @@ public class single_item_search extends AppCompatActivity  {
                     Toast.makeText(getApplicationContext(), "Please fill completely !", Toast.LENGTH_LONG).show();
 
                 }
+            }
+        });
+
+        alert.setOnKeyListener(new Dialog.OnKeyListener() {
+
+            @Override
+            public boolean onKey(DialogInterface arg0, int keyCode,
+                                 KeyEvent event) {
+                // TODO Auto-generated method stub
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    finish();
+                    hideKeyboard(getParent());
+                    alert.dismiss();
+                }
+                return true;
             }
         });
 
@@ -342,9 +381,15 @@ public class single_item_search extends AppCompatActivity  {
 
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "  HH:mm:ss dd-MM-yyyy ", Locale.getDefault());
+                "  HH:mm:ss dd/MM/yyyy ", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
+    }
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
+            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
+        }
     }
 
 }

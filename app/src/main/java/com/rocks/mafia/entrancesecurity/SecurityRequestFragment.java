@@ -61,7 +61,8 @@ public class SecurityRequestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        Log.e("LISTEN","EDIT");
+        //Log.e("LISTEN","EDIT");
+        Log.e("Mode ","REQUEST");
         view = inflater.inflate(R.layout.security_request_layout, container, false);
        setRecyclerView();
         return view;
@@ -69,7 +70,7 @@ public class SecurityRequestFragment extends Fragment {
     }
 
              //Setting recycler view
-    private void setRecyclerView() {
+    public void setRecyclerView() {
 
         recyclerView = (RecyclerView) view
                 .findViewById(R.id.recyclerView);
@@ -80,7 +81,7 @@ public class SecurityRequestFragment extends Fragment {
         Log.e("REQUEST ","  : STEP 1");
        ArrayList<SecurityRequestNode> arrayList=handler.getAllSecurityRequest();
         Log.e("REQUEST ","  : STEP 2");
-        //  System.out.println("DATATATA : "+ arrayList.get(0).getEntryTime());
+        //  System.out.println("DATATATA : "+ arrayList.get(0).getOutsiderName());
         SecurityRequestRecyclerViewAdapter adapter = new SecurityRequestRecyclerViewAdapter(getActivity(), arrayList);
         Log.e("REQUEST ","  : STEP 3");
         recyclerView.setAdapter(adapter);// set adapter on recyclerview

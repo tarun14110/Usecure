@@ -14,6 +14,7 @@ public class SecurityPreRequestViewHolder extends RecyclerView.ViewHolder {
     public TextView d;
     public TextView by;
 
+
     public SecurityPreRequestViewHolder(View view) {
         super(view);
 
@@ -21,5 +22,6 @@ public class SecurityPreRequestViewHolder extends RecyclerView.ViewHolder {
         this.time = (TextView) view.findViewById(R.id.time);
         this.d = (TextView) view.findViewById(R.id.description);
         this.by = (TextView) view.findViewById(R.id.by);
+
     }
 }

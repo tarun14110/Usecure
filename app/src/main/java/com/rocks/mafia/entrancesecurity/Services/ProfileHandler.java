@@ -27,7 +27,7 @@ public class ProfileHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
 
     // Database Name
     private static final String DATABASE_NAME = "uSecure";
@@ -94,7 +94,8 @@ public class ProfileHandler extends SQLiteOpenHelper {
 
         Log.d(TAG, "New profile inserted into sqlite: " + name);
     }
-    public void addUser(String name, String email, String contact,String address) {
+    public void addUser(String name, String email, String contact,String address)
+    {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -109,6 +110,19 @@ public class ProfileHandler extends SQLiteOpenHelper {
         Log.d(TAG, "New profile inserted into sqlite: " + name);
     }
 
+    public  boolean checkUser( String contact)
+
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String Query = "Select * from " +  TABLE_PROFILE + " where " + KEY_CONTACT + " = " + contact;
+        Cursor cursor = db.rawQuery(Query, null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
 
     public int updateUser(String name, String email, String contact,String address,byte[] image) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -167,5 +181,3 @@ public class ProfileHandler extends SQLiteOpenHelper {
         Log.d(TAG, "Deleted all profiles info from sqlite");
     }
 }
-
-

@@ -1,6 +1,7 @@
 package com.rocks.mafia.entrancesecurity;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -69,7 +71,8 @@ activity for search in contacts to send Confirmation requests.
  */
 
 
-public class security_request_search extends AppCompatActivity {
+public class security_request_search extends AppCompatActivity
+{
 
     ListView listView;
     SearchView searchView;
@@ -81,7 +84,8 @@ public class security_request_search extends AppCompatActivity {
     public static final String AUTH_TOKEN = "ab215f3f60a90eb52c9d69c38c1f7697";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_security_request_search);
         searchView = (SearchView) this.findViewById(R.id.searchView);
@@ -161,37 +165,48 @@ public class security_request_search extends AppCompatActivity {
             return position;
         }
 
-        public View getView(final int position, View view, ViewGroup parent) {
+        public View getView(final int position, View view, ViewGroup parent)
+        {
             final ViewHolder holder;
-            if (view == null) {
+            if (view == null)
+            {
                 holder = new ViewHolder();
                 view = inflater.inflate(R.layout.profile_list_node, null);
                 // Locate the TextViews in listview_item.xml
                 holder.name = (TextView) view.findViewById(R.id.name);
                 holder.contact = (TextView) view.findViewById(R.id.contact);
+                holder.email = (TextView) view.findViewById(R.id.email);
                 holder.address = (TextView) view.findViewById(R.id.address);
+
                 // Locate the ImageView in listview_item.xml
                 holder.img = (ImageView) view.findViewById(R.id.image);
                 view.setTag(holder);
-            } else {
+            } else
+            {
                 holder = (ViewHolder) view.getTag();
             }
+
+
 
             // Set the results into TextViews
             holder.name.setText(profile_nodelist.get(position).getName());
             holder.contact.setText(profile_nodelist.get(position).getContact());
+            holder.email.setText(profile_nodelist.get(position).getEmail());
             holder.address.setText(profile_nodelist.get(position)
                     .getAddress());
             // Set the results into ImageView
 
-            Log.e("JOOKK" + position, profile_nodelist.get(position).getImg().toString());
+           // Log.e("JOOKK" + position, profile_nodelist.get(position).getImg().toString());
             holder.img.setImageBitmap(getBitmapImage(profile_nodelist.get(position)
                     .getImg()));
             // Listen for ListView Item Click
             Button sendRequest = (Button) view.findViewById(R.id.sendRequest);
             sendRequest.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View arg0) {
-                    showInputDialog();
+                public void onClick(View arg0)
+
+                {
+                    showInputDialog(profile_nodelist.get(position).getContact());
+
                 }
 
             });
@@ -200,19 +215,21 @@ public class security_request_search extends AppCompatActivity {
                 @Override
                 public void onClick(View arg0) {
 
-                    Toast.makeText(arg0.getContext(), "person" + profile_nodelist.get(position).getImg(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(arg0.getContext(), "person" + profile_nodelist.get(position).getContact(), Toast.LENGTH_LONG).show();
                     // Send single item click data to SingleItemView Class
                     Intent intent = new Intent(mContext, single_item_search.class);
-                    // Pass all data rank
+                    // Pass all data name
                     intent.putExtra("name",
                             (profile_nodelist.get(position).getName()));
-                    // Pass all data country
+                    // Pass all data contact
                     intent.putExtra("contact",
                             (profile_nodelist.get(position).getContact()));
-                    // Pass all data population
+                    intent.putExtra("email",
+                            (profile_nodelist.get(position).getEmail()));
+                    // Pass all data address
                     intent.putExtra("address",
                             (profile_nodelist.get(position).getAddress()));
-                    // Pass all data flag
+                    // Pass all data img
                     intent.putExtra("img",
                             (profile_nodelist.get(position).getImg()));
                     // Start SingleItemView Class
@@ -250,7 +267,8 @@ public class security_request_search extends AppCompatActivity {
 
     }
 
-    public void showInputDialog() {
+    public void showInputDialog(String contact)
+    {
 
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(this);
@@ -261,10 +279,11 @@ public class security_request_search extends AppCompatActivity {
         final EditText time = (EditText) promptView.findViewById(R.id.editTime);
         time.setText(getDateTime());
         time.setEnabled(false);
-         int x=0;
-        final EditText whomToContact = (EditText) promptView.findViewById(R.id.whomToContactText);
 
-       final  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        int x=0;
+        final EditText whomToContact = (EditText) promptView.findViewById(R.id.whomToContactText);
+        whomToContact.setText(contact);
+        final  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(promptView);
         alertDialogBuilder.setCancelable(false)
 
@@ -277,45 +296,64 @@ public class security_request_search extends AppCompatActivity {
                     }
 
                 })
-        .setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
 
 
         // create an alert dialog
-       final AlertDialog alert = alertDialogBuilder.create();
+        final AlertDialog alert = alertDialogBuilder.create();
         alert.show();
-    alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
-    {
-        @Override
-        public void onClick(View v)
+        alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
         {
-            Boolean wantToCloseDialog = false;
-            String givenName = name.getText().toString();
-            String givenReason = reason.getText().toString();
-            String givenTime = time.getText().toString();
-            String givenWhomToContact = whomToContact.getText().toString();
-
-            if((givenName.length()>0)&&(givenReason.length()>0)&&(givenTime.length()>0)&&(givenWhomToContact.length()>0))
+            @Override
+            public void onClick(View v)
             {
-                Log.e("BHAI", givenWhomToContact);
-                SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
-                sendOutsiderdata.execute();
-                alert.dismiss();
-            }
-            else
-            {
-                Toast.makeText(getApplicationContext(), "Please fill completely !", Toast.LENGTH_LONG).show();
+                Boolean wantToCloseDialog = false;
+                String givenName = name.getText().toString();
+                String givenReason = reason.getText().toString();
+                String givenTime = time.getText().toString();
+                String givenWhomToContact = whomToContact.getText().toString();
 
+                if((givenName.length()>0)&&(givenReason.length()>0)&&(givenTime.length()>0)&&(givenWhomToContact.length()>0))
+                {
+                    Log.e("BHAI", givenWhomToContact);
+                    SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
+                    sendOutsiderdata.execute();
+                    SecurityRequestHandler requestHandler= new SecurityRequestHandler(getApplicationContext());
+                    requestHandler.addSecurityRequest(new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,1));
+                    System.out.println("LOOOOOOK " +requestHandler.getAllSecurityRequest().size());
+                    Toast.makeText(getApplicationContext(), "Sent!", Toast.LENGTH_LONG).show();
+                    alert.dismiss();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Please fill completely !", Toast.LENGTH_LONG).show();
+
+                }
             }
-        }
-    });
+        });
+
+        alert.setOnKeyListener(new Dialog.OnKeyListener() {
+
+            @Override
+            public boolean onKey(DialogInterface arg0, int keyCode,
+                                 KeyEvent event) {
+                // TODO Auto-generated method stub
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    finish();
+                    hideKeyboard(getParent());
+                    alert.dismiss();
+                }
+                return true;
+            }
+        });
 
     }
-
 
     private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
 
@@ -471,9 +509,16 @@ public class security_request_search extends AppCompatActivity {
     private String getDateTime()
     {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "HH:mm:ss dd-MM-yyyy ", Locale.getDefault());
+                "HH:mm:ss dd/MM/yyyy ", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
     }
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
+            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
+        }
+    }
+
 }
 

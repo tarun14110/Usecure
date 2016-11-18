@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SecurityRequestRecyclerViewAdapter extends
         RecyclerView.Adapter<SecurityRequestViewHolder>
@@ -36,7 +38,7 @@ public class SecurityRequestRecyclerViewAdapter extends
                                  int position)
     {
 
-       System.out.println("ARRAY "+arrayList.get(position).getOutsiderName());
+
         final SecurityRequestViewHolder mainHolder = (SecurityRequestViewHolder) holder;
         //Setting text over textview
         mainHolder.title.setText(arrayList.get(position).getOutsiderName());
@@ -46,11 +48,14 @@ public class SecurityRequestRecyclerViewAdapter extends
         int s=arrayList.get(position).getStatus();
         System.out.println("STATUS"+s);
         if(s==1)
-            mainHolder.status.setBackgroundResource(R.drawable.cross);
-        else if(s==2)
-            mainHolder.status.setBackgroundResource(R.drawable.tick);
-        else
             mainHolder.status.setBackgroundResource(R.mipmap.ic_yello);
+
+        else if(s==2)
+            mainHolder.status.setBackgroundResource(R.drawable.cross);
+        else
+        mainHolder.status.setBackgroundResource(R.drawable.tick);
+
+
     }
 
     @Override

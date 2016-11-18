@@ -54,39 +54,42 @@ public class SecurityMainActivity extends AppCompatActivity {
     SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState)
-
     {
+
         super.onCreate(savedInstanceState);
+
+        Log.e("Mode ","main");
         setContentView(R.layout.security_activity_main);
+        String  t= getDateTime();
+//        SecurityRequestHandler requestHandler= new SecurityRequestHandler(this);
+//       requestHandler.delete();
 
         //Request tab dummy data
-        SecurityRequestHandler requestHandler= new SecurityRequestHandler(this);
-        String  t= getDateTime();
-        requestHandler.delete();
-        SecurityRequestNode x=new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1);
-        System.out.println("XXXXXXXXXX:"+x.getEntryTime().toString());
-        requestHandler.addSecurityRequest(new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1));
-        requestHandler.addSecurityRequest(new SecurityRequestNode("Ramesh Kumar ","meeting with Prof.Jalote at the auditorium C11","888888888", t,2));
-        requestHandler.addSecurityRequest(new SecurityRequestNode( "Sujeet singh","meeting with Prof.Jalote at the auditorium C11","888888888", t,3));
-        requestHandler.addSecurityRequest(new SecurityRequestNode( "rahul sharma","want to meet my friend tarun room no. c111","888888888", t,2));
-        requestHandler.addSecurityRequest(new SecurityRequestNode("jay singh","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,1));
-        requestHandler.addSecurityRequest(new SecurityRequestNode("sujeet kumar","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,1));
-        requestHandler.addSecurityRequest(new SecurityRequestNode("mukesh yadav","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,3));
-        requestHandler.addSecurityRequest(new SecurityRequestNode( "tarun","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,2));
-        requestHandler.addSecurityRequest(new SecurityRequestNode( "Ramesh Kumar ","want to meet my friend tarun room no. c111","888888888", t,1));
-        requestHandler.addSecurityRequest(new SecurityRequestNode("ujeet singh","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,1));
-        requestHandler.addSecurityRequest(new SecurityRequestNode("rahul sharma","want to meet my friend tarun room no. c111","888888888", t,1));
-        ArrayList<SecurityRequestNode>  temp= requestHandler.getAllSecurityRequest();
-        int i;
-        for(i=0;i<temp.size();i++)
-        {
-            Log.e("PROFILE: ",temp.get(i).getOutsiderName()+temp.get(i).getEntryTime());
-        }
-        Log.e("MAIN",temp.get(0).getOutsiderName());
+//
+//        SecurityRequestNode x=new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1);
+//        System.out.println("XXXXXXXXXX:"+x.getEntryTime().toString());
+//        requestHandler.addSecurityRequest(new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1));
+//        requestHandler.addSecurityRequest(new SecurityRequestNode("Ramesh Kumar ","meeting with Prof.Jalote at the auditorium C11","888888888", t,2));
+//        requestHandler.addSecurityRequest(new SecurityRequestNode( "Sujeet singh","meeting with Prof.Jalote at the auditorium C11","888888888", t,3));
+//        requestHandler.addSecurityRequest(new SecurityRequestNode( "rahul sharma","want to meet my friend tarun room no. c111","888888888", t,2));
+//        requestHandler.addSecurityRequest(new SecurityRequestNode("jay singh","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,1));
+//        requestHandler.addSecurityRequest(new SecurityRequestNode("sujeet kumar","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,1));
+//        requestHandler.addSecurityRequest(new SecurityRequestNode("mukesh yadav","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,3));
+//        requestHandler.addSecurityRequest(new SecurityRequestNode( "tarun","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,2));
+//        requestHandler.addSecurityRequest(new SecurityRequestNode( "Ramesh Kumar ","want to meet my friend tarun room no. c111","888888888", t,1));
+//        requestHandler.addSecurityRequest(new SecurityRequestNode("ujeet singh","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,1));
+//        requestHandler.addSecurityRequest(new SecurityRequestNode("rahul sharma","want to meet my friend tarun room no. c111","888888888", t,1));
+//        ArrayList<SecurityRequestNode>  temp= requestHandler.getAllSecurityRequest();
+//        int i;
+//        for(i=0;i<temp.size();i++)
+//        {
+//            Log.e("PROFILE: ",temp.get(i).getOutsiderName()+temp.get(i).getEntryTime());
+//        }
+//        Log.e("MAIN",temp.get(0).getOutsiderName());
         //dummy data for History TAB
 
         SecurityHistoryHandler historyHandler= new SecurityHistoryHandler(this);
-         t= getDateTime();
+        t= getDateTime();
         historyHandler.delete();
         historyHandler.addSecurityHistory(new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1));
 
@@ -94,7 +97,7 @@ public class SecurityMainActivity extends AppCompatActivity {
         sendRequest();
 
 
-         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("SmartSec");
         setSupportActionBar(toolbar);;
 
@@ -133,17 +136,17 @@ public class SecurityMainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
-      //  searchView = (SearchView)this.findViewById(R.id.searchView);
+        //  searchView = (SearchView)this.findViewById(R.id.searchView);
         FloatingActionButton fab=(FloatingActionButton)this.findViewById(R.id.fab);
-       fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view)
             {
-               Intent intent = new Intent(view.getContext(), security_request_search.class);
+                Intent intent = new Intent(view.getContext(), security_request_search.class);
                 startActivity(intent);
 
-               Toast.makeText(view.getContext(),"NEW ACITVITY", Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(),"NEW ACITVITY", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -174,9 +177,11 @@ public class SecurityMainActivity extends AppCompatActivity {
         ParseJSON pj = new ParseJSON(json);
         pj.parseJSON();
         ProfileHandler handler= new ProfileHandler(this);
-        handler.deleteUsers();
+        //handler.deleteUsers();
         // updated users table
-        for (int i = 0; i < ParseJSON.contacts.length; ++i) {
+        for (int i = 0; i < ParseJSON.contacts.length; ++i)
+        {
+            if(handler.checkUser(ParseJSON.contacts[i])==false)
             handler.addUser(ParseJSON.names[i],ParseJSON.emails[i],ParseJSON.contacts[i],ParseJSON.address[i]);
             if (!ParseJSON.profilePicUrls[i].isEmpty()){
                 getImage(ParseJSON.profilePicUrls[i], i);
@@ -303,7 +308,7 @@ public class SecurityMainActivity extends AppCompatActivity {
     }
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "  HH:mm:ss dd-MM-yyyy ", Locale.getDefault());
+                "  HH:mm:ss dd/MM/yyyy ", Locale.getDefault());
         java.util.Date date = new java.util.Date();
         return dateFormat.format(date);
     }

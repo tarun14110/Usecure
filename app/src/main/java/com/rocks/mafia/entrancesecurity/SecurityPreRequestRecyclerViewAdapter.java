@@ -56,7 +56,8 @@ public class SecurityPreRequestRecyclerViewAdapter extends
 
         ViewGroup mainGroup = (ViewGroup) mInflater.inflate(
                 R.layout.security_pre_request_item_row, viewGroup, false);
-        SecurityPreRequestViewHolder mainHolder = new SecurityPreRequestViewHolder(mainGroup) {
+        SecurityPreRequestViewHolder mainHolder = new SecurityPreRequestViewHolder(mainGroup)
+        {
             @Override
             public String toString() {
                 return super.toString();

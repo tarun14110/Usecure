@@ -70,7 +70,7 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
     public void addSecurityRequest(SecurityRequestNode node)
 
     {
-        System.out.println("XXXXXXXXXX:"+node.getEntryTime().toString());
+        System.out.println("XXXXXXXXXX:"+node.getOutsiderName());
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_OUTSIDERNAME, node.getOutsiderName());
