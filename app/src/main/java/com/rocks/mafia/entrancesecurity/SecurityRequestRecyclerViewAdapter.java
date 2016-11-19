@@ -7,14 +7,19 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
-public class SecurityRequestRecyclerViewAdapter extends
-        RecyclerView.Adapter<SecurityRequestViewHolder>
+import static com.rocks.mafia.entrancesecurity.R.id.parallax;
+import static com.rocks.mafia.entrancesecurity.R.id.recyclerView;
+
+public class SecurityRequestRecyclerViewAdapter extends RecyclerView.Adapter<SecurityRequestViewHolder>
 {
     private ArrayList<SecurityRequestNode> arrayList;
     private Context context;
@@ -47,6 +52,7 @@ public class SecurityRequestRecyclerViewAdapter extends
         mainHolder.by.setText(arrayList.get(position).getInsiderContact());
         int s=arrayList.get(position).getStatus();
         System.out.println("STATUS"+s);
+        final int pos=position;
         if(s==1)
             mainHolder.status.setBackgroundResource(R.mipmap.ic_yello);
 
@@ -54,7 +60,6 @@ public class SecurityRequestRecyclerViewAdapter extends
             mainHolder.status.setBackgroundResource(R.drawable.cross);
         else
         mainHolder.status.setBackgroundResource(R.drawable.tick);
-
 
     }
 
@@ -74,6 +79,12 @@ public class SecurityRequestRecyclerViewAdapter extends
 
         return mainHolder;
 
+    }
+
+    public void  add(int pos, SecurityRequestNode node)
+    {
+        arrayList.add(pos,node);
+        //Collections.reverse(arrayList);
     }
 
 

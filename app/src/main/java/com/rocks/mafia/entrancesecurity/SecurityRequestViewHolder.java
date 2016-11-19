@@ -16,11 +16,12 @@ public class SecurityRequestViewHolder extends RecyclerView.ViewHolder {
     public TextView d;
     public  TextView by;
     public ImageView status;
+    public View v;
 
     public SecurityRequestViewHolder(View view)
     {
         super(view);
-
+        this.v=view;
         this.title = (TextView) view.findViewById(R.id.cardTitle);
         this.time=(TextView) view.findViewById(R.id.time);
         this.d=(TextView) view.findViewById(R.id.description);

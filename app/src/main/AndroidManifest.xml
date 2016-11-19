@@ -63,7 +63,10 @@
         <activity
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2" />
-        <activity android:name=".security_request_search" />
+        <activity
+            android:name=".security_request_search"
+
+            />
         <activity android:name=".single_item_search"></activity>
     </application>
 

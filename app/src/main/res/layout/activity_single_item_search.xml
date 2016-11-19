@@ -20,7 +20,6 @@
         android:layout_marginBottom="10dp"
 
         >
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,37 +27,27 @@
             android:background="@drawable/round_corner"
             android:clickable="true"
             android:padding="@dimen/activity_horizontal_margin">
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="350dp"
-                android:layout_height="350dp"
-                android:adjustViewBounds="true"
-                app:layout_collapseMode="parallax"
-                android:src="@drawable/pro"
-                app:layout_collapseParallaxMultiplier="0.7" />
-
             <TextView
 
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:editable="true"
                 android:text="Ramesh Kumar"
                 android:textSize="30sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#ffffff" />
 
-            <TextView
-                android:id="@+id/user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/name"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="8dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="#ffffff" />
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:adjustViewBounds="true"
+                android:layout_below="@+id/name"
+                app:layout_collapseMode="parallax"
+                android:src="@drawable/pro"
+                app:layout_collapseParallaxMultiplier="0.7" />
+
 
         </RelativeLayout>
         <RelativeLayout

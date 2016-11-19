@@ -9,10 +9,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -40,13 +44,14 @@ import cz.msebera.android.httpclient.extras.Base64;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
-public class SecurityRequestFragment extends Fragment {
+public class SecurityRequestFragment extends Fragment
+{
     private View view;
     private static final String TAG = SecurityMainActivity.class.getSimpleName();
     private String title;//String for tab title
     public static final String ACCOUNT_SID = "AC5590c4ed74e1ba927995055348e6e3ca";
     public static final String AUTH_TOKEN = "ab215f3f60a90eb52c9d69c38c1f7697";
-
+    public static SecurityRequestRecyclerViewAdapter adapter ;
     private static RecyclerView recyclerView;
 
     public SecurityRequestFragment()
@@ -71,7 +76,8 @@ public class SecurityRequestFragment extends Fragment {
     }
 
              //Setting recycler view
-    public void setRecyclerView() {
+    public void setRecyclerView()
+    {
 
         recyclerView = (RecyclerView) view
                 .findViewById(R.id.recyclerView);
@@ -84,9 +90,10 @@ public class SecurityRequestFragment extends Fragment {
         Log.e("REQUEST ","  : STEP 2");
         //  System.out.println("DATATATA : "+ arrayList.get(0).getOutsiderName());
         Collections.reverse(arrayList);
-        SecurityRequestRecyclerViewAdapter adapter = new SecurityRequestRecyclerViewAdapter(getActivity(), arrayList);
+        adapter = new SecurityRequestRecyclerViewAdapter(getActivity(), arrayList);
         Log.e("REQUEST ","  : STEP 3");
         recyclerView.setAdapter(adapter);// set adapter on recyclerview
+      //  recyclerView.addOnItemTouchListener(this);
 
     }
 

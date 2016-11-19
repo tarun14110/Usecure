@@ -200,9 +200,15 @@ public class single_item_search extends AppCompatActivity  {
                     SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
                     sendOutsiderdata.execute();
                     SecurityRequestHandler requestHandler= new SecurityRequestHandler(getApplicationContext());
-                    requestHandler.addSecurityRequest(new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,1));
-                    System.out.println("LOOOOOOK " +requestHandler.getAllSecurityRequest().size());
+                    SecurityRequestNode node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,1);
+                    requestHandler.addSecurityRequest(node);
+                    SecurityRequestFragment.adapter.add(0,node);
+                    SecurityRequestFragment.adapter.notifyDataSetChanged();
+                    System.out.println("LOOOK " +requestHandler.getAllSecurityRequest().size());
                     Toast.makeText(getApplicationContext(), "Sent!", Toast.LENGTH_LONG).show();
+
+                    startActivity(new Intent(getBaseContext(),SecurityMainActivity.class));
+
                     alert.dismiss();
                 }
                 else

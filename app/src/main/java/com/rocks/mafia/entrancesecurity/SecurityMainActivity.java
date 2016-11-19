@@ -61,39 +61,10 @@ public class SecurityMainActivity extends AppCompatActivity {
         Log.e("Mode ","main");
         setContentView(R.layout.security_activity_main);
         String  t= getDateTime();
-//        SecurityRequestHandler requestHandler= new SecurityRequestHandler(this);
-//       requestHandler.delete();
-
-        //Request tab dummy data
-//
-//        SecurityRequestNode x=new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1);
-//        System.out.println("XXXXXXXXXX:"+x.getEntryTime().toString());
-//        requestHandler.addSecurityRequest(new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1));
-//        requestHandler.addSecurityRequest(new SecurityRequestNode("Ramesh Kumar ","meeting with Prof.Jalote at the auditorium C11","888888888", t,2));
-//        requestHandler.addSecurityRequest(new SecurityRequestNode( "Sujeet singh","meeting with Prof.Jalote at the auditorium C11","888888888", t,3));
-//        requestHandler.addSecurityRequest(new SecurityRequestNode( "rahul sharma","want to meet my friend tarun room no. c111","888888888", t,2));
-//        requestHandler.addSecurityRequest(new SecurityRequestNode("jay singh","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,1));
-//        requestHandler.addSecurityRequest(new SecurityRequestNode("sujeet kumar","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,1));
-//        requestHandler.addSecurityRequest(new SecurityRequestNode("mukesh yadav","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,3));
-//        requestHandler.addSecurityRequest(new SecurityRequestNode( "tarun","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,2));
-//        requestHandler.addSecurityRequest(new SecurityRequestNode( "Ramesh Kumar ","want to meet my friend tarun room no. c111","888888888", t,1));
-//        requestHandler.addSecurityRequest(new SecurityRequestNode("ujeet singh","want to meet my son Mukesh Kumar Yadav (Student of IIITD)","888888888", t,1));
-//        requestHandler.addSecurityRequest(new SecurityRequestNode("rahul sharma","want to meet my friend tarun room no. c111","888888888", t,1));
-//        ArrayList<SecurityRequestNode>  temp= requestHandler.getAllSecurityRequest();
-//        int i;
-//        for(i=0;i<temp.size();i++)
-//        {
-//            Log.e("PROFILE: ",temp.get(i).getOutsiderName()+temp.get(i).getEntryTime());
-//        }
-//        Log.e("MAIN",temp.get(0).getOutsiderName());
-        //dummy data for History TAB
-
         SecurityHistoryHandler historyHandler= new SecurityHistoryHandler(this);
         t= getDateTime();
         historyHandler.delete();
         historyHandler.addSecurityHistory(new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1));
-
-//
         sendRequest();
 
 
@@ -177,15 +148,18 @@ public class SecurityMainActivity extends AppCompatActivity {
         ParseJSON pj = new ParseJSON(json);
         pj.parseJSON();
         ProfileHandler handler= new ProfileHandler(this);
-        //handler.deleteUsers();
+        handler.deleteUsers();
         // updated users table
         for (int i = 0; i < ParseJSON.contacts.length; ++i)
         {
-            if(handler.checkUser(ParseJSON.contacts[i])==false)
+            //if(handler.checkUser(ParseJSON.contacts[i])==false)
             handler.addUser(ParseJSON.names[i],ParseJSON.emails[i],ParseJSON.contacts[i],ParseJSON.address[i]);
-            if (!ParseJSON.profilePicUrls[i].isEmpty()){
+            if (!ParseJSON.profilePicUrls[i].isEmpty())
+            {
+                Log.e("coll2",Integer.toString(i));
                 getImage(ParseJSON.profilePicUrls[i], i);
             }
+            Log.e("col3",Integer.toString(i));
 
         }
 
@@ -195,11 +169,13 @@ public class SecurityMainActivity extends AppCompatActivity {
         String url = "http://usecure.site88.net/userProfilePics/";
         url = url + path;
         byte[] image;
-
+     Log.e("coll",path);
         ImageRequest request = new ImageRequest(url,
-                new Response.Listener<Bitmap>() {
+                new Response.Listener<Bitmap>()
+                {
                     @Override
-                    public void onResponse(Bitmap bitmap) {
+                    public void onResponse(Bitmap bitmap)
+                    {
                         Log.e("HEEEEEEEEEYYYYYYYYYYYYY", bitmap.toString());
                         updateImageInDatabase(bitmap, i);
                     }
