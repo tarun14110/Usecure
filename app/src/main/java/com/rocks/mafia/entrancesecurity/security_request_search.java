@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
@@ -37,7 +39,10 @@ import android.widget.Toast;
 import com.rocks.mafia.entrancesecurity.Services.ProfileHandler;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -64,6 +69,7 @@ import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
+import static android.R.attr.data;
 import static android.R.id.list;
 import static com.rocks.mafia.entrancesecurity.R.id.sendRequest;
 /*
@@ -82,6 +88,10 @@ public class security_request_search extends AppCompatActivity
     private static final String TAG = SecurityMainActivity.class.getSimpleName();
     public static final String ACCOUNT_SID = "AC5590c4ed74e1ba927995055348e6e3ca";
     public static final String AUTH_TOKEN = "ab215f3f60a90eb52c9d69c38c1f7697";
+    private int DetailsStatus=0;
+    private static final int CAMERA_REQUEST = 1888;
+
+    private   byte[] img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -249,16 +259,28 @@ public class security_request_search extends AppCompatActivity
 
         // Filter Class
         // Filter Class
-        public void filter(String charText) {
+        public void filter(String charText)
+        {
             charText = charText.toLowerCase(Locale.getDefault());
             profile_nodelist.clear();
-            if (charText.length() == 0) {
+            if (charText.length() == 0)
+            {
                 profile_nodelist.addAll(arraylist);
-            } else {
-                for (profile_node wp : arraylist) {
-                    if (wp.getName().toLowerCase(Locale.getDefault())
-                            .contains(charText)) {
+            } else
+            {
+                for (profile_node wp : arraylist)
+                {
+                    if ((wp.getName().toLowerCase(Locale.getDefault()).contains(charText))|| (wp.getContact().toLowerCase(Locale.getDefault()).contains(charText)))
+                    {
+
                         profile_nodelist.add(wp);
+                    }
+                    else if(wp.getAddress()!=null)
+                    {
+                        if (wp.getAddress().toLowerCase(Locale.getDefault())
+                                .contains(charText)) {
+                            profile_nodelist.add(wp);
+                        }
                     }
                 }
             }
@@ -277,6 +299,7 @@ public class security_request_search extends AppCompatActivity
         final EditText name = (EditText) promptView.findViewById(R.id.editname);
         final EditText reason = (EditText) promptView.findViewById(R.id.editReason);
         final EditText time = (EditText) promptView.findViewById(R.id.editTime);
+        final Button takeImage =(Button) promptView.findViewById(R.id.takeImage);
         time.setText(getDateTime());
         time.setEnabled(false);
 
@@ -322,10 +345,20 @@ public class security_request_search extends AppCompatActivity
                 if((givenName.length()>0)&&(givenReason.length()>0)&&(givenTime.length()>0)&&(givenWhomToContact.length()>0))
                 {
                     Log.e("BHAI", givenWhomToContact);
+                    //checking image is click or not
                     SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
                     sendOutsiderdata.execute();
+
+                    SecurityRequestNode node;
                     SecurityRequestHandler requestHandler= new SecurityRequestHandler(getApplicationContext());
-                  SecurityRequestNode node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,1);
+
+                    //if image clicked ? then save the image otherwise use default constructor of node
+                  if(img!=null)
+                     node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,img,1);
+                    else
+                     node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,1);
+
+
                     requestHandler.addSecurityRequest(node);
                     SecurityRequestFragment.adapter.add(0,node);
                     SecurityRequestFragment.adapter.notifyDataSetChanged();
@@ -344,7 +377,14 @@ public class security_request_search extends AppCompatActivity
                 }
             }
         });
-
+        takeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+            }
+        });
         alert.setOnKeyListener(new Dialog.OnKeyListener() {
 
             @Override
@@ -525,6 +565,40 @@ public class security_request_search extends AppCompatActivity
             InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
         }
+    }
+
+    //take image click result taking image and saving to img variable
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            Bitmap bmp = (Bitmap) data.getExtras().get("data");
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            bmp=getResizedBitmap(bmp,100);
+            img = stream.toByteArray();
+
+            Toast.makeText(getApplicationContext(), "Image DAta !"+img, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Saving Image!", Toast.LENGTH_LONG).show();
+            DetailsStatus = 1;
+        }
+    }
+
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize)
+    {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float)width / (float) height;
+        if (bitmapRatio > 0) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
 }

@@ -2,6 +2,7 @@ package com.rocks.mafia.entrancesecurity;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -22,6 +23,5 @@ public class SecurityPreRequestViewHolder extends RecyclerView.ViewHolder {
         this.time = (TextView) view.findViewById(R.id.time);
         this.d = (TextView) view.findViewById(R.id.description);
         this.by = (TextView) view.findViewById(R.id.by);
-
     }
 }

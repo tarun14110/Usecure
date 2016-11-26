@@ -21,25 +21,42 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-            <LinearLayout
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/heading_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:padding="5dp"
-                android:orientation="vertical">
+                android:layout_width="fill_parent"
+                android:layout_marginBottom="15dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/takenImage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/p4" />
 
                 <TextView
                     android:id="@+id/cardTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/takenImage"
+                    android:layout_alignBottom="@+id/takenImage"
                     android:text="TITLE"
-                    android:textStyle="bold"
-                    android:padding="10dp"
-                    android:textSize="25dp"
+                    android:shadowColor="#000"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="20"
+                    android:textSize="40sp"
                     android:textColor="#ffffff"
-                    android:layout_alignParentStart="true" />
-            </LinearLayout>
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
             <TextView
                 android:id="@+id/time"
                 android:layout_width="match_parent"
@@ -77,6 +94,7 @@
                 android:layout_width="50dp"
                 android:layout_below="@+id/heading_layout"
                 android:layout_alignParentEnd="true"
+                android:layout_marginBottom="10dp"
                 android:layout_marginEnd="13dp" />
 
             <TextView
@@ -85,6 +103,7 @@
                 android:layout_height="wrap_content"
                 android:text="bysomeone"
                 android:gravity="right"
+                android:layout_marginTop="10dp"
                 android:textStyle="italic"
                 android:padding="10dp"
                 android:textSize="15dp"

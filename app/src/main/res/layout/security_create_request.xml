@@ -117,6 +117,14 @@
             android:layout_alignBottom="@+id/whomToContact"
             android:layout_alignStart="@+id/whomToContact" />
 
+        <Button
+            android:text="Take Image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/phone"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/takeImage" />
+
     </RelativeLayout>
 
 

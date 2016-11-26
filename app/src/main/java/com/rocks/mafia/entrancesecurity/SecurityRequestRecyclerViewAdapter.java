@@ -4,6 +4,8 @@ package com.rocks.mafia.entrancesecurity;
  * Created by mafia on 21/10/16.
  */
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,25 +44,28 @@ public class SecurityRequestRecyclerViewAdapter extends RecyclerView.Adapter<Sec
     public void onBindViewHolder(SecurityRequestViewHolder holder,
                                  int position)
     {
-
-
         final SecurityRequestViewHolder mainHolder = (SecurityRequestViewHolder) holder;
         //Setting text over textview
-        mainHolder.title.setText(arrayList.get(position).getOutsiderName());
-        mainHolder.time.setText(arrayList.get(position).getEntryTime().toString());
-        mainHolder.d.setText(arrayList.get(position).getReason());
-        mainHolder.by.setText(arrayList.get(position).getInsiderContact());
-        int s=arrayList.get(position).getStatus();
-        System.out.println("STATUS"+s);
-        final int pos=position;
-        if(s==1)
-            mainHolder.status.setBackgroundResource(R.mipmap.ic_yello);
+        if(arrayList!=null) {
+            mainHolder.title.setText(arrayList.get(position).getOutsiderName());
+            mainHolder.time.setText(arrayList.get(position).getEntryTime().toString());
+            mainHolder.d.setText(arrayList.get(position).getReason());
+            mainHolder.by.setText(arrayList.get(position).getInsiderContact());
+            if (arrayList.get(position).getImage() != null)
+                mainHolder.takenImage.setImageBitmap(getBitmapImage(arrayList.get(position).getImage()));
 
-        else if(s==2)
-            mainHolder.status.setBackgroundResource(R.drawable.cross);
-        else
-        mainHolder.status.setBackgroundResource(R.drawable.tick);
 
+            int s = arrayList.get(position).getStatus();
+            System.out.println("STATUS" + s);
+            final int pos = position;
+            if (s == 1)
+                mainHolder.status.setBackgroundResource(R.mipmap.ic_yello);
+
+            else if (s == 2)
+                mainHolder.status.setBackgroundResource(R.drawable.cross);
+            else
+                mainHolder.status.setBackgroundResource(R.drawable.tick);
+        }
     }
 
     @Override
@@ -85,6 +90,12 @@ public class SecurityRequestRecyclerViewAdapter extends RecyclerView.Adapter<Sec
     {
         arrayList.add(pos,node);
         //Collections.reverse(arrayList);
+    }
+    // convert from byte array to bitmap
+    public Bitmap getBitmapImage(byte[] image) {
+        if(image == null)
+            return null;
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 
 

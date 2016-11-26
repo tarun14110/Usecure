@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class SecurityRequestHandler extends SQLiteOpenHelper
 {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "SecurityRequest";
     private static final String TABLE_REQUEST = "SecurityRequestTable";
     private static final String KEY_ID = "_id";
@@ -28,6 +28,7 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
     private static final String KEY_REASON= "Reason";
     private static final String KEY_INSIDERCONTACT= "InsiderContact";
     private static final String KEY_STATUS= "Status";
+    private static  final String KEY_IMAGE="image";
 
 
 
@@ -47,6 +48,7 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
                 +KEY_REASON+" TEXT ,"
                 +KEY_INSIDERCONTACT+" TEXT ,"
                 + KEY_TIME+ " TEXT ,"
+                + KEY_IMAGE + " BLOB ,"
                 +KEY_STATUS+" INTEGER"
                 +")";
 
@@ -77,6 +79,7 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
         values.put(KEY_REASON, node.getReason());
         values.put(KEY_INSIDERCONTACT, node.getInsiderContact());
         values.put(KEY_TIME, node.getEntryTime());
+        values.put(KEY_IMAGE,node.getImage());
         values.put(KEY_STATUS,String.valueOf(node.getStatus()));
         db.insert(TABLE_REQUEST, null, values);
         db.close();
@@ -92,7 +95,7 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
         if (cursor.moveToFirst())
         {
             do {
-                SecurityRequestNode node = new  SecurityRequestNode (cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),Integer.parseInt(cursor.getString(5)));
+                SecurityRequestNode node = new  SecurityRequestNode (cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getBlob(5),Integer.parseInt(cursor.getString(6)));
                 RequestList.add(node);
             } while (cursor.moveToNext());
         }

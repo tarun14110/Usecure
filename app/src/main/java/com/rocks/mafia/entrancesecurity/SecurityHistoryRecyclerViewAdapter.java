@@ -37,18 +37,18 @@ public class SecurityHistoryRecyclerViewAdapter extends
 
         final SecurityHistoryViewHolder mainHolder = (SecurityHistoryViewHolder) holder;
         //Setting text over textview
-        if((arrayList !=null)&&(mainHolder!=null)&&(arrayList.get(position)!=null)&&( mainHolder.title!=null))
-       {
-           mainHolder.title.setText(arrayList.get(position).getOutsiderName());
-           mainHolder.time.setText(arrayList.get(position).getEntryTime().toString());
-           mainHolder.d.setText(arrayList.get(position).getReason());
-           mainHolder.by.setText(arrayList.get(position).getInsiderContact());
-           int s = arrayList.get(position).getStatus();
-           System.out.println("STATUS" + s);
-           if (s == 1)
-               mainHolder.status.setBackgroundResource(R.drawable.cross);
-           else
-               mainHolder.status.setBackgroundResource(R.drawable.tick);
+        if(arrayList!=null) {
+            if ((arrayList != null) && (mainHolder != null) && (arrayList.get(position) != null) && (mainHolder.title != null)) {
+                mainHolder.title.setText(arrayList.get(position).getOutsiderName());
+                mainHolder.time.setText(arrayList.get(position).getEntryTime().toString());
+                mainHolder.d.setText(arrayList.get(position).getReason());
+                mainHolder.by.setText(arrayList.get(position).getInsiderContact());
+                int s = arrayList.get(position).getStatus();
+                System.out.println("STATUS" + s);
+                if (s == 1)
+                    mainHolder.status.setBackgroundResource(R.drawable.cross);
+                else
+                    mainHolder.status.setBackgroundResource(R.drawable.tick);
 
 //        if(s==2)
 //            mainHolder.status.setBackgroundColor(16711936);
@@ -56,7 +56,8 @@ public class SecurityHistoryRecyclerViewAdapter extends
 //            mainHolder.status.setBackgroundColor(65536);
 //        else
 //            mainHolder.status.setBackgroundColor(256);
-       }
+            }
+        }
     }
 
     @Override
