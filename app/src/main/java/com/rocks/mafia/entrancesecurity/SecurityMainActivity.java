@@ -4,7 +4,10 @@ package com.rocks.mafia.entrancesecurity;
  * Created by root on 21/10/16.
  */
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.icu.text.SymbolTable;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -56,6 +60,8 @@ public class SecurityMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
 
+
+
         super.onCreate(savedInstanceState);
 
         Log.e("Mode ","main");
@@ -64,8 +70,18 @@ public class SecurityMainActivity extends AppCompatActivity {
         SecurityHistoryHandler historyHandler= new SecurityHistoryHandler(this);
         t= getDateTime();
         historyHandler.delete();
-        historyHandler.addSecurityHistory(new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1));
+        historyHandler.addSecurityHistory(new SecurityRequestNode("pankaj","i want to meet rahul ","888888888","", t,1));
         sendRequest();
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String message = getIntent().getStringExtra("message");
+            Log.e("MESSAGE", message);
+        }
+
+
+
+
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -125,6 +141,7 @@ public class SecurityMainActivity extends AppCompatActivity {
         });
 
     }
+
 
 
     private void sendRequest(){

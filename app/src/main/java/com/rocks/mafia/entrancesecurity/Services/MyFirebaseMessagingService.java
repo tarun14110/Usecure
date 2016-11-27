@@ -18,6 +18,8 @@ import com.rocks.mafia.entrancesecurity.NotificationUtils;
 import com.rocks.mafia.entrancesecurity.R;
 import com.rocks.mafia.entrancesecurity.RequestHandler;
 import com.rocks.mafia.entrancesecurity.RequestNode;
+import com.rocks.mafia.entrancesecurity.SecurityMainActivity;
+import com.rocks.mafia.entrancesecurity.SecurityRequestHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -118,11 +120,27 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
             Log.e(TAG, "imageUrl: " + imageUrl);
             Log.e(TAG, "timestamp: " + timestamp);
 
+            Log.e("ROCKS", payload.getString("status"));
+            Log.e("ROCKS", payload.getString("requestId"));
+
+            int request = 1;
+
+            if (payload.getString("status").equals("accept")) {
+                request = 3;
+            } else if (payload.getString("status").equals("reject")) {
+                request = 2;
+            }
+
+            SecurityRequestHandler securityRequestHandler = new SecurityRequestHandler(this);
+            securityRequestHandler.updateStatusUsingRequestId( payload.getString("requestId"), request);
+
 
             if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
                 // app is in foreground, broadcast the push message
+                Log.e("GROUND", "BACK");
                 Intent pushNotification = new Intent(AppConfig.PUSH_NOTIFICATION);
-                pushNotification.putExtra("message", message);
+                pushNotification.putExtra("requestId", payload.getString("requestId"));
+                pushNotification.putExtra("status", payload.getString("status"));
                 LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
 
                 // play notification sound
@@ -130,7 +148,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
                 notificationUtils.playNotificationSound();
             } else {
                 // app is in background, show the notification in notification tray
-                Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+                Log.e("GROUND", "FOR");
+                Intent resultIntent = new Intent(getApplicationContext(), SecurityMainActivity.class);
                 resultIntent.putExtra("message", message);
 
                 // check for image attachment

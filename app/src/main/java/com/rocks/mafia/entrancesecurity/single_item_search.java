@@ -213,9 +213,9 @@ public class single_item_search extends AppCompatActivity  {
 
                     //if image clicked ? then save the image otherwise use default constructor of node
                     if(CameraImg!=null)
-                        node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,CameraImg,1);
+                        node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,"", CameraImg,1);
                     else
-                        node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,1);
+                        node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,"", 1);
 
 
                     requestHandler.addSecurityRequest(node);

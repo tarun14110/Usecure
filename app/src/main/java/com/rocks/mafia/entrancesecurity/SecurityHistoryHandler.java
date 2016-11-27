@@ -107,7 +107,7 @@ public class SecurityHistoryHandler extends SQLiteOpenHelper
         {
             do {
 
-                SecurityRequestNode node = new  SecurityRequestNode (cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),Integer.parseInt(cursor.getString(5)));
+                SecurityRequestNode node = new  SecurityRequestNode (cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4), "",Integer.parseInt(cursor.getString(5)));
                 HistoryList.add(node);
             } while (cursor.moveToNext());
         }
