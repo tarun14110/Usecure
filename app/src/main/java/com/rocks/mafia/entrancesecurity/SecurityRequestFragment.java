@@ -88,27 +88,26 @@ public class SecurityRequestFragment extends Fragment
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.e("LOLU", "POPU");
-            // Get extra data included in the Intent
-            String requestId = intent.getStringExtra("requestId");
-            String statusStr = intent.getStringExtra("status");
-            int status = 1;
-            if (statusStr.equals("accept")) {
-                status = 3;
-            } else if (statusStr.equals("reject")) {
-                status = 2;
-            }
-            SecurityRequestHandler securityRequestHandler = new SecurityRequestHandler(getActivity());
-            securityRequestHandler.updateStatusUsingRequestId(requestId, status);
 
-            for (int i = 0; i < arrayList.size(); ++i) {
-                Log.e("LOLUREQUEST ID"+requestId +statusStr, arrayList.get(i).getRequestId());
-                if (arrayList.get(i).getRequestId().equals(requestId)) {
-                    Log.e("LOLU", arrayList.get(i).getInsiderContact());
-                    arrayList.get(i).setStatus(status);
+            if (intent.getStringExtra("type").equals("request-response")) {
+                // Get extra data included in the Intent
+                String requestId = intent.getStringExtra("requestId");
+                String statusStr = intent.getStringExtra("status");
+                int status = 1;
+                if (statusStr.equals("accept")) {
+                    status = 3;
+                } else if (statusStr.equals("reject")) {
+                    status = 2;
                 }
+                for (int i = 0; i < arrayList.size(); ++i) {
+                    Log.e("LOLUREQUEST ID" + requestId + statusStr, arrayList.get(i).getRequestId());
+                    if (arrayList.get(i).getRequestId().equals(requestId)) {
+                        Log.e("LOLU", arrayList.get(i).getInsiderContact());
+                        arrayList.get(i).setStatus(status);
+                    }
+                }
+                adapter.notifyDataSetChanged();
             }
-            adapter.notifyDataSetChanged();
-
           //  Log.e("receiver", "Got message: " + message);
 
         }

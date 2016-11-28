@@ -74,17 +74,6 @@ public class SecurityMainActivity extends AppCompatActivity {
         fetchData.execute();
         // sendRequest();
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String message = getIntent().getStringExtra("message");
-            Log.e("MESSAGE", message);
-        }
-
-
-
-
-
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("SmartSec");
         setSupportActionBar(toolbar);;
@@ -202,11 +191,12 @@ public class SecurityMainActivity extends AppCompatActivity {
                 handler.addUser(ParseJSON.names[i], ParseJSON.emails[i], ParseJSON.contacts[i], ParseJSON.address[i]);
                 if (!ParseJSON.profilePicUrls[i].isEmpty()) {
                     Log.e("coll2", Integer.toString(i));
+                    getImage(ParseJSON.contacts[i] + ".jpg", i);
                 }
                 Log.e("col3", Integer.toString(i));
             }
             Log.e("MMMOLO", "LOLO");
-            getImage(ParseJSON.contacts[i] + ".jpg", i);
+
             Log.e("SSSSOLO", "LOLO");
 
         }

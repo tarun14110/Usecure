@@ -19,6 +19,8 @@ import com.rocks.mafia.entrancesecurity.R;
 import com.rocks.mafia.entrancesecurity.RequestHandler;
 import com.rocks.mafia.entrancesecurity.RequestNode;
 import com.rocks.mafia.entrancesecurity.SecurityMainActivity;
+import com.rocks.mafia.entrancesecurity.SecurityPreRequestHandler;
+import com.rocks.mafia.entrancesecurity.SecurityPreRequestNode;
 import com.rocks.mafia.entrancesecurity.SecurityRequestHandler;
 
 import org.json.JSONException;
@@ -120,14 +122,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
             Log.e(TAG, "imageUrl: " + imageUrl);
             Log.e(TAG, "timestamp: " + timestamp);
 
-            Log.e("ROCKS", payload.getString("status"));
+         /*   Log.e("ROCKS", payload.getString("status"));
             Log.e("ROCKS", payload.getString("requestId"));
+*/
 
-
-
-            if (payload.getString("type").equals("request-response")) {
+            boolean isRequestResponse = payload.getString("type").equals("request-response");
+            Log.e("LoP", payload.getString("type"));
+            if (isRequestResponse) {
                 int request = 1;
-
+                Log.e("LoP", "heheh");
                 if (payload.getString("status").equals("accept")) {
                     request = 3;
                 } else if (payload.getString("status").equals("reject")) {
@@ -135,16 +138,34 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
                 }
 
                 SecurityRequestHandler securityRequestHandler = new SecurityRequestHandler(this);
+
+                Log.e("REQUESTS" + payload.getString("requestId"),securityRequestHandler.getAllSecurityRequest().get(0).getRequestId());
+
                 securityRequestHandler.updateStatusUsingRequestId( payload.getString("requestId"), request);
 
+            } else {
+                Log.e("PRE Request", "heheh");
+                payload.getString("name");
+
+                SecurityPreRequestHandler securityPreRequestHandler = new SecurityPreRequestHandler(this);
+                securityPreRequestHandler.addSecurityPreRequest(new SecurityPreRequestNode(payload.getString("name"), payload.getString("reason"), payload.getString("contact"), payload.getString("visitingtime")));
             }
 
             if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
                 // app is in foreground, broadcast the push message
                 Log.e("GROUND", "BACK");
                 Intent pushNotification = new Intent(AppConfig.PUSH_NOTIFICATION);
-                pushNotification.putExtra("requestId", payload.getString("requestId"));
-                pushNotification.putExtra("status", payload.getString("status"));
+
+                pushNotification.putExtra("type", payload.getString("type"));
+                if (isRequestResponse) {
+                    pushNotification.putExtra("requestId", payload.getString("requestId"));
+                    pushNotification.putExtra("status", payload.getString("status"));
+                } else {
+                    pushNotification.putExtra("name", payload.getString("name"));
+                    pushNotification.putExtra("reason", payload.getString("reason"));
+                    pushNotification.putExtra("contact", payload.getString("contact"));
+                    pushNotification.putExtra("visitingtime", payload.getString("visitingtime"));
+                }
                 LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
 
                 // play notification sound
@@ -154,7 +175,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
                 // app is in background, show the notification in notification tray
                 Log.e("GROUND", "FOR");
                 Intent resultIntent = new Intent(getApplicationContext(), SecurityMainActivity.class);
-                resultIntent.putExtra("message", message);
+
+                resultIntent.putExtra("type", payload.getString("type"));
+                if (isRequestResponse) {
+                    resultIntent.putExtra("message", message);
+                } else {
+                    resultIntent.putExtra("name", payload.getString("name"));
+                    resultIntent.putExtra("reason", payload.getString("reason"));
+                    resultIntent.putExtra("contact", payload.getString("contact"));
+                    resultIntent.putExtra("visitingtime", payload.getString("visitingtime"));
+                }
 
                 // check for image attachment
                 if (TextUtils.isEmpty(imageUrl)) {

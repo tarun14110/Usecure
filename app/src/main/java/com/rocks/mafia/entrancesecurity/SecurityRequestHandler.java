@@ -117,7 +117,8 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
         String where = "requestId=?";
         String[] whereArgs = new String[] {requestId};
 
-        db.update(TABLE_REQUEST, values, where, whereArgs);
+        int l = db.update(TABLE_REQUEST, values, where, whereArgs);
+        Log.e("UPDATE_RESULT", String.valueOf(l));
         db.close();
     }
 
