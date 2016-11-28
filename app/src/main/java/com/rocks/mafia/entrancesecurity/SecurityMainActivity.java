@@ -37,6 +37,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.rocks.mafia.entrancesecurity.Services.ProfileHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,6 +51,7 @@ public class SecurityMainActivity extends AppCompatActivity {
     private static Toolbar toolbar;
     private static ViewPager viewPager;
     private static TabLayout tabLayout;
+    public static final String JSON_ARRAY = "result";
     public static final String JSON_URL = "http://usecure.site88.net/getAllUsers.php";
     SearchView searchView;
     @Override
@@ -166,7 +170,12 @@ public class SecurityMainActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        showJSON(response);
+                        Log.e("JSON", response);
+                        try {
+                            showJSON(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -180,22 +189,26 @@ public class SecurityMainActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void showJSON(String json){
+    private void showJSON(String json) throws JSONException {
         ParseJSON pj = new ParseJSON(json);
         pj.parseJSON();
         ProfileHandler handler= new ProfileHandler(this);
         //handler.deleteUsers();
         // updated users table
-        for (int i = 0; i < ParseJSON.contacts.length; ++i)
+        for (int i = 0; i < new JSONObject(json).getJSONArray(JSON_ARRAY).length(); ++i)
         {
+            Log.e("YOLO", "LOLO");
             if(handler.checkUser(ParseJSON.contacts[i])==false) {
                 handler.addUser(ParseJSON.names[i], ParseJSON.emails[i], ParseJSON.contacts[i], ParseJSON.address[i]);
                 if (!ParseJSON.profilePicUrls[i].isEmpty()) {
                     Log.e("coll2", Integer.toString(i));
-                    getImage(ParseJSON.profilePicUrls[i], i);
                 }
                 Log.e("col3", Integer.toString(i));
             }
+            Log.e("MMMOLO", "LOLO");
+            getImage(ParseJSON.contacts[i] + ".jpg", i);
+            Log.e("SSSSOLO", "LOLO");
+
         }
 
     }
@@ -203,6 +216,9 @@ public class SecurityMainActivity extends AppCompatActivity {
     private void getImage(String path, final int i) {
         String url = "http://usecure.site88.net/userProfilePics/";
         url = url + path;
+
+        Log.e("URLLL", url);
+
         byte[] image;
      Log.e("coll",path);
         ImageRequest request = new ImageRequest(url,

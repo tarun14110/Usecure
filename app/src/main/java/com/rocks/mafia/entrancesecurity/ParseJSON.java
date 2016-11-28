@@ -4,6 +4,8 @@ package com.rocks.mafia.entrancesecurity;
  * Created by mafia on 3/11/16.
  */
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,8 +23,11 @@ public class ParseJSON {
     public static final String KEY_EMAIL = "email";
     public static final String KEY_ADDRESS = "address";
     public static final String KEY_PROFILE_PIC_URL = "profilePicUrl";
+    public static  int size = 0;
 
     private JSONArray users = null;
+
+
 
     private String json;
 
@@ -35,6 +40,9 @@ public class ParseJSON {
         try {
             jsonObject = new JSONObject(json);
             users = jsonObject.getJSONArray(JSON_ARRAY);
+            this.size = users.length();
+
+            Log.e("USERS", String.valueOf(users.length()));
 
             contacts = new String[users.length()];
             names = new String[users.length()];
