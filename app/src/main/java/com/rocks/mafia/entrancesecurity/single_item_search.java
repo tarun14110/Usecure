@@ -143,13 +143,15 @@ public class single_item_search extends AppCompatActivity  {
 
 
     // convert from byte array to bitmap
-    public Bitmap getBitmapImage(byte[] image) {
+    public Bitmap getBitmapImage(byte[] image)
+    {
         if(image == null)
             return null;
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 
-    public void showInputDialog() {
+    public void showInputDialog()
+    {
 
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(this);
