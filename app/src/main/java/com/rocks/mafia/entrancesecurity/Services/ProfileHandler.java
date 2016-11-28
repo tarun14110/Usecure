@@ -200,4 +200,16 @@ public class ProfileHandler extends SQLiteOpenHelper {
 
         Log.d(TAG, "Deleted all profiles info from sqlite");
     }
+    public  String getUserName(String contact)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String Query = "Select * from " +  TABLE_PROFILE + " where " + KEY_CONTACT + " = " + contact;
+        Cursor cursor = db.rawQuery(Query, null);
+        String name=null;
+        if (cursor.moveToFirst())
+        {
+             name = cursor.getString(1);
+        }
+     return name;
+    }
 }

@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.rocks.mafia.entrancesecurity.Services.ProfileHandler;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,13 +52,18 @@ public class SecurityRequestRecyclerViewAdapter extends RecyclerView.Adapter<Sec
             mainHolder.title.setText(arrayList.get(position).getOutsiderName());
             mainHolder.time.setText(arrayList.get(position).getEntryTime().toString());
             mainHolder.d.setText(arrayList.get(position).getReason());
-            mainHolder.by.setText(arrayList.get(position).getInsiderContact());
+            String contact=arrayList.get(position).getInsiderContact();
+            System.out.println("CONTACT" + contact);
+            ProfileHandler profileHandler =new ProfileHandler(this.context);
+
+           String name= profileHandler.getUserName(contact);
+            mainHolder.by.setText(contact+"\n"+name);
             if (arrayList.get(position).getImage() != null)
                 mainHolder.takenImage.setImageBitmap(getBitmapImage(arrayList.get(position).getImage()));
 
 
             int s = arrayList.get(position).getStatus();
-            System.out.println("STATUS" + s);
+
             final int pos = position;
             if (s == 1)
                 mainHolder.status.setBackgroundResource(R.mipmap.ic_yello);
