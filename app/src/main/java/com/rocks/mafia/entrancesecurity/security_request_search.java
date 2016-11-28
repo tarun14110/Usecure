@@ -462,12 +462,12 @@ public class security_request_search extends AppCompatActivity
         try {
 
 
-            String messageBody = "http://usecure.site88.net/entryRequest.php?requestId=" + requestId;
+            String messageBody = "Hey someone came to meet you. http://usecure.site88.net/entryRequest.php?requestId=" + requestId;
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
             nameValuePairs.add(new BasicNameValuePair("From",
                     "+1 205-708-3167"));
             nameValuePairs.add(new BasicNameValuePair("To",
-                    "+918800874404"));
+                    "+91"+whomToContact));                               // replace number with whom to contact
             nameValuePairs.add(new BasicNameValuePair("Body",
                     messageBody));
 
