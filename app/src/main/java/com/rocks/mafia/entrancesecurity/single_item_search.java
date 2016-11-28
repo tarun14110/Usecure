@@ -8,15 +8,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -25,13 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.twilio.Twilio;
-//import com.twilio.rest.api.v2010.account.Message;
-//import com.twilio.type.PhoneNumber;
-
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,7 +35,6 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -61,6 +52,10 @@ import cz.msebera.android.httpclient.util.EntityUtils;
 
 import static com.twilio.client.impl.TwilioImpl.context;
 
+//import com.twilio.Twilio;
+//import com.twilio.rest.api.v2010.account.Message;
+//import com.twilio.type.PhoneNumber;
+
 
 // after item searched from the search activity this activity start
 //this activity handle direct request sending
@@ -72,6 +67,7 @@ public class single_item_search extends AppCompatActivity  {
     public static final String AUTH_TOKEN = "ab215f3f60a90eb52c9d69c38c1f7697";
     private static final int CAMERA_REQUEST = 1888;
 
+    NetworkUtils networkUtils = new NetworkUtils();
     TextView textName;
     TextView textContact;
     TextView textEmail;
@@ -202,40 +198,42 @@ public class single_item_search extends AppCompatActivity  {
                 String givenReason = reason.getText().toString();
                 String givenTime = time.getText().toString();
                 String givenWhomToContact = whomToContact.getText().toString();
-
-                if((givenName.length()>0)&&(givenReason.length()>0)&&(givenTime.length()>0)&&(givenWhomToContact.length()>0))
-                {
+            if (networkUtils.isConnected(getApplicationContext())) {
+                if ((givenName.length() == 0) || (givenReason.length() == 0) || (givenTime.length() == 0)) {
+                    Toast.makeText(getApplicationContext(), "Please fill completely !", Toast.LENGTH_LONG).show();
+                }  else if((givenReason.length() > 200) || (givenName.length() > 50)) {
+                    Toast.makeText(getApplicationContext(),"Limit exceeded",Toast.LENGTH_LONG).show();
+                }
+                else {
                     Log.e("BHAI", givenWhomToContact);
                     //checking image is click or not
                     SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
                     sendOutsiderdata.execute();
 
                     SecurityRequestNode node;
-                    SecurityRequestHandler requestHandler= new SecurityRequestHandler(getApplicationContext());
+                    SecurityRequestHandler requestHandler = new SecurityRequestHandler(getApplicationContext());
 
                     //if image clicked ? then save the image otherwise use default constructor of node
-                    if(CameraImg!=null)
-                        node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,"", CameraImg,1);
+                    if (CameraImg != null)
+                        node = new SecurityRequestNode(givenName, givenReason, givenWhomToContact, givenTime, "", CameraImg, 1);
                     else
-                        node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,"", 1);
+                        node = new SecurityRequestNode(givenName, givenReason, givenWhomToContact, givenTime, "", 1);
 
 
                     requestHandler.addSecurityRequest(node);
-                    SecurityRequestFragment.adapter.add(0,node);
+                    SecurityRequestFragment.adapter.add(0, node);
                     SecurityRequestFragment.adapter.notifyDataSetChanged();
 
-                    System.out.println("LOOOOOOK " +requestHandler.getAllSecurityRequest().size());
+                    System.out.println("LOOOOOOK " + requestHandler.getAllSecurityRequest().size());
                     Toast.makeText(getApplicationContext(), "Sent!", Toast.LENGTH_LONG).show();
 
-                    startActivity(new Intent(getBaseContext(),SecurityMainActivity.class));
+                    startActivity(new Intent(getBaseContext(), SecurityMainActivity.class));
 
                     alert.dismiss();
                 }
-                else
-                {
-                    Toast.makeText(getApplicationContext(), "Please fill completely !", Toast.LENGTH_LONG).show();
-
-                }
+            } else {
+                Toast.makeText(context,"Check internet connectivity",Toast.LENGTH_LONG).show();
+            }
             }
         });
         takeImage.setOnClickListener(new View.OnClickListener() {
