@@ -123,17 +123,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
             Log.e("ROCKS", payload.getString("status"));
             Log.e("ROCKS", payload.getString("requestId"));
 
-            int request = 1;
 
-            if (payload.getString("status").equals("accept")) {
-                request = 3;
-            } else if (payload.getString("status").equals("reject")) {
-                request = 2;
+
+            if (payload.getString("type").equals("request-response")) {
+                int request = 1;
+
+                if (payload.getString("status").equals("accept")) {
+                    request = 3;
+                } else if (payload.getString("status").equals("reject")) {
+                    request = 2;
+                }
+
+                SecurityRequestHandler securityRequestHandler = new SecurityRequestHandler(this);
+                securityRequestHandler.updateStatusUsingRequestId( payload.getString("requestId"), request);
+
             }
-
-            SecurityRequestHandler securityRequestHandler = new SecurityRequestHandler(this);
-            securityRequestHandler.updateStatusUsingRequestId( payload.getString("requestId"), request);
-
 
             if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
                 // app is in foreground, broadcast the push message

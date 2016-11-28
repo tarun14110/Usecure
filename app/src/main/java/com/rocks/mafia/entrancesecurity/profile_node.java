@@ -17,6 +17,11 @@ public class profile_node
     public  String getAddress() { return address;}
     public  String getContact(){ return  contact;}
     public  String getRollNumber(){ return rollNumber;}
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     public byte[] getImg() {
         return image;
     }

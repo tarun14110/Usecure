@@ -73,7 +73,7 @@ public class SecurityRequestFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        //Log.e("LISTEN","EDIT");
+        Log.e("LISTEN","EDIT");
         Log.e("Mode ","REQUEST");
         view = inflater.inflate(R.layout.security_request_layout, container, false);
        setRecyclerView();
