@@ -565,24 +565,26 @@ public class security_request_search extends AppCompatActivity
 
 
 
-        String ba1 = Base64.encodeToString(img, Base64.DEFAULT);
+        if(img!=null)
+        {
+            String ba1 = Base64.encodeToString(img, Base64.DEFAULT);
 
-        String URL = "http://usecure.site88.net/uploadRequestPic.php";
-        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("base64", ba1));
-        nameValuePairs.add(new BasicNameValuePair("ImageName", requestId + ".jpg"));
-        try {
-            HttpClient httpclien = new DefaultHttpClient();
-            HttpPost httppos = new HttpPost(URL);
-            httppos.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            HttpResponse response = httpclien.execute(httppos);
-            String st = EntityUtils.toString(response.getEntity());
-            Log.e("log_tag", "In the try Loop" + st);
+            String URL = "http://usecure.site88.net/uploadRequestPic.php";
+            ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+            nameValuePairs.add(new BasicNameValuePair("base64", ba1));
+            nameValuePairs.add(new BasicNameValuePair("ImageName", requestId + ".jpg"));
+            try {
+                HttpClient httpclien = new DefaultHttpClient();
+                HttpPost httppos = new HttpPost(URL);
+                httppos.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                HttpResponse response = httpclien.execute(httppos);
+                String st = EntityUtils.toString(response.getEntity());
+                Log.e("log_tag", "In the try Loop" + st);
 
-        } catch (Exception e) {
-            Log.e("log_tag", "Error in http connection " + e.toString());
+            } catch (Exception e) {
+                Log.e("log_tag", "Error in http connection " + e.toString());
+            }
         }
-
 
 
 
@@ -643,8 +645,8 @@ public class security_request_search extends AppCompatActivity
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             bmp = (Bitmap) data.getExtras().get("data");
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bmp=Bitmap.createScaledBitmap(bmp, 120, 80, false);
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-            bmp=getResizedBitmap(bmp,100);
             img = stream.toByteArray();
 
             Toast.makeText(getApplicationContext(), "Image DAta !"+img, Toast.LENGTH_LONG).show();
