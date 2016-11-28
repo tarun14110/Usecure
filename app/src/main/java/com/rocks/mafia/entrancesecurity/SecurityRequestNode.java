@@ -14,18 +14,20 @@ public class SecurityRequestNode
     private String Reason;
     private String InsiderContact;
     private String time;
+    private String requestId;
     private int Status;
     private  byte[] image;
 
-    public SecurityRequestNode(String outsiderName,String outsiderReason,String insiderContact ,String time,int status)
+    public SecurityRequestNode(String outsiderName,String outsiderReason,String insiderContact ,String time, String requestId, int status)
     {
         this.OutsiderName=outsiderName;
         this.Reason=outsiderReason;
         this.InsiderContact=insiderContact;
         this.time=time;
         this.Status=status;
+        this.requestId = requestId;
     }
-    public SecurityRequestNode(String outsiderName,String outsiderReason,String insiderContact ,String time,byte[] image,int status)
+    public SecurityRequestNode(String outsiderName,String outsiderReason,String insiderContact ,String time, String requestId, byte[] image,int status)
     {
         this.OutsiderName=outsiderName;
         this.Reason=outsiderReason;
@@ -33,7 +35,9 @@ public class SecurityRequestNode
         this.time=time;
         this.image=image;
         this.Status=status;
+        this.requestId = requestId;
     }
+
 
     public String getOutsiderName() {
         return OutsiderName;
@@ -41,6 +45,10 @@ public class SecurityRequestNode
 
     public String getReason() {
         return Reason;
+    }
+
+    public String getRequestId() {
+        return requestId;
     }
 
     public byte[] getImage() {
@@ -53,6 +61,10 @@ public class SecurityRequestNode
 
     public int getStatus() {
         return Status;
+    }
+
+    public void setStatus(int status) {
+        this.Status = status;
     }
 
     public String getInsiderContact() {

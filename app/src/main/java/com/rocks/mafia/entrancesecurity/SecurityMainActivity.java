@@ -4,15 +4,20 @@ package com.rocks.mafia.entrancesecurity;
  * Created by root on 21/10/16.
  */
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.icu.text.SymbolTable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -33,18 +38,11 @@ import com.android.volley.toolbox.Volley;
 import com.rocks.mafia.entrancesecurity.Services.ProfileHandler;
 
 import java.io.ByteArrayOutputStream;
-import java.sql.Date;
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import java.util.List;
 import java.util.Locale;
-
-import static com.rocks.mafia.entrancesecurity.R.id.listView;
-import static java.security.AccessController.getContext;
 
 public class SecurityMainActivity extends AppCompatActivity {
     private static Toolbar toolbar;
@@ -56,6 +54,8 @@ public class SecurityMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
 
+
+
         super.onCreate(savedInstanceState);
 
         Log.e("Mode ","main");
@@ -64,8 +64,21 @@ public class SecurityMainActivity extends AppCompatActivity {
         SecurityHistoryHandler historyHandler= new SecurityHistoryHandler(this);
         t= getDateTime();
         historyHandler.delete();
-        historyHandler.addSecurityHistory(new SecurityRequestNode("pankaj","i want to meet rahul ","888888888", t,1));
-        sendRequest();
+        historyHandler.addSecurityHistory(new SecurityRequestNode("pankaj","i want to meet rahul ","888888888","", t,1));
+
+        FetchData fetchData = new FetchData();
+        fetchData.execute();
+        // sendRequest();
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String message = getIntent().getStringExtra("message");
+            Log.e("MESSAGE", message);
+        }
+
+
+
+
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -124,7 +137,27 @@ public class SecurityMainActivity extends AppCompatActivity {
             }
         });
 
+
+
+
     }
+
+
+
+    public class FetchData extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            sendRequest();
+            return null;
+        }
+    }
+
+
+
+
+
+
 
 
     private void sendRequest(){
@@ -151,19 +184,18 @@ public class SecurityMainActivity extends AppCompatActivity {
         ParseJSON pj = new ParseJSON(json);
         pj.parseJSON();
         ProfileHandler handler= new ProfileHandler(this);
-        handler.deleteUsers();
+        //handler.deleteUsers();
         // updated users table
         for (int i = 0; i < ParseJSON.contacts.length; ++i)
         {
-            //if(handler.checkUser(ParseJSON.contacts[i])==false)
-            handler.addUser(ParseJSON.names[i],ParseJSON.emails[i],ParseJSON.contacts[i],ParseJSON.address[i]);
-            if (!ParseJSON.profilePicUrls[i].isEmpty())
-            {
-                Log.e("coll2",Integer.toString(i));
-                getImage(ParseJSON.profilePicUrls[i], i);
+            if(handler.checkUser(ParseJSON.contacts[i])==false) {
+                handler.addUser(ParseJSON.names[i], ParseJSON.emails[i], ParseJSON.contacts[i], ParseJSON.address[i]);
+                if (!ParseJSON.profilePicUrls[i].isEmpty()) {
+                    Log.e("coll2", Integer.toString(i));
+                    getImage(ParseJSON.profilePicUrls[i], i);
+                }
+                Log.e("col3", Integer.toString(i));
             }
-            Log.e("col3",Integer.toString(i));
-
         }
 
     }

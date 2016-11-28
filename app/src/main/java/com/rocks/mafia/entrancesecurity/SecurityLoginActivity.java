@@ -215,6 +215,7 @@ public class SecurityLoginActivity extends Activity {
         // sending gcm token to server
         // Create data variable for sent values to server
 
+        Log.e("YOLO", token);
         String data = null;
         try {
             data = URLEncoder.encode("contact", "UTF-8")

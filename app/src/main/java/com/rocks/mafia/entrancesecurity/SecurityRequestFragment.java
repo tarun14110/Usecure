@@ -4,11 +4,16 @@ package com.rocks.mafia.entrancesecurity;
  * Created by mafia on 21/10/16.
  */
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,6 +58,7 @@ public class SecurityRequestFragment extends Fragment
     public static final String AUTH_TOKEN = "ab215f3f60a90eb52c9d69c38c1f7697";
     public static SecurityRequestRecyclerViewAdapter adapter ;
     private static RecyclerView recyclerView;
+    ArrayList<SecurityRequestNode> arrayList;
 
     public SecurityRequestFragment()
     {
@@ -67,15 +73,57 @@ public class SecurityRequestFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        //Log.e("LISTEN","EDIT");
+        Log.e("LISTEN","EDIT");
         Log.e("Mode ","REQUEST");
         view = inflater.inflate(R.layout.security_request_layout, container, false);
        setRecyclerView();
+
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver,
+                new IntentFilter(AppConfig.PUSH_NOTIFICATION));
+
         return view;
 
     }
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e("LOLU", "POPU");
+            // Get extra data included in the Intent
+            String requestId = intent.getStringExtra("requestId");
+            String statusStr = intent.getStringExtra("status");
+            int status = 1;
+            if (statusStr.equals("accept")) {
+                status = 3;
+            } else if (statusStr.equals("reject")) {
+                status = 2;
+            }
+            SecurityRequestHandler securityRequestHandler = new SecurityRequestHandler(getActivity());
+            securityRequestHandler.updateStatusUsingRequestId(requestId, status);
 
-             //Setting recycler view
+            for (int i = 0; i < arrayList.size(); ++i) {
+                Log.e("LOLUREQUEST ID"+requestId +statusStr, arrayList.get(i).getRequestId());
+                if (arrayList.get(i).getRequestId().equals(requestId)) {
+                    Log.e("LOLU", arrayList.get(i).getInsiderContact());
+                    arrayList.get(i).setStatus(status);
+                }
+            }
+            adapter.notifyDataSetChanged();
+
+          //  Log.e("receiver", "Got message: " + message);
+
+        }
+    };
+
+
+    @Override
+    public void onDestroyView() {
+        // Unregister since the activity is about to be closed.
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mMessageReceiver);
+        super.onDestroyView();
+    }
+
+
+    //Setting recycler view
     public void setRecyclerView()
     {
 
@@ -86,7 +134,7 @@ public class SecurityRequestFragment extends Fragment
                 .setLayoutManager(new LinearLayoutManager(getActivity()));//Linear Items
         SecurityRequestHandler handler=new SecurityRequestHandler(getActivity());
         Log.e("REQUEST ","  : STEP 1");
-       ArrayList<SecurityRequestNode> arrayList=handler.getAllSecurityRequest();
+       arrayList=handler.getAllSecurityRequest();
         Log.e("REQUEST ","  : STEP 2");
         //  System.out.println("DATATATA : "+ arrayList.get(0).getOutsiderName());
         Collections.reverse(arrayList);

@@ -110,6 +110,26 @@ public class ProfileHandler extends SQLiteOpenHelper {
         Log.d(TAG, "New profile inserted into sqlite: " + name);
     }
 
+    public void addUsers(ArrayList< profile_node> profiles)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        for (int i =0; i < profiles.size(); ++i) {
+            ContentValues values = new ContentValues();
+            values.put(KEY_NAME, profiles.get(i).getName()); // Name
+            values.put(KEY_EMAIL, profiles.get(i).getEmail()); // Email
+            values.put(KEY_CONTACT, profiles.get(i).getContact()); // Contact
+            values.put(KEY_ADDRESS, profiles.get(i).getAddress());  //address
+            values.put(KEY_IMAGE, profiles.get(i).getImg());  //address
+            // Inserting Row
+            long id = db.insert(TABLE_PROFILE, null, values);
+            Log.d(TAG, "New profile inserted into sqlite: " + profiles.get(i).getName() + profiles.get(i).getImg());
+
+        }
+        db.close(); // Closing database connection
+
+    }
+
     public  boolean checkUser( String contact)
 
     {

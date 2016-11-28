@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class SecurityRequestHandler extends SQLiteOpenHelper
 {
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "SecurityRequest";
     private static final String TABLE_REQUEST = "SecurityRequestTable";
     private static final String KEY_ID = "_id";
@@ -29,6 +29,7 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
     private static final String KEY_INSIDERCONTACT= "InsiderContact";
     private static final String KEY_STATUS= "Status";
     private static  final String KEY_IMAGE="image";
+    private static  final String KEY_REQUESTID="requestId";
 
 
 
@@ -49,7 +50,8 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
                 +KEY_INSIDERCONTACT+" TEXT ,"
                 + KEY_TIME+ " TEXT ,"
                 + KEY_IMAGE + " BLOB ,"
-                +KEY_STATUS+" INTEGER"
+                +KEY_STATUS+" INTEGER,"
+                +KEY_REQUESTID+" TEXT"
                 +")";
 
         Log.v("CHECK :  ",CREATE_CONTACTS_TABLE);
@@ -81,6 +83,7 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
         values.put(KEY_TIME, node.getEntryTime());
         values.put(KEY_IMAGE,node.getImage());
         values.put(KEY_STATUS,String.valueOf(node.getStatus()));
+        values.put(KEY_REQUESTID, node.getRequestId());
         db.insert(TABLE_REQUEST, null, values);
         db.close();
 
@@ -95,12 +98,34 @@ public class SecurityRequestHandler extends SQLiteOpenHelper
         if (cursor.moveToFirst())
         {
             do {
-                SecurityRequestNode node = new  SecurityRequestNode (cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getBlob(5),Integer.parseInt(cursor.getString(6)));
+                SecurityRequestNode node = new  SecurityRequestNode (cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4), cursor.getString(7), cursor.getBlob(5),Integer.parseInt(cursor.getString(6)));
                 RequestList.add(node);
             } while (cursor.moveToNext());
         }
         db.close();
         return RequestList;
     }
+
+    public void updateStatusUsingRequestId(String requestId, int status)
+    {
+        System.out.println("UPDATING STATUS:"+ requestId);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_STATUS, status);
+
+        String where = "requestId=?";
+        String[] whereArgs = new String[] {requestId};
+
+        db.update(TABLE_REQUEST, values, where, whereArgs);
+        db.close();
+    }
+
+
+
+
+
+
+
 }
 

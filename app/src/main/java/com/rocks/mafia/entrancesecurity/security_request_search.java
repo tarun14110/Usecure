@@ -84,14 +84,17 @@ public class security_request_search extends AppCompatActivity
     SearchView searchView;
     ListViewAdapter adapter;
     ArrayList<profile_node> arraylist;
+    String requestId = null;
+
 
     private static final String TAG = SecurityMainActivity.class.getSimpleName();
-    public static final String ACCOUNT_SID = "AC5590c4ed74e1ba927995055348e6e3ca";
-    public static final String AUTH_TOKEN = "ab215f3f60a90eb52c9d69c38c1f7697";
+    public static final String ACCOUNT_SID = "ACcd5209b80f9ee5935b41dd30f44263be";
+    public static final String AUTH_TOKEN = "6579a844b1bf92d7a5908d2e62a4618f";
     private int DetailsStatus=0;
     private static final int CAMERA_REQUEST = 1888;
 
     private   byte[] img;
+    Bitmap bmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -352,11 +355,18 @@ public class security_request_search extends AppCompatActivity
                     SecurityRequestNode node;
                     SecurityRequestHandler requestHandler= new SecurityRequestHandler(getApplicationContext());
 
+                    // generating request Id
+                    try {
+                        requestId = URLEncoder.encode(getRandomString(10), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
                     //if image clicked ? then save the image otherwise use default constructor of node
                   if(img!=null)
-                     node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,img,1);
+                     node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,requestId, img,1);
                     else
-                     node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime,1);
+                     node=  new SecurityRequestNode(givenName,givenReason,givenWhomToContact,givenTime, requestId, 1);
 
 
                     requestHandler.addSecurityRequest(node);
@@ -413,10 +423,33 @@ public class security_request_search extends AppCompatActivity
         return sb.toString();
     }
 
+
+    // convert from byte array to bitmap
+    public Bitmap getBitmapImage(byte[] image) {
+        if(image == null)
+            return null;
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
+
+    // convert from bitmap to byte array
+    public static byte[] getImageBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        return stream.toByteArray();
+    }
+
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
     public void sendOutsiderData(String name, String reason, String time, String whomToContact) {
 
+
         HttpClient httpclient = new DefaultHttpClient();
-//
         HttpPost httppost = new HttpPost(
                 "https://api.twilio.com/2010-04-01/Accounts/" + ACCOUNT_SID + "/SMS/Messages");
         String base64EncodedCredentials = "Basic "
@@ -428,13 +461,15 @@ public class security_request_search extends AppCompatActivity
                 base64EncodedCredentials);
         try {
 
+
+            String messageBody = "Hey someone came to meet you. http://usecure.site88.net/entryRequest.php?requestId=" + requestId;
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
             nameValuePairs.add(new BasicNameValuePair("From",
-                    "+12018905759"));
+                    "+1 205-708-3167"));
             nameValuePairs.add(new BasicNameValuePair("To",
-                    "+919971949716"));
+                    "+91"+whomToContact));                               // replace number with whom to contact
             nameValuePairs.add(new BasicNameValuePair("Body",
-                    "Welcome to Twilio"));
+                    messageBody));
 
             httppost.setEntity(new UrlEncodedFormEntity(
                     nameValuePairs));
@@ -442,14 +477,15 @@ public class security_request_search extends AppCompatActivity
             // Execute HTTP Post Request
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
-            System.out.println("Entity post is: "
-                    + EntityUtils.toString(entity));
+            Log.e("KOKOKOKO", EntityUtils.toString(entity));
+            //System.out.println("Entity post is: "
+              //      + EntityUtils.toString(entity));
 
 
         } catch (ClientProtocolException e) {
-
+            e.printStackTrace();
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
 
 
@@ -467,7 +503,8 @@ public class security_request_search extends AppCompatActivity
             data += "&" + URLEncoder.encode("time", "UTF-8") + "="
                     + URLEncoder.encode(time, "UTF-8");
             data += "&" + URLEncoder.encode("requestId", "UTF-8") + "="
-                    + URLEncoder.encode(getRandomString(10), "UTF-8");
+                    + requestId;
+
             Log.e("DATATATA", data);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -500,7 +537,7 @@ public class security_request_search extends AppCompatActivity
             // Read Server Response
             while ((line = reader.readLine()) != null) {
                 // Append server response in string
-                sb.append(line + "\n");
+                sb.append("IIII " +line + "\n");
             }
 
 
@@ -523,8 +560,38 @@ public class security_request_search extends AppCompatActivity
             Log.e(TAG, "Succesfully Sent request to the server" + text);
 
         }
-
         Log.e(TAG, "sendRegistrationToServer: " + whomToContact + "  to contact " + session.getContact());
+
+
+
+
+        String ba1 = Base64.encodeToString(img, Base64.DEFAULT);
+
+        String URL = "http://usecure.site88.net/uploadRequestPic.php";
+        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("base64", ba1));
+        nameValuePairs.add(new BasicNameValuePair("ImageName", requestId + ".jpg"));
+        try {
+            HttpClient httpclien = new DefaultHttpClient();
+            HttpPost httppos = new HttpPost(URL);
+            httppos.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            HttpResponse response = httpclien.execute(httppos);
+            String st = EntityUtils.toString(response.getEntity());
+            Log.e("log_tag", "In the try Loop" + st);
+
+        } catch (Exception e) {
+            Log.e("log_tag", "Error in http connection " + e.toString());
+        }
+
+
+
+
+
+
+
+
+
+
     }
 
     public class SendOutsiderdata extends AsyncTask<Void, Void, Void> {
@@ -538,6 +605,8 @@ public class security_request_search extends AppCompatActivity
             this.whomToContact = whomToContact;
 
         }
+
+
 
 
         @Override
@@ -572,9 +641,9 @@ public class security_request_search extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap bmp = (Bitmap) data.getExtras().get("data");
+            bmp = (Bitmap) data.getExtras().get("data");
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             bmp=getResizedBitmap(bmp,100);
             img = stream.toByteArray();
 
