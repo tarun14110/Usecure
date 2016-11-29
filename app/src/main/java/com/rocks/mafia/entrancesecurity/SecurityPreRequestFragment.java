@@ -4,25 +4,20 @@ package com.rocks.mafia.entrancesecurity;
  * Created by mafia on 21/10/16.
  */
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,15 +26,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-=======
-import java.util.ArrayList;
->>>>>>> fb834cc7dc2a49695c1c161ac7afdd7846829e37
 import static com.rocks.mafia.entrancesecurity.SecurityRequestFragment.adapter;
-
-
-
-//Pre-Request tab , showing all current PreRequest data in list form
-
 
 public class SecurityPreRequestFragment extends Fragment {
     private View view;
@@ -70,7 +57,7 @@ public class SecurityPreRequestFragment extends Fragment {
         myTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-               // Log.e("chopu", arrayList.get(0).getEntryTime());
+                // Log.e("chopu", arrayList.get(0).getEntryTime());
                 ArrayList<SecurityPreRequestNode> temp1 = new ArrayList<SecurityPreRequestNode>();
                 ArrayList<SecurityPreRequestNode> temp2 = new ArrayList<SecurityPreRequestNode>();
 
@@ -129,13 +116,13 @@ public class SecurityPreRequestFragment extends Fragment {
                     ++i;
                 }
 
-if(getActivity() != null) {
-    getActivity().runOnUiThread(new Runnable() {
-        public void run() {
-            adapter.notifyDataSetChanged();
-        }
-    });
-}
+                if(getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+                }
             }
         }, 0, 30000);
 
@@ -152,19 +139,20 @@ if(getActivity() != null) {
 
             if (intent.getStringExtra("type").equals("pre-request")) {
                 // Get extra data included in the Intent
+                ArrayList<SecurityPreRequestNode> temp=new ArrayList<SecurityPreRequestNode>();
+
                 String name = intent.getStringExtra("name");
                 String reason = intent.getStringExtra("reason");
                 String contact = intent.getStringExtra("contact");
                 String visitingtime = intent.getStringExtra("visitingtime");
 
-                arrayList.add(0, new SecurityPreRequestNode(name, reason, contact, visitingtime));
+                temp.clear();
+                temp.add(0, new SecurityPreRequestNode(name, reason, contact, visitingtime));
+                temp.addAll(arrayList);
+                arrayList.clear();
+                arrayList.addAll(temp);
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+                adapter.notifyDataSetChanged();
             }
         }
 
@@ -188,10 +176,7 @@ if(getActivity() != null) {
 
         SecurityPreRequestHandler handler =new SecurityPreRequestHandler(getContext());
         arrayList=handler.getAllSecurityPreRequest();
-<<<<<<< HEAD
 
-=======
->>>>>>> fb834cc7dc2a49695c1c161ac7afdd7846829e37
         SecurityPreRequestRecyclerViewAdapter adapter = new SecurityPreRequestRecyclerViewAdapter(getActivity(), arrayList);
         recyclerView.setAdapter(adapter);// set adapter on recyclerview
 
