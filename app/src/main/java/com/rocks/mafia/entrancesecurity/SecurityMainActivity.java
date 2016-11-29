@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.icu.text.SymbolTable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -73,6 +74,12 @@ public class SecurityMainActivity extends AppCompatActivity {
         FetchData fetchData = new FetchData();
         fetchData.execute();
         // sendRequest();
+
+
+
+
+
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("SmartSec");
@@ -187,12 +194,13 @@ public class SecurityMainActivity extends AppCompatActivity {
         for (int i = 0; i < new JSONObject(json).getJSONArray(JSON_ARRAY).length(); ++i)
         {
             Log.e("YOLO", "LOLO");
+            Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.pro);
             if(handler.checkUser(ParseJSON.contacts[i])==false) {
-                handler.addUser(ParseJSON.names[i], ParseJSON.emails[i], ParseJSON.contacts[i], ParseJSON.address[i]);
-                if (!ParseJSON.profilePicUrls[i].isEmpty()) {
+                handler.addUser(ParseJSON.names[i], ParseJSON.emails[i], ParseJSON.contacts[i], ParseJSON.address[i],getImageBytes(largeIcon));
+              //  if (!ParseJSON.profilePicUrls[i].isEmpty()) {
                     Log.e("coll2", Integer.toString(i));
                     getImage(ParseJSON.contacts[i] + ".jpg", i);
-                }
+              //  }
                 Log.e("col3", Integer.toString(i));
             }
             Log.e("MMMOLO", "LOLO");
