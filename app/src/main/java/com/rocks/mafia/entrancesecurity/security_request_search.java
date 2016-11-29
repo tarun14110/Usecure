@@ -473,13 +473,6 @@ public class security_request_search extends AppCompatActivity
 
 
         HttpClient httpclient = new DefaultHttpClient();
-        NetworkUtils n=new NetworkUtils();
-        if(n.isConnected(getApplicationContext())==false)
-            Toast.makeText(getApplicationContext(), "No Internet !", Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(getApplicationContext(), "connection in progress !", Toast.LENGTH_LONG).show();
-
-
         HttpPost httppost = new HttpPost(
                 "https://api.twilio.com/2010-04-01/Accounts/" + ACCOUNT_SID + "/SMS/Messages");
         String base64EncodedCredentials = "Basic "
@@ -601,14 +594,9 @@ public class security_request_search extends AppCompatActivity
             try {
                 HttpClient httpclien = new DefaultHttpClient();
                 HttpPost httppos = new HttpPost(URL);
+                NetworkUtils networkUtils=new NetworkUtils();
 
-                //checcking internet
-                NetworkUtils net=new NetworkUtils();
-                if(net.isConnected(getApplicationContext())==false)
-                    Toast.makeText(getApplicationContext(), "No Internet !", Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(getApplicationContext(), "connection in progress !", Toast.LENGTH_LONG).show();
-
+                if(networkUtils.isConnected(getApplicationContext()))
 
 
                 httppos.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -623,8 +611,7 @@ public class security_request_search extends AppCompatActivity
 
 
 
-    //asynask for sending the data to the server created
-
+    //asynask for sending the data
     public class SendOutsiderdata extends AsyncTask<Void, Void, Void> {
 
         String name, reason, time, whomToContact;

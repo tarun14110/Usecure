@@ -104,6 +104,8 @@ public class ProfileHandler extends SQLiteOpenHelper {
         Log.d(TAG, "New profile inserted into sqlite: " + name);
     }
 
+
+
     public void addUsers(ArrayList< profile_node> profiles)
     {
         SQLiteDatabase db = this.getWritableDatabase();

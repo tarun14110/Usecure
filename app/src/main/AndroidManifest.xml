@@ -63,9 +63,9 @@
         <activity
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2" />
-        <activity android:name=".security_request_search" />
-        <activity android:name=".single_item_search" />
-        <activity android:name=".AlarmReceiver"></activity>
+        <activity android:name=".security_request_search"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".single_item_search"/>
     </application>
 
 </manifest>

@@ -4,6 +4,8 @@ package com.rocks.mafia.entrancesecurity;
  * Created by mafia on 21/10/16.
  */
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -48,9 +50,20 @@ public class SecurityPreRequestFragment extends Fragment {
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver,
                 new IntentFilter(AppConfig.PUSH_NOTIFICATION));
         setRecyclerView();
+
+        setAlarm();
+
         return view;
 
     }
+
+    public void setAlarm(){
+        Intent intent=new Intent(getActivity(),Alarm_receiver.class);
+        AlarmManager alarmMgr=(AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(getActivity(), 1, intent, 0);
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, 10000, AlarmManager.INTERVAL_DAY, alarmIntent);
+    }
+
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
