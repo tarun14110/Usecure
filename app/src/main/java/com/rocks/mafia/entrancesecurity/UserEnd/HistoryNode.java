@@ -1,4 +1,4 @@
-package com.rocks.mafia.entrancesecurity;
+package com.rocks.mafia.entrancesecurity.UserEnd;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -15,7 +15,6 @@ public class HistoryNode {
 
     public HistoryNode(String personName, Time visitingTime, String imageUrl)
     {
-
         this.personName = personName;
         this.imageUrl = imageUrl;
         this.visitingTime = visitingTime;

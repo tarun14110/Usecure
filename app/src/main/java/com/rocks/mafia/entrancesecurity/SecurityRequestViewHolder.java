@@ -19,6 +19,7 @@ public class SecurityRequestViewHolder extends RecyclerView.ViewHolder {
     public  TextView by;
     public ImageView status;
     public View v;
+    public  TextView date;
     public ImageView takenImage;
 
 
@@ -28,6 +29,7 @@ public class SecurityRequestViewHolder extends RecyclerView.ViewHolder {
         this.v=view;
         this.title = (TextView) view.findViewById(R.id.cardTitle);
         this.time=(TextView) view.findViewById(R.id.time);
+        this.date=(TextView) view.findViewById(R.id.date);
         this.d=(TextView) view.findViewById(R.id.description);
         this.by=(TextView) view.findViewById(R.id.by);
         this.status=(ImageView)view.findViewById(R.id.status);

@@ -12,7 +12,7 @@ package com.rocks.mafia.entrancesecurity;
  * Created by pankaj on 28/11/16.
  */
 
-
+//Sqllite table for PreRequest
 public class SecurityPreRequestHandler extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;

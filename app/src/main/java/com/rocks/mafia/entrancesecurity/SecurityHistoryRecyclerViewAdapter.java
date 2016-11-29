@@ -11,6 +11,9 @@ import java.util.ArrayList;
  * Created by pankaj on 13/11/16.
  */
 
+// adapter class attached withe the hitory tab
+
+
 public class SecurityHistoryRecyclerViewAdapter extends
         RecyclerView.Adapter<SecurityHistoryViewHolder>
 {
@@ -43,19 +46,14 @@ public class SecurityHistoryRecyclerViewAdapter extends
                 mainHolder.time.setText(arrayList.get(position).getEntryTime().toString());
                 mainHolder.d.setText(arrayList.get(position).getReason());
                 mainHolder.by.setText(arrayList.get(position).getInsiderContact());
+
+                //setting initial state of the Request
                 int s = arrayList.get(position).getStatus();
-                System.out.println("STATUS" + s);
                 if (s == 1)
                     mainHolder.status.setBackgroundResource(R.drawable.cross);
                 else
                     mainHolder.status.setBackgroundResource(R.drawable.tick);
 
-//        if(s==2)
-//            mainHolder.status.setBackgroundColor(16711936);
-//        else if(s==3)
-//            mainHolder.status.setBackgroundColor(65536);
-//        else
-//            mainHolder.status.setBackgroundColor(256);
             }
         }
     }

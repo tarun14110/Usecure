@@ -1,4 +1,4 @@
-package com.rocks.mafia.entrancesecurity;
+package com.rocks.mafia.entrancesecurity.UserEnd;
 
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -28,6 +28,10 @@ import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.rocks.mafia.entrancesecurity.AppConfig;
+import com.rocks.mafia.entrancesecurity.MainActivity;
+import com.rocks.mafia.entrancesecurity.NotificationUtils;
+import com.rocks.mafia.entrancesecurity.R;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

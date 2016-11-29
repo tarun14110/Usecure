@@ -37,6 +37,10 @@ import static android.R.attr.bitmap;
 /**
  * Created by pankaj on 21/10/16.
  */
+
+
+
+//Showing the profiles
 public class ProfileFrag extends Fragment
 {
     private String mParam1;
@@ -75,8 +79,6 @@ public class ProfileFrag extends Fragment
                              Bundle savedInstanceState)
     {
 
-        Log.e("Test","FRAAAGGG");
-
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         TextView userinfo=(TextView)view.findViewById(R.id.user);
                 SessionManager sm=new SessionManager(getActivity());
@@ -92,8 +94,8 @@ public class ProfileFrag extends Fragment
         editName=(TextView)view.findViewById(R.id.name);
         editEmail=(TextView)view.findViewById(R.id.email);
         editContact=(TextView)view.findViewById(R.id.contact);
-            editName.setText(user.get("name"));
-            editEmail.setText(user.get("email"));
+        editName.setText(user.get("name"));
+        editEmail.setText(user.get("email"));
         editContact.setText(user.get("contact"));
 
         editdetails.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +131,6 @@ public class ProfileFrag extends Fragment
         // Setup any handles to view objects here
         TextView t = (TextView) view.findViewById(R.id.name);
         String s=t.toString();
-        Log.e("TEST","FUCK");
 
 
     }
@@ -186,7 +187,6 @@ public class ProfileFrag extends Fragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        Log.e("KOOOOO", "YEEEEEE" + requestCode);
         switch(requestCode) {
             case SELECT_PHOTO:
                 //if(resultCode == RESULT_OK)
@@ -199,7 +199,6 @@ public class ProfileFrag extends Fragment
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         imageView.setImageBitmap(selectedImage);
                         String s=selectedImage.toString();
-                        Log.e("ERROR ","IMAGE ");
                     }
                     catch (FileNotFoundException e)
                     {
@@ -209,17 +208,12 @@ public class ProfileFrag extends Fragment
                 }
                 break;
             case PICK_IMAGE_REQUEST:
-                Log.e("MML", "YEEEEEE " +resultCode+" " + imageReturnedIntent.getData() );
-               // if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && imageReturnedIntent != null && imageReturnedIntent.getData() != null) {
                     {  Uri filePath = imageReturnedIntent.getData();
                     try {
                         //Getting the Bitmap from Gallery
-                        Log.e("TTTTTT", "MMM");
                         bitmap = MediaStore.Images.Media.getBitmap(applicationContext.getContentResolver(), filePath);
                         imageView.setImageBitmap(bitmap);
 
-                       /* SendPhoto sendPhoto = new SendPhoto();
-                        sendPhoto.execute();*/
                         uploadProfileData();
                         //Setting the Bitmap to ImageView
                         imageView.setImageBitmap(bitmap);
@@ -253,12 +247,10 @@ public class ProfileFrag extends Fragment
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String res) {
                         // called when response HTTP status is "200 OK"
-                        Log.e("YEEEEEE", res);
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
-                        Log.e("FAILED", res);
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                     }
                 }

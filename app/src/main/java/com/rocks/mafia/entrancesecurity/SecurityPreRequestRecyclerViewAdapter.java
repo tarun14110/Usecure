@@ -11,11 +11,16 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+
+
+
 public class SecurityPreRequestRecyclerViewAdapter extends
         RecyclerView.Adapter<SecurityPreRequestViewHolder>
 {
     private ArrayList<SecurityPreRequestNode> arrayList;
     private Context context;
+
+
 
     public SecurityPreRequestRecyclerViewAdapter(Context context,
                                                  ArrayList<SecurityPreRequestNode> arrayList)
@@ -38,7 +43,11 @@ public class SecurityPreRequestRecyclerViewAdapter extends
         final SecurityPreRequestViewHolder mainHolder = (SecurityPreRequestViewHolder) holder;
         //Setting text over textview
         mainHolder.title.setText(arrayList.get(position).getOutsiderName());
-        mainHolder.time.setText(arrayList.get(position).getEntryTime());
+        String dateTime =arrayList.get(position).getEntryTime();
+
+        if(dateTime!=null)
+            dateTime.replace("T"," ");
+        mainHolder.time.setText(dateTime);
         mainHolder.d.setText(arrayList.get(position).getReason());
         mainHolder.by.setText(arrayList.get(position).getInsiderContact());
 

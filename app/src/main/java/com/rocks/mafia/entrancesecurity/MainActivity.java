@@ -11,12 +11,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.rocks.mafia.entrancesecurity.UserEnd.HistoryHandler;
+import com.rocks.mafia.entrancesecurity.UserEnd.HistoryNode;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -52,23 +54,11 @@ public class MainActivity extends AppCompatActivity {
 
         // setting this context to use in fragments
         contextOfApplication = getApplicationContext();
-//Dummy data insertion in sqlLite for history page
+
+        //Dummy data insertion in sqlLite for history page
         //TODO remove  this Sqllite insertion
 
-        HistoryHandler  handler= new HistoryHandler(this);
-        handler.deleteAll();
-        historyData = new ArrayList<HistoryNode>();
-
-        String n= handler.getDatabaseName();
-
-        handler.addHistory(new HistoryNode("Sujeet", new Time(3,4,5),String.valueOf(R.drawable.p1)));
-        handler.addHistory(new HistoryNode("Tarun", new Time(3,4,5),String.valueOf(R.drawable.p2)));
-        handler.addHistory(new HistoryNode("Mukesh", new Time(3,4,5),String.valueOf(R.drawable.p3)));
-        handler.addHistory(new HistoryNode("Sudhir", new Time(3,4,5),String.valueOf(R.drawable.p4)));
-        handler.addHistory(new HistoryNode("pankaj", new Time(3,4,5),String.valueOf(R.drawable.p5)));
-        handler.addHistory(new HistoryNode("Rahul", new Time(3,4,5),String.valueOf(R.drawable.p3)));
-        handler.addHistory(new HistoryNode("pinku", new Time(3,4,5),String.valueOf(R.drawable.p4)));
-        handler.addHistory(new HistoryNode("ram", new Time(3,4,5),String.valueOf(R.drawable.p5)));
+        HistoryHandler handler= new HistoryHandler(this);
         historyData= handler.getAllHistory();
 
 

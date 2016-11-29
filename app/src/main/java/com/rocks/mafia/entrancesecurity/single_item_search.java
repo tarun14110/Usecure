@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,11 +53,6 @@ import cz.msebera.android.httpclient.util.EntityUtils;
 
 import static com.twilio.client.impl.TwilioImpl.context;
 
-//import com.twilio.Twilio;
-//import com.twilio.rest.api.v2010.account.Message;
-//import com.twilio.type.PhoneNumber;
-
-
 // after item searched from the search activity this activity start
 //this activity handle direct request sending
 
@@ -88,6 +84,9 @@ public class single_item_search extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_item_search);
+        android.support.v7.app.ActionBar ab = getSupportActionBar();
+        ab.setTitle("USecure ");
+        ab.setDisplayHomeAsUpEnabled(true);
         // Get the intent from ListViewAdapter
         Intent i = getIntent();
         // Get the results of name
@@ -102,8 +101,6 @@ public class single_item_search extends AppCompatActivity  {
         // Get the results of img
         img = i.getByteArrayExtra("img");
 
-
-        Log.e("PROFILE DATA ", name +contact+address);
 
         // Locate the TextViews in singleitemview.xml
         textName = (TextView) findViewById(R.id.name);
@@ -162,7 +159,7 @@ public class single_item_search extends AppCompatActivity  {
 
         int x=0;
         final EditText whomToContact = (EditText) promptView.findViewById(R.id.whomToContactText);
-                whomToContact.setText(contact);
+        whomToContact.setText(contact);
         final  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(promptView);
         alertDialogBuilder.setCancelable(false)
@@ -187,6 +184,9 @@ public class single_item_search extends AppCompatActivity  {
 
         // create an alert dialog
         final AlertDialog alert = alertDialogBuilder.create();
+        alert.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
         alert.show();
         alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
         {
@@ -198,14 +198,23 @@ public class single_item_search extends AppCompatActivity  {
                 String givenReason = reason.getText().toString();
                 String givenTime = time.getText().toString();
                 String givenWhomToContact = whomToContact.getText().toString();
-            if (networkUtils.isConnected(getApplicationContext())) {
+            if (networkUtils.isConnected(getApplicationContext()))
+            {
                 if ((givenName.length() == 0) || (givenReason.length() == 0) || (givenTime.length() == 0)) {
                     Toast.makeText(getApplicationContext(), "Please fill completely !", Toast.LENGTH_LONG).show();
                 }  else if((givenReason.length() > 200) || (givenName.length() > 50)) {
                     Toast.makeText(getApplicationContext(),"Limit exceeded",Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Log.e("BHAI", givenWhomToContact);
+
+                    //checking internet connection
+
+                    NetworkUtils n=new NetworkUtils();
+                    if(n.isConnected(getApplicationContext())==false)
+                        Toast.makeText(getApplicationContext(), "No Internet !", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getApplicationContext(), "connection in progress !", Toast.LENGTH_SHORT).show();
+
                     //checking image is click or not
                     SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
                     sendOutsiderdata.execute();
@@ -224,9 +233,7 @@ public class single_item_search extends AppCompatActivity  {
                     SecurityRequestFragment.adapter.add(0, node);
                     SecurityRequestFragment.adapter.notifyDataSetChanged();
 
-                    System.out.println("LOOOOOOK " + requestHandler.getAllSecurityRequest().size());
                     Toast.makeText(getApplicationContext(), "Sent!", Toast.LENGTH_LONG).show();
-
                     startActivity(new Intent(getBaseContext(), SecurityMainActivity.class));
 
                     alert.dismiss();
@@ -249,7 +256,6 @@ public class single_item_search extends AppCompatActivity  {
             @Override
             public boolean onKey(DialogInterface arg0, int keyCode,
                                  KeyEvent event) {
-                // TODO Auto-generated method stub
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     finish();
                     hideKeyboard(getParent());
@@ -264,7 +270,7 @@ public class single_item_search extends AppCompatActivity  {
     public void sendOutsiderData(String name, String reason, String time, String whomToContact) {
 
         HttpClient httpclient = new DefaultHttpClient();
-//
+
         HttpPost httppost = new HttpPost(
                 "https://api.twilio.com/2010-04-01/Accounts/"+ACCOUNT_SID+"/SMS/Messages");
         String base64EncodedCredentials = "Basic "
@@ -432,7 +438,6 @@ public class single_item_search extends AppCompatActivity  {
             bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
             CameraImg = stream.toByteArray();
 
-            Toast.makeText(getApplicationContext(), "Image DAta !"+CameraImg, Toast.LENGTH_LONG).show();
             Toast.makeText(getApplicationContext(), "Saving Image!", Toast.LENGTH_LONG).show();
             DetailsStatus = 1;
         }

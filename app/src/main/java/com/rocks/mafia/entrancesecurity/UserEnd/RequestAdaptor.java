@@ -1,4 +1,4 @@
-package com.rocks.mafia.entrancesecurity;
+package com.rocks.mafia.entrancesecurity.UserEnd;
 
 /**
  * Created by pankaj on 22/10/16.
@@ -9,10 +9,10 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.sql.Time;
+import com.rocks.mafia.entrancesecurity.R;
+
 import java.util.List;
 
 

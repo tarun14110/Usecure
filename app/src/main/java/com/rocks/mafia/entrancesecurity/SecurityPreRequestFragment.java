@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,7 +31,15 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+=======
+import java.util.ArrayList;
+>>>>>>> fb834cc7dc2a49695c1c161ac7afdd7846829e37
 import static com.rocks.mafia.entrancesecurity.SecurityRequestFragment.adapter;
+
+
+
+//Pre-Request tab , showing all current PreRequest data in list form
+
 
 public class SecurityPreRequestFragment extends Fragment {
     private View view;
@@ -179,7 +188,10 @@ if(getActivity() != null) {
 
         SecurityPreRequestHandler handler =new SecurityPreRequestHandler(getContext());
         arrayList=handler.getAllSecurityPreRequest();
+<<<<<<< HEAD
 
+=======
+>>>>>>> fb834cc7dc2a49695c1c161ac7afdd7846829e37
         SecurityPreRequestRecyclerViewAdapter adapter = new SecurityPreRequestRecyclerViewAdapter(getActivity(), arrayList);
         recyclerView.setAdapter(adapter);// set adapter on recyclerview
 
