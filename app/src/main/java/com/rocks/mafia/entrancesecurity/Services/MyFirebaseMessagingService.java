@@ -145,7 +145,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 
             } else {
                 Log.e("PRE Request", "heheh");
-                payload.getString("name");
+                //payload.getString("name");
 
                 SecurityPreRequestHandler securityPreRequestHandler = new SecurityPreRequestHandler(this);
                 securityPreRequestHandler.addSecurityPreRequest(new SecurityPreRequestNode(payload.getString("name"), payload.getString("reason"), payload.getString("contact"), payload.getString("visitingtime")));
