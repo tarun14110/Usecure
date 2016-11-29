@@ -1,4 +1,4 @@
-package com.rocks.mafia.entrancesecurity;
+package com.rocks.mafia.entrancesecurity.Utils;
 
 /**
  * Created by hp on 11/28/2016.
@@ -6,12 +6,12 @@ package com.rocks.mafia.entrancesecurity;
 
 
 import android.annotation.TargetApi;
-        import android.content.Context;
-        import android.net.ConnectivityManager;
-        import android.net.Network;
-        import android.net.NetworkInfo;
-        import android.os.Build;
-        import android.support.annotation.NonNull;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
+import android.os.Build;
+import android.support.annotation.NonNull;
 
 public class NetworkUtils {
 

@@ -9,14 +9,14 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.rocks.mafia.entrancesecurity.AppConfig;
-import com.rocks.mafia.entrancesecurity.NotificationUtils;
+import com.rocks.mafia.entrancesecurity.Nodes.SecurityPreRequestNode;
+import com.rocks.mafia.entrancesecurity.SecurityMainActivity;
+import com.rocks.mafia.entrancesecurity.SqliteHandlers.SecurityPreRequestHandler;
+import com.rocks.mafia.entrancesecurity.SqliteHandlers.SecurityRequestHandler;
 import com.rocks.mafia.entrancesecurity.UserEnd.RequestHandler;
 import com.rocks.mafia.entrancesecurity.UserEnd.RequestNode;
-import com.rocks.mafia.entrancesecurity.SecurityMainActivity;
-import com.rocks.mafia.entrancesecurity.SecurityPreRequestHandler;
-import com.rocks.mafia.entrancesecurity.SecurityPreRequestNode;
-import com.rocks.mafia.entrancesecurity.SecurityRequestHandler;
+import com.rocks.mafia.entrancesecurity.Utils.AppConfig;
+import com.rocks.mafia.entrancesecurity.Utils.NotificationUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,41 +28,37 @@ import java.sql.Time;
  */
 
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService
-{
+public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = MyFirebaseMessagingService.class.getSimpleName();
 
     private NotificationUtils notificationUtils;
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage)
-    {
+    public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.e(TAG, "From: " + remoteMessage.getFrom());
 
         if (remoteMessage == null)
             return;
 
         // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null)
-        {
+        if (remoteMessage.getNotification() != null) {
             Log.e(TAG, "Notification Body: " + remoteMessage.getNotification().getBody());
             handleNotification(remoteMessage.getNotification().getBody());
-            Intent i = new Intent(this,getClass());
-            i.putExtra("NOTIFICATION","Notification Body: " + remoteMessage.getNotification().getBody());
+            Intent i = new Intent(this, getClass());
+            i.putExtra("NOTIFICATION", "Notification Body: " + remoteMessage.getNotification().getBody());
 
 
             //DATA TO REQUEST MESSAGE DSIPLAY
 
-            RequestHandler handler= new RequestHandler(this);
-            String n= handler.getDatabaseName();
-            Time now = new Time(2,4,5);
-            handler.addRequest(new RequestNode(remoteMessage.getNotification().getBody(),now));
+            RequestHandler handler = new RequestHandler(this);
+            String n = handler.getDatabaseName();
+            Time now = new Time(2, 4, 5);
+            handler.addRequest(new RequestNode(remoteMessage.getNotification().getBody(), now));
 
         }
 
         // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0)
-        {
+        if (remoteMessage.getData().size() > 0) {
             Log.e(TAG, "Data Payload: " + remoteMessage.getData().toString());
 
             try {
@@ -74,11 +70,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
         }
     }
 
-    private void handleNotification(String message)
-    {
+    private void handleNotification(String message) {
         Log.e(TAG, "ZZZZZ");
-        if (!NotificationUtils.isAppIsInBackground(getApplicationContext()))
-        {
+        if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
             Log.e(TAG, "YYYYYY");
             // app is in foreground, broadcast the push message
             Intent pushNotification = new Intent(AppConfig.PUSH_NOTIFICATION);
@@ -87,16 +81,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
             // play notification sound
             NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
             notificationUtils.playNotificationSound();
-        }
-        else
-        {
+        } else {
             Log.e(TAG, "XXXXXXX");
             // If the app is in background, firebase itself handles the notification
         }
     }
 
-    private void handleDataMessage(JSONObject json)
-    {
+    private void handleDataMessage(JSONObject json) {
         Log.e(TAG, "push json: " + json.toString());
 
         try {
@@ -133,9 +124,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 
                 SecurityRequestHandler securityRequestHandler = new SecurityRequestHandler(this);
 
-                Log.e("REQUESTS" + payload.getString("requestId"),securityRequestHandler.getAllSecurityRequest().get(0).getRequestId());
+                Log.e("REQUESTS" + payload.getString("requestId"), securityRequestHandler.getAllSecurityRequest().get(0).getRequestId());
 
-                securityRequestHandler.updateStatusUsingRequestId( payload.getString("requestId"), request);
+                securityRequestHandler.updateStatusUsingRequestId(payload.getString("requestId"), request);
 
             } else {
                 Log.e("PRE Request", "heheh");

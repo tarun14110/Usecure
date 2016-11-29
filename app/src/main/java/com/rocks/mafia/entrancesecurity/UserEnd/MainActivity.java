@@ -1,26 +1,25 @@
-package com.rocks.mafia.entrancesecurity;
+package com.rocks.mafia.entrancesecurity.UserEnd;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rocks.mafia.entrancesecurity.UserEnd.HistoryHandler;
-import com.rocks.mafia.entrancesecurity.UserEnd.HistoryNode;
+import com.rocks.mafia.entrancesecurity.R;
+import com.rocks.mafia.entrancesecurity.SessionManager;
+import com.rocks.mafia.entrancesecurity.WelcomeActivity;
 
-import java.sql.Time;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,22 +33,19 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     public static Context contextOfApplication;
-    public static Context getContextOfApplication()
-    {
-        return contextOfApplication;
-    }
-
     private ArrayList<HistoryNode> historyData;
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
 
+    public static Context getContextOfApplication() {
+        return contextOfApplication;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // setting this context to use in fragments
@@ -57,10 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Dummy data insertion in sqlLite for history page
         //TODO remove  this Sqllite insertion
-
-        HistoryHandler handler= new HistoryHandler(this);
-        historyData= handler.getAllHistory();
-
+        HistoryHandler handler = new HistoryHandler(this);
+        historyData = handler.getAllHistory();
 
         setContentView(R.layout.activity_main);
 
@@ -92,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -112,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_logout:
                 SessionManager session = new SessionManager(getApplicationContext());
-                if(session.isSecurityLoggedIn()) {
+                if (session.isSecurityLoggedIn()) {
                     session.setSecurityLogin(false);
                 } else {
                     session.setLogin(false);

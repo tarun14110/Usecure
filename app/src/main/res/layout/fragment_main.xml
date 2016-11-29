@@ -1,9 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@drawable/xbg"
-tools:context="com.rocks.mafia.entrancesecurity.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/xbg"
+    tools:context="com.rocks.mafia.entrancesecurity.UserEnd.MainActivity">
 
 
     <TextView
@@ -12,30 +12,29 @@ tools:context="com.rocks.mafia.entrancesecurity.MainActivity">
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Content "
         android:layout_marginTop="40dp"
         android:gravity="center_horizontal"
+        android:text="Content "
         android:textColor="@color/colorPrimary"
         android:textSize="26dp" />
 
     <TextView
         android:id="@+id/txt_reg_id"
         android:layout_width="wrap_content"
-        android:text="Reg id"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:text="Reg id" />
 
-    <android.support.design.widget.FloatingActionButton
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fab"
         android:layout_width="67dp"
         android:layout_height="77dp"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/indigo"
+        android:layout_above="@+id/txt_reg_id"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="bottom"
         android:layout_marginBottom="69dp"
         android:layout_marginEnd="45dp"
-        android:layout_above="@+id/txt_reg_id"
-        android:layout_alignParentEnd="true" />
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/indigo" />
 
 </RelativeLayout>

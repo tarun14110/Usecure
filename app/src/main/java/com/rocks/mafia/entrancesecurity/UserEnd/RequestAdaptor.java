@@ -22,10 +22,8 @@ public class RequestAdaptor extends RecyclerView.Adapter
     private List<RequestNode> items;
     private SparseBooleanArray selectedItems;
 
-    RequestAdaptor(List<RequestNode> modelData)
-    {
-        if (modelData == null)
-        {
+    RequestAdaptor(List<RequestNode> modelData) {
+        if (modelData == null) {
             throw new IllegalArgumentException("modelData must not be null");
         }
         items = modelData;
@@ -33,8 +31,7 @@ public class RequestAdaptor extends RecyclerView.Adapter
     }
 
     @Override
-    public ListItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
-    {
+    public ListItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View itemView = LayoutInflater.
                 from(viewGroup.getContext()).
                 inflate(R.layout.request_view_node, viewGroup, false);
@@ -42,25 +39,22 @@ public class RequestAdaptor extends RecyclerView.Adapter
     }
 
     @Override
-    public void onBindViewHolder(ListItemViewHolder viewHolder, int position)
-    {
+    public void onBindViewHolder(ListItemViewHolder viewHolder, int position) {
         RequestNode model = items.get(position);
-        viewHolder.message.setText("Message: "+String.valueOf(model.getMessage()));
+        viewHolder.message.setText("Message: " + String.valueOf(model.getMessage()));
         viewHolder.itemView.setActivated(selectedItems.get(position, false));
     }
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return items.size();
     }
 
-    public final static class ListItemViewHolder extends RecyclerView.ViewHolder
-    {
+    public final static class ListItemViewHolder extends RecyclerView.ViewHolder {
         TextView message;
         TextView time;
-        public ListItemViewHolder(View itemView)
-        {
+
+        public ListItemViewHolder(View itemView) {
             super(itemView);
             /*message = (TextView) itemView.findViewById(R.id.request);*/
             time = (TextView) itemView.findViewById(R.id.time);

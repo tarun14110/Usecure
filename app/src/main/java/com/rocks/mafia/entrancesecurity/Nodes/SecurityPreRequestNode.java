@@ -1,4 +1,4 @@
-package com.rocks.mafia.entrancesecurity;
+package com.rocks.mafia.entrancesecurity.Nodes;
 
 /**
  * Created by pankaj on 28/11/16.
@@ -10,12 +10,11 @@ public class SecurityPreRequestNode {
     private String InsiderContact;
     private String time;
 
-    public SecurityPreRequestNode(String outsiderName, String outsiderReason, String insiderContact , String time)
-    {
-        this.OutsiderName=outsiderName;
-        this.Reason=outsiderReason;
-        this.InsiderContact=insiderContact;
-        this.time=time;
+    public SecurityPreRequestNode(String outsiderName, String outsiderReason, String insiderContact, String time) {
+        this.OutsiderName = outsiderName;
+        this.Reason = outsiderReason;
+        this.InsiderContact = insiderContact;
+        this.time = time;
     }
 
 

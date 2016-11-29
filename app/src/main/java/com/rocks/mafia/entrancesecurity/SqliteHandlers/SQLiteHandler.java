@@ -1,8 +1,9 @@
-package com.rocks.mafia.entrancesecurity;
+package com.rocks.mafia.entrancesecurity.SqliteHandlers;
 
 /**
  * Created by mafia on 10/16/16.
  */
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -60,7 +61,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     /**
      * Storing user details in database
-     * */
+     */
     public void addUser(String name, String email, String contact) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -73,32 +74,29 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         long id = db.insert(TABLE_USER, null, values);
         db.close(); // Closing database connection
 
-        Log.d(TAG, "New user inserted into sqlite: " +name);
+        Log.d(TAG, "New user inserted into sqlite: " + name);
     }
 
-    public int updateUser(String name, String email,String contact)
-    {
+    public int updateUser(String name, String email, String contact) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
-        values.put(KEY_EMAIL,email);
+        values.put(KEY_EMAIL, email);
         return db.update(TABLE_USER, values, KEY_CONTACT + " = ?",
-                new String[] {contact});
+                new String[]{contact});
     }
 
-    public void deleteUser(String contact)
-    {
+    public void deleteUser(String contact) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_USER, KEY_CONTACT+ " = ?",
-                new String[] { contact});
+        db.delete(TABLE_USER, KEY_CONTACT + " = ?",
+                new String[]{contact});
         db.close();
     }
 
 
-
     /**
      * Getting user data from database
-     * */
+     */
     public HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<String, String>();
         String selectQuery = "SELECT  * FROM " + TABLE_USER;
@@ -107,8 +105,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         // Move to first row
         cursor.moveToFirst();
-        if (cursor.getCount() > 0)
-        {
+        if (cursor.getCount() > 0) {
             user.put("name", cursor.getString(1));
             user.put("email", cursor.getString(2));
             user.put("contact", cursor.getString(3));
@@ -124,7 +121,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     /**
      * Re crate database Delete all rows and create table again
-     * */
+     */
     public void deleteUsers() {
         SQLiteDatabase db = this.getWritableDatabase();
         // Delete All Rows

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:weightSum="1">
 
     <RelativeLayout
@@ -12,118 +13,118 @@
         android:clickable="true"
         android:padding="@dimen/activity_horizontal_margin">
 
-    <TextView
-
-        android:text="Create Request"
-        android:id="@+id/details"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/Name" />
-
         <TextView
+
+            android:id="@+id/details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/Name"
+
+            android:text="Create Request"
+            android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title" />
+
+        <TextView
+            android:id="@+id/Reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editname"
+            android:layout_marginLeft="100dp"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:textSize="20sp"
+            android:text="Reason"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/TextColor"
-            android:layout_below="@+id/editname"
-            android:text="Reason"
-            android:layout_marginLeft="100dp"
-            android:id="@+id/Reason"
+            android:textSize="20sp"
 
             />
 
         <TextView
+            android:id="@+id/phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/editReason"
+            android:layout_marginLeft="100dp"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:textSize="20sp"
+            android:text="Time"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/TextColor"
-            android:layout_below="@+id/editReason"
-            android:text="Time"
-            android:layout_marginLeft="100dp"
-            android:id="@+id/phone"
+            android:textSize="20sp"
             android:visibility="invisible"
 
             />
 
         <TextView
+            android:id="@+id/whomToContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/editTime"
+            android:layout_marginLeft="100dp"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:textSize="20sp"
+            android:text="Whom to meet"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/TextColor"
-            android:layout_below="@+id/editTime"
-            android:text="Whom to meet"
-            android:layout_marginLeft="100dp"
-            android:id="@+id/whomToContact"
+            android:textSize="20sp"
             android:visibility="invisible"
 
             />
 
         <EditText
 
+            android:id="@+id/editReason"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/TextColor"
-            android:id="@+id/editReason"
+            android:layout_alignStart="@+id/Reason"
             android:layout_below="@+id/Reason"
-            android:layout_alignStart="@+id/Reason" />
+            android:textColor="@color/TextColor" />
 
         <TextView
             android:id="@+id/Name"
-            android:text="Name"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:textSize="20sp"
+            android:layout_alignStart="@+id/Reason"
+            android:layout_below="@+id/details"
+            android:layout_marginTop="25dp"
+            android:text="Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/TextColor"
-            android:layout_marginTop="25dp"
-            android:layout_below="@+id/details"
-            android:layout_alignStart="@+id/Reason" />
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/editname"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/TextColor"
+            android:layout_alignStart="@+id/Name"
             android:layout_below="@+id/Name"
-            android:layout_alignStart="@+id/Name"></EditText>
+            android:textColor="@color/TextColor"></EditText>
 
         <EditText
 
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/TextColor"
             android:id="@+id/editTime"
-            android:visibility="invisible"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/phone"
             android:layout_below="@+id/editReason"
-            android:layout_alignStart="@+id/phone" />
+            android:textColor="@color/TextColor"
+            android:visibility="invisible" />
 
         <EditText
 
+            android:id="@+id/whomToContactText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/TextColor"
-            android:id="@+id/whomToContactText"
-            android:visibility="invisible"
             android:layout_alignBaseline="@+id/whomToContact"
             android:layout_alignBottom="@+id/whomToContact"
-            android:layout_alignStart="@+id/whomToContact" />
+            android:layout_alignStart="@+id/whomToContact"
+            android:textColor="@color/TextColor"
+            android:visibility="invisible" />
 
         <Button
-            android:text="Take Image"
+            android:id="@+id/takeImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/phone"
             android:layout_centerHorizontal="true"
-            android:id="@+id/takeImage" />
+            android:text="Take Image" />
 
     </RelativeLayout>
 

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.rocks.mafia.entrancesecurity.profile_node;
+import com.rocks.mafia.entrancesecurity.Nodes.profile_node;
 
 import java.util.ArrayList;
 
@@ -34,9 +34,9 @@ public class ProfileHandler extends SQLiteOpenHelper {
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_CONTACT = "contact";
-    private static final String  KEY_ADDRESS="address";
-    private static final String KEY_ROLLNUMBER="rollNumber";
-    private static  final String KEY_IMAGE="image";
+    private static final String KEY_ADDRESS = "address";
+    private static final String KEY_ROLLNUMBER = "rollNumber";
+    private static final String KEY_IMAGE = "image";
 
     public ProfileHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -44,8 +44,7 @@ public class ProfileHandler extends SQLiteOpenHelper {
 
     // Creating Tables
     @Override
-    public void onCreate(SQLiteDatabase db)
-    {
+    public void onCreate(SQLiteDatabase db) {
         String CREATE_PROFILE_TABLE = "CREATE TABLE " + TABLE_PROFILE + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_NAME + " TEXT,"
@@ -73,30 +72,15 @@ public class ProfileHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      */
-    public void addUser(String name, String email, String contact,String address,byte[] image) {
+    public void addUser(String name, String email, String contact, String address, byte[] image) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name); // Name
         values.put(KEY_EMAIL, email); // Email
         values.put(KEY_CONTACT, contact); // Contact
-        values.put(KEY_ADDRESS,address);  //address
-        values.put(KEY_IMAGE,image);
-        // Inserting Row
-        long id = db.insert(TABLE_PROFILE, null, values);
-        db.close(); // Closing database connection
-
-        Log.d(TAG, "New profile inserted into sqlite: " + name);
-    }
-    public void addUser(String name, String email, String contact,String address)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_NAME, name); // Name
-        values.put(KEY_EMAIL, email); // Email
-        values.put(KEY_CONTACT, contact); // Contact
-        values.put(KEY_ADDRESS,address);  //address
+        values.put(KEY_ADDRESS, address);  //address
+        values.put(KEY_IMAGE, image);
         // Inserting Row
         long id = db.insert(TABLE_PROFILE, null, values);
         db.close(); // Closing database connection
@@ -104,13 +88,26 @@ public class ProfileHandler extends SQLiteOpenHelper {
         Log.d(TAG, "New profile inserted into sqlite: " + name);
     }
 
-
-
-    public void addUsers(ArrayList< profile_node> profiles)
-    {
+    public void addUser(String name, String email, String contact, String address) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        for (int i =0; i < profiles.size(); ++i) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, name); // Name
+        values.put(KEY_EMAIL, email); // Email
+        values.put(KEY_CONTACT, contact); // Contact
+        values.put(KEY_ADDRESS, address);  //address
+        // Inserting Row
+        long id = db.insert(TABLE_PROFILE, null, values);
+        db.close(); // Closing database connection
+
+        Log.d(TAG, "New profile inserted into sqlite: " + name);
+    }
+
+
+    public void addUsers(ArrayList<profile_node> profiles) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        for (int i = 0; i < profiles.size(); ++i) {
             ContentValues values = new ContentValues();
             values.put(KEY_NAME, profiles.get(i).getName()); // Name
             values.put(KEY_EMAIL, profiles.get(i).getEmail()); // Email
@@ -126,13 +123,13 @@ public class ProfileHandler extends SQLiteOpenHelper {
 
     }
 
-    public  boolean checkUser( String contact)
+    public boolean checkUser(String contact)
 
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select * from " +  TABLE_PROFILE + " where " + KEY_CONTACT + " = " + contact;
+        String Query = "Select * from " + TABLE_PROFILE + " where " + KEY_CONTACT + " = " + contact;
         Cursor cursor = db.rawQuery(Query, null);
-        if(cursor.getCount() <= 0){
+        if (cursor.getCount() <= 0) {
             cursor.close();
             return false;
         }
@@ -140,13 +137,13 @@ public class ProfileHandler extends SQLiteOpenHelper {
         return true;
     }
 
-    public int updateUser(String name, String email, String contact,String address,byte[] image) {
+    public int updateUser(String name, String email, String contact, String address, byte[] image) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
         values.put(KEY_EMAIL, email);
-        values.put(KEY_ADDRESS,address);  //address
-        values.put(KEY_IMAGE,image);
+        values.put(KEY_ADDRESS, address);  //address
+        values.put(KEY_IMAGE, image);
         return db.update(TABLE_PROFILE, values, KEY_CONTACT + " = ?",
                 new String[]{contact});
     }
@@ -170,21 +167,20 @@ public class ProfileHandler extends SQLiteOpenHelper {
     /**
      * Getting user data from database
      */
-    public ArrayList< profile_node> getAllProfiles()
-    {
-        ArrayList< profile_node> profileList = new ArrayList< profile_node>();
+    public ArrayList<profile_node> getAllProfiles() {
+        ArrayList<profile_node> profileList = new ArrayList<profile_node>();
         String selectQuery = "SELECT * FROM " + TABLE_PROFILE;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst())
-        {
+        if (cursor.moveToFirst()) {
             do {
-                profile_node node = new profile_node (cursor.getString(1),cursor.getString(2), cursor.getString(3),cursor.getString(4),cursor.getBlob(6));
+                profile_node node = new profile_node(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getBlob(6));
                 profileList.add(node);
             } while (cursor.moveToNext());
         }
         return profileList;
     }
+
     /**
      * Re crate database Delete all rows and create table again
      */
@@ -196,16 +192,15 @@ public class ProfileHandler extends SQLiteOpenHelper {
 
         Log.d(TAG, "Deleted all profiles info from sqlite");
     }
-    public  String getUserName(String contact)
-    {
+
+    public String getUserName(String contact) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select * from " +  TABLE_PROFILE + " where " + KEY_CONTACT + " = " + contact;
+        String Query = "Select * from " + TABLE_PROFILE + " where " + KEY_CONTACT + " = " + contact;
         Cursor cursor = db.rawQuery(Query, null);
-        String name=null;
-        if (cursor.moveToFirst())
-        {
-             name = cursor.getString(1);
+        String name = null;
+        if (cursor.moveToFirst()) {
+            name = cursor.getString(1);
         }
-     return name;
+        return name;
     }
 }

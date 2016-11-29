@@ -7,17 +7,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/activity_horizontal_margin"
-    android:padding="@dimen/activity_horizontal_margin"
     android:background="@drawable/x1"
+    android:padding="@dimen/activity_horizontal_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/fragment_profile"
-    >
+    tools:showIn="@layout/fragment_profile">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginBottom="10dp"
+        android:orientation="vertical"
 
         >
 
@@ -37,9 +36,9 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:editable="true"
                 android:text="Ramesh Kumar"
-                android:textSize="30sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/user"
@@ -52,11 +51,12 @@
                 android:textColor="#ffffff" />
 
         </RelativeLayout>
+
         <RelativeLayout
-            android:background="@drawable/round_corner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@drawable/round_corner"
             android:clickable="true"
             android:padding="@dimen/activity_horizontal_margin">
 
@@ -66,18 +66,18 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:tint="@color/TextColor"
                 android:src="@drawable/ic_phone_black"
+                android:tint="@color/TextColor"
                 android:visibility="visible" />
 
 
             <TextView
                 android:id="@+id/contact"
-                android:editable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_toEndOf="@id/ivContactItem2"
+                android:editable="true"
                 android:text="(321) 654-0987"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#ffffff" />
@@ -87,8 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/contact"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_toEndOf="@id/ivContactItem2"
                 android:layout_marginTop="8dp"
+                android:layout_toEndOf="@id/ivContactItem2"
                 android:text="Work"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#ffffff" />
@@ -109,22 +109,23 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:src="@drawable/ic_email_black"
                 android:textColor="#ffffff"
-                android:tint="@color/TextColor"
-                android:src="@drawable/ic_email_black" />
+                android:tint="@color/TextColor" />
 
             <TextView
                 android:id="@+id/email"
                 android:layout_width="wrap_content"
-                android:editable="true"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_toEndOf="@id/ivContactItem3"
+                android:editable="true"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="chintan@letsnurture.com"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#f9f9f9" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -139,9 +140,9 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/round_corner"
             android:clickable="true"
             android:padding="@dimen/activity_horizontal_margin">
@@ -152,17 +153,17 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:tint="@color/TextColor"
-                android:src="@drawable/ic_location_on_black" />
+                android:src="@drawable/ic_location_on_black"
+                android:tint="@color/TextColor" />
 
             <TextView
                 android:id="@+id/tvNumber5"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:editable="true"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_toEndOf="@id/ivContactItem5"
+                android:editable="true"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="B-2 Park Street, Los Angeles"
@@ -187,8 +188,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:clickable="true"
             android:padding="@dimen/activity_horizontal_margin">
 
@@ -197,21 +198,22 @@
                 android:id="@+id/editDetails"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:background="@color/colorPrimaryLight"
                 android:text="Edit  Details"
-                android:layout_margin="10dp"
                 android:textColor="@color/TextColor" />
+
             <Button
                 android:id="@+id/saveDetails"
-                android:layout_below="@id/editDetails"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/editDetails"
+                android:layout_margin="10dp"
                 android:background="@color/colorPrimaryLight"
                 android:text="Save Details"
-                android:layout_margin="10dp"
 
-                android:visibility="invisible"
-                android:textColor="@color/TextColor" />
+                android:textColor="@color/TextColor"
+                android:visibility="invisible" />
 
         </RelativeLayout>
     </LinearLayout>

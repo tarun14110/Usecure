@@ -18,8 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class RequestHandler extends SQLiteOpenHelper
-{
+public class RequestHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Request";
     private static final String TABLE_REQUEST = "RequestTable";
@@ -28,30 +27,28 @@ public class RequestHandler extends SQLiteOpenHelper
     private static final String KEY_MESSAGE = "message";
 
 
-
-    public RequestHandler(Context context)
-    {
+    public RequestHandler(Context context) {
 
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
 
     @Override
-    public void onCreate(SQLiteDatabase db)
-    {
+    public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_REQUEST + "("
-                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +KEY_MESSAGE+" TIME,"
-                + KEY_TIME +")";
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + KEY_MESSAGE + " TIME,"
+                + KEY_TIME + ")";
 
-        Log.v("CHECK :  ",CREATE_CONTACTS_TABLE);
+        Log.v("CHECK :  ", CREATE_CONTACTS_TABLE);
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
+
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_REQUEST);
         onCreate(db);
     }
+
     public void addRequest(RequestNode node)
 
     {
@@ -64,36 +61,32 @@ public class RequestHandler extends SQLiteOpenHelper
 
     }
 
-    public RequestNode getPerson(int id)
-    {
+    public RequestNode getPerson(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_REQUEST, new String[] { KEY_ID,
-                        KEY_MESSAGE, KEY_TIME }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null,null, null);
+        Cursor cursor = db.query(TABLE_REQUEST, new String[]{KEY_ID,
+                        KEY_MESSAGE, KEY_TIME}, KEY_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
         DateFormat formatter = new SimpleDateFormat("HH:mm");
         Time timeValue = null;
         try {
             timeValue = new Time(formatter.parse(cursor.getString(2)).getTime());
-        } catch (ParseException e)
-        {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
-        RequestNode node = new RequestNode(cursor.getString(1),timeValue);
+        RequestNode node = new RequestNode(cursor.getString(1), timeValue);
 
         return node;
     }
 
-    public ArrayList< RequestNode> getAllRequest()
-    {
-        ArrayList<RequestNode> RequestList = new ArrayList< RequestNode>();
+    public ArrayList<RequestNode> getAllRequest() {
+        ArrayList<RequestNode> RequestList = new ArrayList<RequestNode>();
         String selectQuery = "SELECT * FROM " + TABLE_REQUEST;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst())
-        {
+        if (cursor.moveToFirst()) {
             do {
                 DateFormat formatter = new SimpleDateFormat("HH:mm");
                 Time timeValue = null;
@@ -102,7 +95,7 @@ public class RequestHandler extends SQLiteOpenHelper
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-               RequestNode node = new  RequestNode (cursor.getString(1),timeValue);
+                RequestNode node = new RequestNode(cursor.getString(1), timeValue);
                 RequestList.add(node);
             } while (cursor.moveToNext());
         }
@@ -110,17 +103,16 @@ public class RequestHandler extends SQLiteOpenHelper
     }
 
 
-    public void deleteHistory(String m)
-    {
+    public void deleteHistory(String m) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_REQUEST, KEY_ID + " = ?",
-                new String[] { m });
+                new String[]{m});
         db.close();
     }
-    public void deleteAll()
-    {
+
+    public void deleteAll() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from "+ TABLE_REQUEST);
+        db.execSQL("delete from " + TABLE_REQUEST);
 
     }
 }

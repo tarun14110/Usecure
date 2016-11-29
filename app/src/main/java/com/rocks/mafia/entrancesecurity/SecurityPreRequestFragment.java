@@ -19,6 +19,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rocks.mafia.entrancesecurity.Nodes.SecurityPreRequestNode;
+import com.rocks.mafia.entrancesecurity.SqliteHandlers.SecurityPreRequestHandler;
+import com.rocks.mafia.entrancesecurity.Utils.AppConfig;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,17 +30,36 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.rocks.mafia.entrancesecurity.SecurityRequestFragment.adapter;
-
 public class SecurityPreRequestFragment extends Fragment {
+    private static RecyclerView recyclerView;
+    SecurityPreRequestRecyclerViewAdapter adapter;
     private View view;
-
     private String title;//String for tab title
     private ArrayList<SecurityPreRequestNode> arrayList;
-    private static RecyclerView recyclerView;
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (intent.getStringExtra("type").equals("pre-request")) {
+                // Get extra data included in the Intent
+
+                String name = intent.getStringExtra("name");
+                String reason = intent.getStringExtra("reason");
+                String contact = intent.getStringExtra("contact");
+                String visitingtime = intent.getStringExtra("visitingtime");
+
+                arrayList.add(0, new SecurityPreRequestNode(name, reason, contact, visitingtime));
+
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+
+    };
 
     public SecurityPreRequestFragment() {
     }
+
 
     public SecurityPreRequestFragment(String title) {
         this.title = title;//Setting tab title
@@ -57,14 +80,13 @@ public class SecurityPreRequestFragment extends Fragment {
         myTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                // Log.e("chopu", arrayList.get(0).getEntryTime());
                 ArrayList<SecurityPreRequestNode> temp1 = new ArrayList<SecurityPreRequestNode>();
                 ArrayList<SecurityPreRequestNode> temp2 = new ArrayList<SecurityPreRequestNode>();
 
 
-                for (int i =0 ; i < arrayList.size()-1; ++i) {
-                    for (int j =0; j < arrayList.size()-i-1; ++j) {
-                        try{
+                for (int i = 0; i < arrayList.size() - 1; ++i) {
+                    for (int j = 0; j < arrayList.size() - i - 1; ++j) {
+                        try {
                             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
 
                             String str1 = arrayList.get(i).getEntryTime();
@@ -72,21 +94,20 @@ public class SecurityPreRequestFragment extends Fragment {
                             String str2 = arrayList.get(j).getEntryTime();
                             Date date2 = formatter.parse(str2);
 
-                            if (date1.compareTo(date2)>=0)
-                            {
+                            if (date1.compareTo(date2) >= 0) {
                                 SecurityPreRequestNode tem;
                                 tem = arrayList.get(j);
-                                arrayList.set(j,arrayList.get(j+1));
-                                arrayList.set(j+1, tem);
+                                arrayList.set(j, arrayList.get(j + 1));
+                                arrayList.set(j + 1, tem);
                             }
-                        }catch (ParseException e1){
+                        } catch (ParseException e1) {
                             e1.printStackTrace();
                         }
                     }
                 }
 
                 Date date = new Date();
-                for (int i =0; i < arrayList.size(); ++i) {
+                for (int i = 0; i < arrayList.size(); ++i) {
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
                     String str1 = arrayList.get(i).getEntryTime();
                     Date date1 = null;
@@ -99,7 +120,7 @@ public class SecurityPreRequestFragment extends Fragment {
                     long seconds = diff / 1000;
                     long minutes = seconds / 60;
                     long hours = minutes / 60;
-                    if (diff <1 && diff > -1) {
+                    if (diff < 1 && diff > -1) {
                         temp1.add(arrayList.get(i));
                     } else {
                         temp2.add(arrayList.get(i));
@@ -107,16 +128,16 @@ public class SecurityPreRequestFragment extends Fragment {
                 }
 
                 int i;
-                for (i = 0; i< temp1.size(); ++i) {
+                for (i = 0; i < temp1.size(); ++i) {
                     arrayList.set(i, temp1.get(i));
                 }
 
-                for (int j = 0; j< temp1.size(); ++i) {
+                for (int j = 0; j < temp1.size(); ++i) {
                     arrayList.set(i, temp1.get(j));
                     ++i;
                 }
 
-                if(getActivity() != null) {
+                if (getActivity() != null) {
                     getActivity().runOnUiThread(new Runnable() {
                         public void run() {
                             adapter.notifyDataSetChanged();
@@ -130,41 +151,6 @@ public class SecurityPreRequestFragment extends Fragment {
 
     }
 
-
-
-
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            if (intent.getStringExtra("type").equals("pre-request")) {
-                // Get extra data included in the Intent
-                ArrayList<SecurityPreRequestNode> temp=new ArrayList<SecurityPreRequestNode>();
-
-                String name = intent.getStringExtra("name");
-                String reason = intent.getStringExtra("reason");
-                String contact = intent.getStringExtra("contact");
-                String visitingtime = intent.getStringExtra("visitingtime");
-
-                temp.clear();
-                temp.add(0, new SecurityPreRequestNode(name, reason, contact, visitingtime));
-                temp.addAll(arrayList);
-                arrayList.clear();
-                arrayList.addAll(temp);
-
-                adapter.notifyDataSetChanged();
-            }
-        }
-
-
-    };
-
-    public synchronized void refresAdapter(ArrayList<SecurityPreRequestNode> items) {
-        arrayList.clear();
-        arrayList.addAll(items);
-        adapter.notifyDataSetChanged();
-    }
-
     //Setting recycler view
     private void setRecyclerView() {
 
@@ -174,10 +160,10 @@ public class SecurityPreRequestFragment extends Fragment {
         recyclerView
                 .setLayoutManager(new LinearLayoutManager(getActivity()));//Linear Items
 
-        SecurityPreRequestHandler handler =new SecurityPreRequestHandler(getContext());
-        arrayList=handler.getAllSecurityPreRequest();
+        SecurityPreRequestHandler handler = new SecurityPreRequestHandler(getContext());
+        arrayList = handler.getAllSecurityPreRequest();
 
-        SecurityPreRequestRecyclerViewAdapter adapter = new SecurityPreRequestRecyclerViewAdapter(getActivity(), arrayList);
+        adapter = new SecurityPreRequestRecyclerViewAdapter(getActivity(), arrayList);
         recyclerView.setAdapter(adapter);// set adapter on recyclerview
 
     }

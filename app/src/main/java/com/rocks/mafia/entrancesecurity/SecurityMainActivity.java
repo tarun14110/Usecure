@@ -23,15 +23,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.rocks.mafia.entrancesecurity.Nodes.SecurityRequestNode;
 import com.rocks.mafia.entrancesecurity.Services.ProfileHandler;
+import com.rocks.mafia.entrancesecurity.SqliteHandlers.SecurityHistoryHandler;
+import com.rocks.mafia.entrancesecurity.Utils.MySingleton;
+import com.rocks.mafia.entrancesecurity.Utils.NetworkUtils;
+import com.rocks.mafia.entrancesecurity.Utils.ParseJSON;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,31 +48,38 @@ import java.util.Locale;
 
 //main activity of security End , handling all the tabs selecting actions, fabs action
 public class SecurityMainActivity extends AppCompatActivity {
+    public static final String JSON_ARRAY = "result";
+    public static final String JSON_URL = "http://usecure.site88.net/getAllUsers.php";
     private static Toolbar toolbar;
     private static ViewPager viewPager;
     private static TabLayout tabLayout;
-    public static final String JSON_ARRAY = "result";
-    public static final String JSON_URL = "http://usecure.site88.net/getAllUsers.php";
     SearchView searchView;
+
+    // convert from bitmap to byte array
+    public static byte[] getImageBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        return stream.toByteArray();
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.security_activity_main);
-        String  t= getDateTime();
-        SecurityHistoryHandler historyHandler= new SecurityHistoryHandler(this);
-        t= getDateTime();
+        String t = getDateTime();
+        SecurityHistoryHandler historyHandler = new SecurityHistoryHandler(this);
+        t = getDateTime();
         historyHandler.delete();
-        historyHandler.addSecurityHistory(new SecurityRequestNode("pankaj","i want to meet rahul ","888888888","", t,1));
+        historyHandler.addSecurityHistory(new SecurityRequestNode("pankaj", "i want to meet rahul ", "888888888", t, "", 1));
 
         FetchData fetchData = new FetchData();
         fetchData.execute();
 
 
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Usecure");
-        setSupportActionBar(toolbar);;
+        setSupportActionBar(toolbar);
+        ;
 
         if (findViewById(R.id.viewPager) == null) {
         }
@@ -79,18 +94,17 @@ public class SecurityMainActivity extends AppCompatActivity {
         //Implementing tab selected listener over tablayout
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab)
-            {
+            public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());//setting current selected item over viewpager
                 switch (tab.getPosition()) {
                     case 0:
-                        Log.e("TAG","TAB1");
+                        Log.e("TAG", "TAB1");
                         break;
                     case 1:
-                        Log.e("TAG","TAB2");
+                        Log.e("TAG", "TAB2");
                         break;
                     case 2:
-                        Log.e("TAG","TAB3");
+                        Log.e("TAG", "TAB3");
                         break;
                 }
             }
@@ -107,12 +121,11 @@ public class SecurityMainActivity extends AppCompatActivity {
 
 //Fab action calling new activity
 
-        FloatingActionButton fab=(FloatingActionButton)this.findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) this.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), security_request_search.class);
                 startActivity(intent);
 
@@ -120,21 +133,7 @@ public class SecurityMainActivity extends AppCompatActivity {
         });
     }
 
-
-    public class FetchData extends AsyncTask {
-
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            sendRequest();
-            return null;
-        }
-    }
-
-
-
-
-
-    private void sendRequest(){
+    private void sendRequest() {
 
         StringRequest stringRequest = new StringRequest(JSON_URL,
                 new Response.Listener<String>() {
@@ -151,7 +150,7 @@ public class SecurityMainActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(SecurityMainActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(SecurityMainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -162,19 +161,18 @@ public class SecurityMainActivity extends AppCompatActivity {
     private void showJSON(String json) throws JSONException {
         ParseJSON pj = new ParseJSON(json);
         pj.parseJSON();
-        ProfileHandler handler= new ProfileHandler(this);
+        ProfileHandler handler = new ProfileHandler(this);
 
 
         // updated users table
-        for (int i = 0; i < new JSONObject(json).getJSONArray(JSON_ARRAY).length(); ++i)
-        {
+        for (int i = 0; i < new JSONObject(json).getJSONArray(JSON_ARRAY).length(); ++i) {
             Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.pro);
-            if(handler.checkUser(ParseJSON.contacts[i])==false) {
-                handler.addUser(ParseJSON.names[i], ParseJSON.emails[i], ParseJSON.contacts[i], ParseJSON.address[i],getImageBytes(largeIcon));
-              //  if (!ParseJSON.profilePicUrls[i].isEmpty()) {
-                    getImage(ParseJSON.contacts[i] + ".jpg", i);
-              //  }
+            if (handler.checkUser(ParseJSON.contacts[i]) == false) {
+                handler.addUser(ParseJSON.names[i], ParseJSON.emails[i], ParseJSON.contacts[i], ParseJSON.address[i], getImageBytes(largeIcon));
+                Log.e("yolo", ParseJSON.contacts[i] + ".jpg");
+                getImage(ParseJSON.contacts[i] + ".jpg", i);
             }
+            getImage(ParseJSON.contacts[i] + ".jpg", i);
 
         }
 
@@ -186,8 +184,8 @@ public class SecurityMainActivity extends AppCompatActivity {
     private void getImage(String path, final int i) {
         String url = "http://usecure.site88.net/userProfilePics/";
 
-        NetworkUtils n=new NetworkUtils();
-        if(n.isConnected(getApplicationContext())==false)
+        NetworkUtils n = new NetworkUtils();
+        if (n.isConnected(getApplicationContext()) == false)
             Toast.makeText(getApplicationContext(), "No Internet !", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(getApplicationContext(), "connection in progress !", Toast.LENGTH_SHORT).show();
@@ -197,11 +195,9 @@ public class SecurityMainActivity extends AppCompatActivity {
 
         byte[] image;
         ImageRequest request = new ImageRequest(url,
-                new Response.Listener<Bitmap>()
-                {
+                new Response.Listener<Bitmap>() {
                     @Override
-                    public void onResponse(Bitmap bitmap)
-                    {
+                    public void onResponse(Bitmap bitmap) {
                         updateImageInDatabase(bitmap, i);
                     }
                 }, 0, 0, null,
@@ -212,22 +208,13 @@ public class SecurityMainActivity extends AppCompatActivity {
                 });
 
 
-
 // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(this).addToRequestQueue(request);
     }
 
     private void updateImageInDatabase(Bitmap imageBitmap, int i) {
-        ProfileHandler handler= new ProfileHandler(this);
-        handler.updateImage(ParseJSON.contacts[i],getImageBytes(imageBitmap));
-    }
-
-
-    // convert from bitmap to byte array
-    public static byte[] getImageBytes(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        return stream.toByteArray();
+        ProfileHandler handler = new ProfileHandler(this);
+        handler.updateImage(ParseJSON.contacts[i], getImageBytes(imageBitmap));
     }
 
     @Override
@@ -249,7 +236,7 @@ public class SecurityMainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_logout:
                 SessionManager session = new SessionManager(getApplicationContext());
-                if(session.isSecurityLoggedIn()) {
+                if (session.isSecurityLoggedIn()) {
                     session.setSecurityLogin(false);
                 } else {
                     session.setLogin(false);
@@ -266,13 +253,28 @@ public class SecurityMainActivity extends AppCompatActivity {
     }
 
     //Setting View Pager
-    private void setupViewPager(ViewPager viewPager)
-    {
+    private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new SecurityPreRequestFragment("Pre Informed"), "Pre Informed");
         adapter.addFrag(new SecurityRequestFragment("Pending confirms"), "Pending confirms");
         adapter.addFrag(new SecurityHistoryFragment("History"), "History");
         viewPager.setAdapter(adapter);
+    }
+
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "  HH:mm:ss dd/MM/yyyy ", Locale.getDefault());
+        java.util.Date date = new java.util.Date();
+        return dateFormat.format(date);
+    }
+
+    public class FetchData extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            sendRequest();
+            return null;
+        }
     }
 
     //View Pager fragments setting adapter class
@@ -305,12 +307,6 @@ public class SecurityMainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-    }
-    private String getDateTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "  HH:mm:ss dd/MM/yyyy ", Locale.getDefault());
-        java.util.Date date = new java.util.Date();
-        return dateFormat.format(date);
     }
 
 }

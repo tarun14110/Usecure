@@ -3,35 +3,25 @@ package com.rocks.mafia.entrancesecurity;
 /**
  * Created by mafia on 21/10/16.
  */
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.rocks.mafia.entrancesecurity.Nodes.SecurityRequestNode;
 import com.rocks.mafia.entrancesecurity.Services.ProfileHandler;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 
-import static com.rocks.mafia.entrancesecurity.R.id.parallax;
-import static com.rocks.mafia.entrancesecurity.R.id.recyclerView;
-
-public class SecurityRequestRecyclerViewAdapter extends RecyclerView.Adapter<SecurityRequestViewHolder>
-{
+public class SecurityRequestRecyclerViewAdapter extends RecyclerView.Adapter<SecurityRequestViewHolder> {
     private ArrayList<SecurityRequestNode> arrayList;
     private Context context;
 
 
-    public SecurityRequestRecyclerViewAdapter(Context context,ArrayList<SecurityRequestNode> arrayList)
-    {
+    public SecurityRequestRecyclerViewAdapter(Context context, ArrayList<SecurityRequestNode> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -45,32 +35,30 @@ public class SecurityRequestRecyclerViewAdapter extends RecyclerView.Adapter<Sec
 
     @Override
     public void onBindViewHolder(SecurityRequestViewHolder holder,
-                                 int position)
-    {
+                                 int position) {
         final SecurityRequestViewHolder mainHolder = (SecurityRequestViewHolder) holder;
         //Setting text over textview
-        if(arrayList!=null)
-        {
+        if (arrayList != null) {
             mainHolder.title.setText(arrayList.get(position).getOutsiderName());
             //taking time and converting itinto two entity DATA AND TIME
 
-            String dateTime =arrayList.get(position).getEntryTime();
-            String[] str=dateTime.trim().split(" ");
-            if(str[0]!=null)
+            String dateTime = arrayList.get(position).getEntryTime();
+            String[] str = dateTime.trim().split(" ");
+            if (str[0] != null)
                 mainHolder.time.setText(str[0]);
             mainHolder.d.setText(arrayList.get(position).getReason());
 
 
-            if(str[1]!=null)
+            if (str[1] != null)
                 mainHolder.date.setText(str[1]);
-            String contact=arrayList.get(position).getInsiderContact();
+            String contact = arrayList.get(position).getInsiderContact();
 
 
             //get the user name by contact to show the insider data on request
 
-            ProfileHandler profileHandler =new ProfileHandler(this.context);
-            String name= profileHandler.getUserName(contact);
-            mainHolder.by.setText(contact+"\n"+name);
+            ProfileHandler profileHandler = new ProfileHandler(this.context);
+            String name = profileHandler.getUserName(contact);
+            mainHolder.by.setText(contact + "\n" + name);
             if (arrayList.get(position).getImage() != null)
                 mainHolder.takenImage.setImageBitmap(getBitmapImage(arrayList.get(position).getImage()));
 
@@ -91,8 +79,7 @@ public class SecurityRequestRecyclerViewAdapter extends RecyclerView.Adapter<Sec
     }
 
     @Override
-    public SecurityRequestViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
-    {
+    public SecurityRequestViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         LayoutInflater mInflater = LayoutInflater.from(viewGroup.getContext());
 
         ViewGroup mainGroup = (ViewGroup) mInflater.inflate(
@@ -108,13 +95,13 @@ public class SecurityRequestRecyclerViewAdapter extends RecyclerView.Adapter<Sec
 
     }
 
-    public void  add(int pos, SecurityRequestNode node)
-    {
-        arrayList.add(pos,node);
+    public void add(int pos, SecurityRequestNode node) {
+        arrayList.add(pos, node);
     }
+
     // convert from byte array to bitmap
     public Bitmap getBitmapImage(byte[] image) {
-        if(image == null)
+        if (image == null)
             return null;
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }

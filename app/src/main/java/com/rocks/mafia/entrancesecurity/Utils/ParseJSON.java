@@ -1,4 +1,4 @@
-package com.rocks.mafia.entrancesecurity;
+package com.rocks.mafia.entrancesecurity.Utils;
 
 /**
  * Created by mafia on 3/11/16.
@@ -11,32 +11,30 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ParseJSON {
-    public static String[] contacts;
-    public static String[] names;
-    public static String[] emails;
-    public static String[] address;
-    public static String[] profilePicUrls;
-
     public static final String JSON_ARRAY = "result";
     public static final String KEY_CONTACT = "contact";
     public static final String KEY_NAME = "name";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_ADDRESS = "address";
     public static final String KEY_PROFILE_PIC_URL = "profilePicUrl";
-    public static  int size = 0;
+    public static String[] contacts;
+    public static String[] names;
+    public static String[] emails;
+    public static String[] address;
+    public static String[] profilePicUrls;
+    public static int size = 0;
 
     private JSONArray users = null;
 
 
-
     private String json;
 
-    public ParseJSON(String json){
+    public ParseJSON(String json) {
         this.json = json;
     }
 
-    protected void parseJSON(){
-        JSONObject jsonObject=null;
+    public void parseJSON() {
+        JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject(json);
             users = jsonObject.getJSONArray(JSON_ARRAY);
@@ -50,7 +48,7 @@ public class ParseJSON {
             address = new String[users.length()];
             profilePicUrls = new String[users.length()];
 
-            for(int i=0;i<users.length();i++){
+            for (int i = 0; i < users.length(); i++) {
                 JSONObject jo = users.getJSONObject(i);
                 contacts[i] = jo.getString(KEY_CONTACT);
                 names[i] = jo.getString(KEY_NAME);

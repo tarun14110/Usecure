@@ -5,55 +5,53 @@
     android:id="@+id/cardView"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="1dp"
-    >
+    app:cardElevation="1dp">
 
-    <android.support.v7.widget.CardView
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardUseCompatPadding="true"
+        android:layout_marginBottom="1dp"
         card_view:cardCornerRadius="8dp"
-        android:layout_marginBottom="1dp">
+        card_view:cardUseCompatPadding="true">
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent">
-            <RelativeLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/heading_layout"
                 android:layout_width="fill_parent"
-                android:layout_marginBottom="15dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp">
 
                 <ImageView
                     android:id="@+id/takenImage"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/pro" />
 
                 <TextView
                     android:id="@+id/cardTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/takenImage"
                     android:layout_alignBottom="@+id/takenImage"
-                    android:text="TITLE"
+                    android:layout_alignLeft="@+id/takenImage"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
                     android:shadowColor="#000"
                     android:shadowDx="0"
                     android:shadowDy="0"
                     android:shadowRadius="20"
-                    android:textSize="40sp"
+                    android:text="TITLE"
                     android:textColor="#ffffff"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_alignParentEnd="true" />
+                    android:textSize="40sp" />
 
             </RelativeLayout>
 
@@ -61,86 +59,87 @@
                 android:id="@+id/time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:layout_below="@+id/heading_layout"
+                android:maxLines="1"
                 android:paddingLeft="5dp"
                 android:text="time"
                 android:textColor="#a40000"
-                android:textStyle="bold"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:layout_below="@+id/time"
+                android:maxLines="1"
                 android:paddingLeft="5dp"
                 android:text="time"
                 android:textColor="#787777"
-                android:textStyle="bold"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
             <View
+                android:id="@+id/line"
                 android:layout_width="100dp"
                 android:layout_height="0.5dp"
-                android:padding="15dp"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/line"
                 android:layout_below="@+id/date"
+                android:layout_marginLeft="5dp"
                 android:background="@android:color/darker_gray"
-                />
+                android:padding="15dp" />
 
             <TextView
                 android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/line"
+                android:layout_toStartOf="@+id/by"
                 android:padding="15dp"
                 android:text="description"
                 android:textColor="#362e45"
-                android:textSize="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/line"
-                android:layout_alignParentStart="true"
-                android:layout_toStartOf="@+id/by"
-                android:layout_alignParentBottom="true" />
+                android:textSize="15dp" />
 
             <ImageView
                 android:id="@+id/status"
-                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-                android:checked="true"
-                android:layout_height="50dp"
                 android:layout_width="50dp"
-                android:layout_marginBottom="50dp"
-                android:layout_below="@+id/heading_layout"
+                android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="13dp" />
+                android:layout_below="@+id/heading_layout"
+                android:layout_marginBottom="50dp"
+                android:layout_marginEnd="13dp"
+                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                android:checked="true" />
 
 
             <TextView
                 android:id="@+id/by"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="bysomeone"
-                android:gravity="right"
-                android:textStyle="italic"
-                android:padding="10dp"
-                android:textSize="15dp"
-                android:textColor="#020202"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginBottom="33dp" />
+                android:layout_marginBottom="33dp"
+                android:gravity="right"
+                android:padding="10dp"
+                android:text="bysomeone"
+                android:textColor="#020202"
+                android:textSize="15dp"
+                android:textStyle="italic" />
+
             <TextView
                 android:id="@+id/byname"
-                android:layout_below="@+id/by"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:layout_marginTop="10dp"
-                android:textStyle="italic"
-                android:padding="10dp"
-                android:textSize="15dp"
-                android:textColor="#0d0070"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/by"
+                android:layout_marginTop="10dp"
+                android:gravity="right"
+                android:padding="10dp"
+                android:textColor="#0d0070"
+                android:textSize="15dp"
+                android:textStyle="italic" />
 
 
         </RelativeLayout>

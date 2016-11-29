@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimaryLightLight"
-    tools:context="com.rocks.mafia.entrancesecurity.MainActivity">
+    tools:context="com.rocks.mafia.entrancesecurity.UserEnd.MainActivity">
 
     <item
         android:id="@+id/action_settings"

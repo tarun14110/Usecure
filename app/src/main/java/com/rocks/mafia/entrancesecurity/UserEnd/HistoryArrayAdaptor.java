@@ -22,11 +22,9 @@ public class HistoryArrayAdaptor
     private SparseBooleanArray selectedItems;
 
 
-    HistoryArrayAdaptor(List<HistoryNode> modelData,ArrayList<String> arrayd)
-    {
+    HistoryArrayAdaptor(List<HistoryNode> modelData, ArrayList<String> arrayd) {
         this.arrayd = arrayd;
-        if (modelData == null)
-        {
+        if (modelData == null) {
             throw new IllegalArgumentException("modelData must not be null");
         }
         items = modelData;
@@ -34,8 +32,7 @@ public class HistoryArrayAdaptor
     }
 
     @Override
-    public ListItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
-    {
+    public ListItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View itemView = LayoutInflater.
                 from(viewGroup.getContext()).
                 inflate(R.layout.history_list_view, viewGroup, false);
@@ -43,35 +40,32 @@ public class HistoryArrayAdaptor
     }
 
     @Override
-    public void onBindViewHolder(ListItemViewHolder viewHolder, int position)
-    {
+    public void onBindViewHolder(ListItemViewHolder viewHolder, int position) {
         HistoryNode model = items.get(position);
-        viewHolder.name.setText("Name : "+String.valueOf(model.getPersonName()));
-        viewHolder.age.setText("Time :"+ String.valueOf(model.getVisitingTime()));
+        viewHolder.name.setText("Name : " + String.valueOf(model.getPersonName()));
+        viewHolder.age.setText("Time :" + String.valueOf(model.getVisitingTime()));
         viewHolder.imageView.setImageResource(Integer.parseInt(model.getImageUrl()));
         viewHolder.d.setText(arrayd.get(position));
         viewHolder.itemView.setActivated(selectedItems.get(position, false));
     }
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return items.size();
     }
 
-    public final static class ListItemViewHolder extends RecyclerView.ViewHolder
-    {
+    public final static class ListItemViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView age;
         TextView d;
         ImageView imageView;
-        public ListItemViewHolder(View itemView)
-        {
+
+        public ListItemViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.listItemHistoryTitle);
             age = (TextView) itemView.findViewById(R.id.listItemHistoryBody);
-            imageView=(ImageView)itemView.findViewById(R.id.listItemHistoryImage);
-            d=(TextView) itemView.findViewById(R.id.description);
+            imageView = (ImageView) itemView.findViewById(R.id.listItemHistoryImage);
+            d = (TextView) itemView.findViewById(R.id.description);
         }
     }
 }

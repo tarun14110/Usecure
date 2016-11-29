@@ -5,23 +5,21 @@ package com.rocks.mafia.entrancesecurity.UserEnd;
  */
 
 import java.sql.Time;
-import java.util.ArrayList;
 
-public class RequestNode
-{
+public class RequestNode {
     private String message;
     private Time time;
-    public RequestNode(String m,Time time)
-    {
-        this.time=time;
-        this.message=message;
+
+    public RequestNode(String m, Time time) {
+        this.time = time;
+        this.message = message;
     }
-    public String  getMessage()
-    {
+
+    public String getMessage() {
         return message;
     }
-    public Time getTime()
-    {
+
+    public Time getTime() {
         return time;
     }
 

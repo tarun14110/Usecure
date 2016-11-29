@@ -1,4 +1,4 @@
-package com.rocks.mafia.entrancesecurity;
+package com.rocks.mafia.entrancesecurity.Utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,15 +9,16 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
-/**
- * Created by root on 3/11/16.
- */
+
+// Created by root on 3/11/16.
+
+
 
 public class MySingleton {
     private static MySingleton mInstance;
+    private static Context mCtx;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
-    private static Context mCtx;
 
     private MySingleton(Context context) {
         mCtx = context;

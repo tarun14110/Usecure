@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
 
     <RelativeLayout
@@ -13,44 +13,43 @@
         android:clickable="true"
         android:padding="@dimen/activity_horizontal_margin">
 
-    <TextView
+        <TextView
 
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:editable="true"
-        android:text="Name "
-        android:textSize="30sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/TextColor" />
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:editable="true"
+            android:text="Name "
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/TextColor"
+            android:textSize="30sp" />
 
-    <EditText
-        android:id="@+id/edtbox"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/TextColor"
-        android:layout_below="@id/name"></EditText>
+        <EditText
+            android:id="@+id/edtbox"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:textColor="@color/TextColor"></EditText>
 
         <TextView
 
             android:id="@+id/emailt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/edtbox"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:editable="true"
             android:text="Email "
-            android:layout_below="@id/edtbox"
-            android:textSize="30sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/TextColor" />
+            android:textColor="@color/TextColor"
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/email"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/emailt"
-            android:textColor="@color/TextColor"
-        />
+            android:textColor="@color/TextColor" />
     </RelativeLayout>
 </LinearLayout>

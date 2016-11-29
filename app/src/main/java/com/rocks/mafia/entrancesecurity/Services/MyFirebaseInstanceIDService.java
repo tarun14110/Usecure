@@ -1,22 +1,17 @@
 package com.rocks.mafia.entrancesecurity.Services;
 
 
-import com.google.firebase.iid.FirebaseInstanceIdService;
-
-
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.rocks.mafia.entrancesecurity.AppConfig;
 import com.rocks.mafia.entrancesecurity.R;
 import com.rocks.mafia.entrancesecurity.SessionManager;
+import com.rocks.mafia.entrancesecurity.Utils.AppConfig;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -32,6 +27,7 @@ import java.net.URLEncoder;
  */
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     private static final String TAG = MyFirebaseInstanceIDService.class.getSimpleName();
+
     //SessionManager session = new SessionManager(getApplicationContext());
     @Override
     public void onTokenRefresh() {
@@ -72,11 +68,10 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
 
         String text = "";
-        BufferedReader reader=null;
+        BufferedReader reader = null;
 
         // Send data
-        try
-        {
+        try {
 
             // Defined URL  where to send data
             URL url = new URL("http://usecure.site88.net/updateRegId.php");
@@ -86,7 +81,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
             URLConnection conn = url.openConnection();
             conn.setDoOutput(true);
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write( data );
+            wr.write(data);
             wr.flush();
 
             // Get the server response
@@ -96,32 +91,25 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
             String line = null;
 
             // Read Server Response
-            while((line = reader.readLine()) != null)
-            {
+            while ((line = reader.readLine()) != null) {
                 // Append server response in string
                 sb.append(line + "\n");
             }
 
 
             text = sb.toString();
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
 
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
 
                 reader.close();
+            } catch (Exception ex) {
             }
-
-            catch(Exception ex) {}
         }
 
         // Show response on activity
-       // content.setText( text  );
+        // content.setText( text  );
         if (text.contains("error")) {
             Log.e(TAG, "Error while passing new token to the server" + text);
         } else {
@@ -140,7 +128,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         editor.commit();
     }
 
-    public class SendRegIddata extends AsyncTask<Void,Void,Void> {
+    public class SendRegIddata extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPostExecute(Void aVoid) {

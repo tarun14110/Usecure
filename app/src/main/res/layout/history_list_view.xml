@@ -2,59 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="1dp"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+    android:padding="1dp">
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF">
+
+        <ImageView
+            android:id="@+id/listItemHistoryImage"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="8dp"
+
+            />
+
+        <TextView
+            android:id="@+id/listItemHistoryTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            >
-            <ImageView
-                android:id="@+id/listItemHistoryImage"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="1dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/listItemHistoryImage"
+            android:text="Title"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#80000000"
+            android:textSize="20sp" />
 
-                />
+        <TextView
+            android:id="@+id/listItemHistoryBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/listItemHistoryTitle"
+            android:layout_toRightOf="@+id/listItemHistoryImage"
+            android:text="This is how the content looks here, Isn't it cool ? This is how the content looks here, Isn't it cool ?"
+            android:textColor="#80000000"
+            android:textSize="15sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Title"
-                android:id="@+id/listItemHistoryTitle"
-                android:layout_toRightOf="@+id/listItemHistoryImage"
-                android:layout_alignParentTop="true"
-                android:textColor="#80000000"
-                android:textSize="20sp"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="This is how the content looks here, Isn't it cool ? This is how the content looks here, Isn't it cool ?"
-                android:id="@+id/listItemHistoryBody"
-                android:layout_toRightOf="@+id/listItemHistoryImage"
-                android:textColor="#80000000"
-                android:textSize="15sp"
-                android:layout_below="@+id/listItemHistoryTitle"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="description about the aim of visiting institute and further details"
-                android:id="@+id/description"
-                android:layout_toRightOf="@+id/listItemHistoryImage"
-                android:textColor="#807c7c7c"
-                android:textSize="20sp"
-                android:layout_below="@+id/listItemHistoryBody"
-                />
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/listItemHistoryBody"
+            android:layout_toRightOf="@+id/listItemHistoryImage"
+            android:text="description about the aim of visiting institute and further details"
+            android:textColor="#807c7c7c"
+            android:textSize="20sp" />
 
 
-        </RelativeLayout>
+    </RelativeLayout>
 
 </LinearLayout>

@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.rocks.mafia.entrancesecurity.Nodes.SecurityRequestNode;
+
 import java.util.ArrayList;
 
 /**
@@ -15,14 +17,12 @@ import java.util.ArrayList;
 
 
 public class SecurityHistoryRecyclerViewAdapter extends
-        RecyclerView.Adapter<SecurityHistoryViewHolder>
-{
+        RecyclerView.Adapter<SecurityHistoryViewHolder> {
     private ArrayList<SecurityRequestNode> arrayList;
     private Context context;
 
 
-    public SecurityHistoryRecyclerViewAdapter(Context context,ArrayList<SecurityRequestNode> arrayList)
-    {
+    public SecurityHistoryRecyclerViewAdapter(Context context, ArrayList<SecurityRequestNode> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -35,12 +35,11 @@ public class SecurityHistoryRecyclerViewAdapter extends
     }
 
     @Override
-    public void onBindViewHolder(SecurityHistoryViewHolder holder,int position)
-    {
+    public void onBindViewHolder(SecurityHistoryViewHolder holder, int position) {
 
         final SecurityHistoryViewHolder mainHolder = (SecurityHistoryViewHolder) holder;
         //Setting text over textview
-        if(arrayList!=null) {
+        if (arrayList != null) {
             if ((arrayList != null) && (mainHolder != null) && (arrayList.get(position) != null) && (mainHolder.title != null)) {
                 mainHolder.title.setText(arrayList.get(position).getOutsiderName());
                 mainHolder.time.setText(arrayList.get(position).getEntryTime().toString());
@@ -59,8 +58,7 @@ public class SecurityHistoryRecyclerViewAdapter extends
     }
 
     @Override
-    public SecurityHistoryViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
-    {
+    public SecurityHistoryViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         LayoutInflater mInflater = LayoutInflater.from(viewGroup.getContext());
 
         ViewGroup mainGroup = (ViewGroup) mInflater.inflate(

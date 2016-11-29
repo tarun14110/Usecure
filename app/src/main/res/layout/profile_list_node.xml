@@ -1,89 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:background="#fdfdfd"
+    android:orientation="horizontal"
     android:padding="2dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:weightSum="1">
 
     <RelativeLayout
         android:layout_width="263dp"
         android:layout_height="wrap_content"
-        android:padding="2dp"
-        >
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:drawableTop="@drawable/circle"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="8dp"
-        android:scaleType="fitXY"
-        android:layout_marginLeft="1dp"
+        android:padding="2dp">
 
-        />
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="8dp"
+            android:drawableTop="@drawable/circle"
+            android:scaleType="fitXY"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Title"
-        android:id="@+id/name"
-        android:layout_toRightOf="@+id/image"
-        android:layout_alignParentTop="true"
-        android:textColor="#201e1e"
-        android:textSize="30sp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This is how the content looks here, Isn't it cool ? This is how the content looks here, Isn't it cool ?"
-        android:id="@+id/contact"
-        android:layout_toRightOf="@+id/image"
-        android:textColor="#1a1818"
-        android:textSize="20sp"
-        android:layout_below="@+id/name"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="description about the aim of visiting institute and further details"
-        android:id="@+id/email"
-        android:layout_toRightOf="@+id/image"
-        android:textColor="#5e5b5b"
-        android:textSize="12sp"
-        android:layout_below="@+id/contact"
-        />
+            />
+
         <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="description about the aim of visiting institute and further details"
-            android:id="@+id/address"
+            android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/image"
-            android:textColor="#001493"
-            android:textSize="15sp"
+            android:text="Title"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#201e1e"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_toRightOf="@+id/image"
+            android:text="This is how the content looks here, Isn't it cool ? This is how the content looks here, Isn't it cool ?"
+            android:textColor="#1a1818"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact"
+            android:layout_toRightOf="@+id/image"
+            android:text="description about the aim of visiting institute and further details"
+            android:textColor="#5e5b5b"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/email"
-            />
+            android:layout_toRightOf="@+id/image"
+            android:text="description about the aim of visiting institute and further details"
+            android:textColor="#001493"
+            android:textSize="15sp" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="2dp">
+
         <Button
             android:id="@+id/sendRequest"
             android:layout_width="40dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
             android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:adjustViewBounds="true"
             android:background="@color/white"
             android:drawableTop="@mipmap/ic_launcher"
-            android:textColor="@color/TextColor"
-            android:layout_marginLeft="10dp"
             android:onClick="sin"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentTop="true" />
+            android:scaleType="centerInside"
+            android:textColor="@color/TextColor" />
     </RelativeLayout>
 </LinearLayout>

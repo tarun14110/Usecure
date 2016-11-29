@@ -26,8 +26,7 @@ import android.widget.Toast;
  */
 
 
-public class ProfileFragment extends Fragment
-{
+public class ProfileFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,8 +43,7 @@ public class ProfileFragment extends Fragment
 
     private OnFragmentInteractionListener mListener;
 
-    public ProfileFragment()
-    {
+    public ProfileFragment() {
         // Required empty public constructor
     }
 
@@ -58,8 +56,7 @@ public class ProfileFragment extends Fragment
      * @return A new instance of fragment ProfileFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2)
-    {
+    public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -80,25 +77,22 @@ public class ProfileFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
-    {
-  // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         Button editdetails = (Button) view.findViewById(R.id.editDetails);
         final Button savedetails = (Button) view.findViewById(R.id.saveDetails);
 
-        editName=(TextView)view.findViewById(R.id.name);
-        editEmail=(TextView)view.findViewById(R.id.email);
-        editContact=(TextView)view.findViewById(R.id.contact);
- //MAKE EDITABLE TEXTVIEW ON CLICK edit details
+        editName = (TextView) view.findViewById(R.id.name);
+        editEmail = (TextView) view.findViewById(R.id.email);
+        editContact = (TextView) view.findViewById(R.id.contact);
+        //MAKE EDITABLE TEXTVIEW ON CLICK edit details
 
-        editdetails.setOnClickListener(new View.OnClickListener()
-        {
+        editdetails.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 editName.setCursorVisible(true);
                 editName.setFocusableInTouchMode(true);
                 editName.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -107,13 +101,11 @@ public class ProfileFragment extends Fragment
             }// end onClick
         });
 
-// savedetails make button disable
+        // save details make button disable
 
-        savedetails.setOnClickListener(new View.OnClickListener()
-        {
+        savedetails.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
 
                 editName.setCursorVisible(false);
                 editName.setFocusableInTouchMode(false);
@@ -122,15 +114,11 @@ public class ProfileFragment extends Fragment
         });
 
 
-
-        image = (ImageView)view.findViewById(R.id.uploadImage);
-        selectImageButton = (Button)view.findViewById(R.id.selectImageButton);
-        selectImageButton.setOnClickListener(new View.OnClickListener()
-        {
+        image = (ImageView) view.findViewById(R.id.uploadImage);
+        selectImageButton = (Button) view.findViewById(R.id.selectImageButton);
+        selectImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                Toast.makeText(getActivity().getApplicationContext(), "Test",        Toast.LENGTH_LONG).show();
+            public void onClick(View view) {
                 selectImageFromGallery();
 
             }
@@ -145,8 +133,7 @@ public class ProfileFragment extends Fragment
     }
 
     @Override
-    public void onAttach(Context context)
-    {
+    public void onAttach(Context context) {
         Log.d("Test", "onAttach");
 
         super.onAttach(context);
@@ -177,12 +164,8 @@ public class ProfileFragment extends Fragment
      * to the activity and potentially other fragments contained in that
      * activity.
      * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener
-    {
+    public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
 }

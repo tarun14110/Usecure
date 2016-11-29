@@ -21,6 +21,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.rocks.mafia.entrancesecurity.SqliteHandlers.SQLiteHandler;
+import com.rocks.mafia.entrancesecurity.Utils.AppConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +36,6 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-
 
 
 //login page of the app
@@ -101,7 +102,7 @@ public class SecurityLoginActivity extends Activity {
 
     /**
      * function to verify login details in mysql db
-     * */
+     */
     private void checkLogin(final String contact, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
@@ -171,7 +172,7 @@ public class SecurityLoginActivity extends Activity {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("contact",contact);
+                params.put("contact", contact);
                 params.put("password", password);
                 params.put("isSecurity", "true");
                 Log.e(TAG, "Posting params: " + params.toString());
@@ -190,7 +191,7 @@ public class SecurityLoginActivity extends Activity {
     }
 
     private void hideDialog() {
-        if (pDialog.isShowing())
+        if (pDialog!=null && pDialog.isShowing())
             pDialog.dismiss();
     }
 
@@ -210,11 +211,10 @@ public class SecurityLoginActivity extends Activity {
 
 
         String text = "";
-        BufferedReader reader=null;
+        BufferedReader reader = null;
 
         // Send data
-        try
-        {
+        try {
 
             // Defined URL  where to send data
             URL url = new URL("http://usecure.site88.net/updateRegId.php");
@@ -224,7 +224,7 @@ public class SecurityLoginActivity extends Activity {
             URLConnection conn = url.openConnection();
             conn.setDoOutput(true);
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write( data );
+            wr.write(data);
             wr.flush();
 
             // Get the server response
@@ -234,28 +234,21 @@ public class SecurityLoginActivity extends Activity {
             String line = null;
 
             // Read Server Response
-            while((line = reader.readLine()) != null)
-            {
+            while ((line = reader.readLine()) != null) {
                 // Append server response in string
                 sb.append(line + "\n");
             }
 
 
             text = sb.toString();
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             Log.e(TAG, "Error while sending RegId data " + ex.toString());
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
 
                 reader.close();
+            } catch (Exception ex) {
             }
-
-            catch(Exception ex) {}
         }
 
         // Show response on activity
@@ -267,10 +260,10 @@ public class SecurityLoginActivity extends Activity {
         }
 
 
-        Log.e(TAG, "sendRegistrationToServer: " + token + "  to contact " +session.getContact());
+        Log.e(TAG, "sendRegistrationToServer: " + token + "  to contact " + session.getContact());
     }
 
-    public class SendRegIddata extends AsyncTask<Void,Void,Void>{
+    public class SendRegIddata extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPostExecute(Void aVoid) {

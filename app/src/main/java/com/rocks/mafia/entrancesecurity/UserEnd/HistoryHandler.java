@@ -16,8 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by pankaj on 18/10/16.
  */
-public class HistoryHandler extends SQLiteOpenHelper
-{
+public class HistoryHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "History";
     private static final String TABLE_HISTORY = "HistoryTable";
@@ -27,33 +26,31 @@ public class HistoryHandler extends SQLiteOpenHelper
     private static final String KEY_IMAGE_URL = "imageUrl";
 
 
-
-    public HistoryHandler(Context context)
-    {
+    public HistoryHandler(Context context) {
 
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
 
     @Override
-    public void onCreate(SQLiteDatabase db)
-    {
+    public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_HISTORY + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
-                +KEY_PERSON_NAME+" TEXT,"
+                + KEY_PERSON_NAME + " TEXT,"
                 + KEY_VISIT_TIME + " TIME,"
-                +KEY_IMAGE_URL + " TEXT"
+                + KEY_IMAGE_URL + " TEXT"
                 + ")";
 
-        Log.v("CHECK :  ",CREATE_CONTACTS_TABLE);
+        Log.v("CHECK :  ", CREATE_CONTACTS_TABLE);
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
+
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
         onCreate(db);
     }
+
     public void addHistory(HistoryNode node)
 
     {
@@ -67,13 +64,12 @@ public class HistoryHandler extends SQLiteOpenHelper
 
     }
 
-    public HistoryNode getPerson(int id)
-    {
+    public HistoryNode getPerson(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_HISTORY, new String[] { KEY_ID,
-                        KEY_PERSON_NAME, KEY_VISIT_TIME,KEY_IMAGE_URL }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null,null, null);
+        Cursor cursor = db.query(TABLE_HISTORY, new String[]{KEY_ID,
+                        KEY_PERSON_NAME, KEY_VISIT_TIME, KEY_IMAGE_URL}, KEY_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
         DateFormat formatter = new SimpleDateFormat("HH:mm");
@@ -83,19 +79,17 @@ public class HistoryHandler extends SQLiteOpenHelper
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        HistoryNode node = new HistoryNode(cursor.getString(1),timeValue, cursor.getString(3));
+        HistoryNode node = new HistoryNode(cursor.getString(1), timeValue, cursor.getString(3));
 
         return node;
     }
 
-    public ArrayList< HistoryNode> getAllHistory()
-    {
-       ArrayList< HistoryNode> HistoryList = new ArrayList< HistoryNode>();
+    public ArrayList<HistoryNode> getAllHistory() {
+        ArrayList<HistoryNode> HistoryList = new ArrayList<HistoryNode>();
         String selectQuery = "SELECT * FROM " + TABLE_HISTORY;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst())
-        {
+        if (cursor.moveToFirst()) {
             do {
                 DateFormat formatter = new SimpleDateFormat("HH:mm");
                 Time timeValue = null;
@@ -104,7 +98,7 @@ public class HistoryHandler extends SQLiteOpenHelper
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                HistoryNode node = new HistoryNode(cursor.getString(1),timeValue, cursor.getString(3));
+                HistoryNode node = new HistoryNode(cursor.getString(1), timeValue, cursor.getString(3));
                 HistoryList.add(node);
             } while (cursor.moveToNext());
         }
@@ -112,17 +106,16 @@ public class HistoryHandler extends SQLiteOpenHelper
     }
 
 
-    public void deleteHistory(HistoryNode node)
-    {
+    public void deleteHistory(HistoryNode node) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_HISTORY, KEY_ID + " = ?",
-                new String[] { String.valueOf(node.getPersonName()) });
+                new String[]{String.valueOf(node.getPersonName())});
         db.close();
     }
-    public void deleteAll()
-    {
+
+    public void deleteAll() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from "+ TABLE_HISTORY);
+        db.execSQL("delete from " + TABLE_HISTORY);
 
     }
 }

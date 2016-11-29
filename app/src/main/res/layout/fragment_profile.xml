@@ -36,12 +36,13 @@
                     android:adjustViewBounds="true"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.7" />
+
                 <Button
                     android:id="@+id/selectImageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryLight"
                     android:layout_marginTop="180dp"
+                    android:background="@color/colorPrimaryLight"
                     android:text="+" />
 
 

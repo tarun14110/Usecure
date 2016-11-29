@@ -1,79 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:card_view="http://schemas.android.com/tools"
-android:id="@+id/cardView"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:layout_marginLeft="10dp"
-android:layout_marginRight="10dp"
-android:layout_marginTop="10dp"
-app:cardCornerRadius="5dp"
-    android:background="#ffffff"
-app:cardElevation="7dp"
->
-<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:background="#ffffff"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="7dp">
 
-    <View
-        android:layout_width="5dp"
-        android:layout_height="100dp"
-        android:padding="15dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:id="@+id/line"
-        android:layout_below="@+id/date"
-        android:background="@android:color/holo_orange_dark"
-        />
-    <TextView
-        android:id="@+id/cardTitle"
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Card Title"
-        android:layout_toRightOf="@id/line"
-        android:textStyle="bold"
-        android:background="@color/colorPrimary"
-        android:padding="5dp"
-        android:textSize="20dp"
-        android:textColor="#FFFFFF"
-        android:layout_alignParentTop="true"/>
+        android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cardTitle"
-        android:padding="5dp"
-        android:layout_toRightOf="@id/line"
-        android:text="time"
-        android:textColor="#ce0000"
-        android:textStyle="bold"
-        android:textSize="15dp" />
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/time"
-        android:maxLines="3"
-        android:layout_toRightOf="@id/line"
-        android:padding="5dp"
-        android:text="description"
-        android:textColor="#666666"
-        android:textSize="14dp" />
-    <TextView
-        android:id="@+id/by"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Card Title"
-        android:gravity="right"
-        android:textStyle="italic"
-        android:layout_toRightOf="@id/line"
-        android:padding="5dp"
-        android:textSize="15dp"
-        android:textColor="#020202"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"/>
+        <View
+            android:id="@+id/line"
+            android:layout_width="5dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/date"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@android:color/holo_orange_dark"
+            android:padding="15dp" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/cardTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/line"
+            android:background="@color/colorPrimary"
+            android:padding="5dp"
+            android:text="Card Title"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardTitle"
+            android:layout_toRightOf="@id/line"
+            android:padding="5dp"
+            android:text="time"
+            android:textColor="#ce0000"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/time"
+            android:layout_toRightOf="@id/line"
+            android:maxLines="3"
+            android:padding="5dp"
+            android:text="description"
+            android:textColor="#666666"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/line"
+            android:gravity="right"
+            android:padding="5dp"
+            android:text="Card Title"
+            android:textColor="#020202"
+            android:textSize="15dp"
+            android:textStyle="italic" />
+
+    </RelativeLayout>
 </LinearLayout>

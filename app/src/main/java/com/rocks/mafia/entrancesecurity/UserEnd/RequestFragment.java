@@ -1,61 +1,42 @@
 package com.rocks.mafia.entrancesecurity.UserEnd;
 
 import android.app.AlertDialog;
-import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.rocks.mafia.entrancesecurity.AppConfig;
-import com.rocks.mafia.entrancesecurity.MainActivity;
-import com.rocks.mafia.entrancesecurity.NotificationUtils;
 import com.rocks.mafia.entrancesecurity.R;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.ArrayList;
+import com.rocks.mafia.entrancesecurity.Utils.AppConfig;
+import com.rocks.mafia.entrancesecurity.Utils.NotificationUtils;
 
 /**
  * Created by mafia on 10/18/16.
  */
 
-public class RequestFragment  extends Fragment
-{
+public class RequestFragment extends Fragment {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private TextView txtRegId, txtMessage;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e(TAG, "YOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
@@ -71,25 +52,20 @@ public class RequestFragment  extends Fragment
         /*txtMessage.setText(s);*/
 
         Bundle extras = getActivity().getIntent().getExtras();
-        if(extras !=null)
-        {
+        if (extras != null) {
             String value = extras.getString("NOTIFICATION");
         }
-        mRegistrationBroadcastReceiver = new BroadcastReceiver()
-        {
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
-            public void onReceive(Context context, Intent intent)
-            {
+            public void onReceive(Context context, Intent intent) {
                 // checking for type intent filter
-                if (intent.getAction().equals(AppConfig.REGISTRATION_COMPLETE))
-                {
+                if (intent.getAction().equals(AppConfig.REGISTRATION_COMPLETE)) {
                     // gcm successfully registered
                     // now subscribe to `global` topic to receive app wide notifications
                     FirebaseMessaging.getInstance().subscribeToTopic(AppConfig.TOPIC_GLOBAL);
                     displayFirebaseRegId();
 
-                } else if (intent.getAction().equals(AppConfig.PUSH_NOTIFICATION))
-                {
+                } else if (intent.getAction().equals(AppConfig.PUSH_NOTIFICATION)) {
                     // new push notification is received
 
                     String message = intent.getStringExtra("message");
@@ -102,14 +78,12 @@ public class RequestFragment  extends Fragment
         };
 
 
-
-
         return rootView;
     }
+
     // Fetches reg id from shared preferences
     // and displays on the screen
-    private void displayFirebaseRegId()
-    {
+    private void displayFirebaseRegId() {
         SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences(AppConfig.SHARED_PREF, 0);
         String regId = pref.getString("regId", null);
         Log.e(TAG, "Firebase reg id: " + regId);
@@ -137,14 +111,12 @@ public class RequestFragment  extends Fragment
     }
 
     @Override
-    public void onPause()
-    {
+    public void onPause() {
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mRegistrationBroadcastReceiver);
         super.onPause();
     }
 
-    protected void showInputDialog()
-    {
+    protected void showInputDialog() {
 
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
@@ -160,13 +132,11 @@ public class RequestFragment  extends Fragment
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)
 
-                .setPositiveButton("OK", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
-                        String givenName=name.getText().toString();
-                        String givenReason=reason.getText().toString();
-                        String givenTime=time.getText().toString();
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String givenName = name.getText().toString();
+                        String givenReason = reason.getText().toString();
+                        String givenTime = time.getText().toString();
 
                         dialog.cancel();
                     }
