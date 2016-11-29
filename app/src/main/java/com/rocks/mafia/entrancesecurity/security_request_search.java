@@ -26,6 +26,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -242,7 +243,6 @@ public class security_request_search extends AppCompatActivity
                 @Override
                 public void onClick(View arg0) {
 
-                    Toast.makeText(arg0.getContext(), "person" + profile_nodelist.get(position).getContact(), Toast.LENGTH_LONG).show();
                     // Send single item click data to SingleItemView Class
                     Intent intent = new Intent(mContext, single_item_search.class);
                     // Pass all data name
@@ -351,6 +351,8 @@ public class security_request_search extends AppCompatActivity
 
         // create an alert dialog
         final AlertDialog alert = alertDialogBuilder.create();
+        alert.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         alert.show();
 
         //poitive action of the dialogue
@@ -367,6 +369,16 @@ public class security_request_search extends AppCompatActivity
 
                 if((givenName.length()>0)&&(givenReason.length()>0)&&(givenTime.length()>0)&&(givenWhomToContact.length()>0))
                 {
+
+                    //checking internet connections
+                    NetworkUtils n=new NetworkUtils();
+                    if(n.isConnected(getApplicationContext())==false)
+                        Toast.makeText(getApplicationContext(), "No Internet !", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getApplicationContext(), "connection in progress !", Toast.LENGTH_SHORT).show();
+
+
+
                     //checking image is click or not
                     SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
                     sendOutsiderdata.execute();
@@ -594,11 +606,6 @@ public class security_request_search extends AppCompatActivity
             try {
                 HttpClient httpclien = new DefaultHttpClient();
                 HttpPost httppos = new HttpPost(URL);
-                NetworkUtils networkUtils=new NetworkUtils();
-
-                if(networkUtils.isConnected(getApplicationContext()))
-
-
                 httppos.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 HttpResponse response = httpclien.execute(httppos);
                 String st = EntityUtils.toString(response.getEntity());
@@ -668,7 +675,6 @@ public class security_request_search extends AppCompatActivity
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             img = stream.toByteArray();
 
-            Toast.makeText(getApplicationContext(), "Image DAta !"+img, Toast.LENGTH_LONG).show();
             Toast.makeText(getApplicationContext(), "Saving Image!", Toast.LENGTH_LONG).show();
             DetailsStatus = 1;
         }

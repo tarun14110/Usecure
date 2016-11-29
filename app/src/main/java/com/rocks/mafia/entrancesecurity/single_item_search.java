@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -98,8 +99,6 @@ public class single_item_search extends AppCompatActivity  {
         img = i.getByteArrayExtra("img");
 
 
-        Log.e("PROFILE DATA ", name +contact+address);
-
         // Locate the TextViews in singleitemview.xml
         textName = (TextView) findViewById(R.id.name);
         textContact = (TextView) findViewById(R.id.contact);
@@ -157,7 +156,7 @@ public class single_item_search extends AppCompatActivity  {
 
         int x=0;
         final EditText whomToContact = (EditText) promptView.findViewById(R.id.whomToContactText);
-                whomToContact.setText(contact);
+        whomToContact.setText(contact);
         final  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(promptView);
         alertDialogBuilder.setCancelable(false)
@@ -182,6 +181,9 @@ public class single_item_search extends AppCompatActivity  {
 
         // create an alert dialog
         final AlertDialog alert = alertDialogBuilder.create();
+        alert.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
         alert.show();
         alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
         {
@@ -201,7 +203,15 @@ public class single_item_search extends AppCompatActivity  {
                     Toast.makeText(getApplicationContext(),"Limit exceeded",Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Log.e("BHAI", givenWhomToContact);
+
+                    //checking internet connection
+
+                    NetworkUtils n=new NetworkUtils();
+                    if(n.isConnected(getApplicationContext())==false)
+                        Toast.makeText(getApplicationContext(), "No Internet !", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getApplicationContext(), "connection in progress !", Toast.LENGTH_SHORT).show();
+
                     //checking image is click or not
                     SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
                     sendOutsiderdata.execute();
@@ -257,14 +267,6 @@ public class single_item_search extends AppCompatActivity  {
     public void sendOutsiderData(String name, String reason, String time, String whomToContact) {
 
         HttpClient httpclient = new DefaultHttpClient();
-
-
-        NetworkUtils n=new NetworkUtils();
-        if(n.isConnected(getApplicationContext())==false)
-            Toast.makeText(getApplicationContext(), "No Internet !", Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(getApplicationContext(), "connection in progress !", Toast.LENGTH_LONG).show();
-
 
         HttpPost httppost = new HttpPost(
                 "https://api.twilio.com/2010-04-01/Accounts/"+ACCOUNT_SID+"/SMS/Messages");

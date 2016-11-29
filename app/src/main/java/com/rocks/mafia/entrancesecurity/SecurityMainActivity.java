@@ -4,13 +4,9 @@ package com.rocks.mafia.entrancesecurity;
  * Created by root on 21/10/16.
  */
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.icu.text.SymbolTable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,7 +14,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -27,9 +22,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -37,25 +30,15 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.rocks.mafia.entrancesecurity.Services.ProfileHandler;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Locale;
 
-
-
-
-
-
 //main activity of security End , handling all the tabs selecting actions, fabs action
-
-
 public class SecurityMainActivity extends AppCompatActivity {
     private static Toolbar toolbar;
     private static ViewPager viewPager;
@@ -66,11 +49,7 @@ public class SecurityMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
-
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.security_activity_main);
         String  t= getDateTime();
         SecurityHistoryHandler historyHandler= new SecurityHistoryHandler(this);
@@ -80,11 +59,6 @@ public class SecurityMainActivity extends AppCompatActivity {
 
         FetchData fetchData = new FetchData();
         fetchData.execute();
-        // sendRequest();
-
-
-
-
 
 
 
@@ -214,9 +188,9 @@ public class SecurityMainActivity extends AppCompatActivity {
 
         NetworkUtils n=new NetworkUtils();
         if(n.isConnected(getApplicationContext())==false)
-            Toast.makeText(getApplicationContext(), "No Internet !", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No Internet !", Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(getApplicationContext(), "connection in progress !", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "connection in progress !", Toast.LENGTH_SHORT).show();
 
 
         url = url + path;
