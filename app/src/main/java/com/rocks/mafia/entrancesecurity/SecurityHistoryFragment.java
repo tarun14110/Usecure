@@ -17,7 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
 
-public class SecurityHistoryFragment extends Fragment {
+
+
+//recycleview class handling the history data
+//its taking the data from the sqllite and showing the details in listform in historytab.
+
+public class SecurityHistoryFragment extends Fragment
+{
     private View view;
     private static final String TAG = SecurityMainActivity.class.getSimpleName();
     private String title;//String for tab title
@@ -37,7 +43,6 @@ public class SecurityHistoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        Log.e("LISTEN","EDIT");
         view = inflater.inflate(R.layout.security_history_layout, container, false);
         setRecyclerView();
         return view;
@@ -47,17 +52,17 @@ public class SecurityHistoryFragment extends Fragment {
     //Setting recycler view
     private void setRecyclerView() {
 
-        recyclerView = (RecyclerView) view
-                .findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView
                 .setLayoutManager(new LinearLayoutManager(getActivity()));//Linear Items
+
+        //taking data from the sqllite
         SecurityHistoryHandler handler=new  SecurityHistoryHandler(getActivity());
-        Log.e("HISTORY ","  : STEP 1");
         ArrayList<SecurityRequestNode> arrayList=handler.getAllSecurityHistory();
-        Log.e("HISTORY ","  : STEP 2");
+        //connecting the data to the adapter
+
         SecurityHistoryRecyclerViewAdapter adapter = new SecurityHistoryRecyclerViewAdapter (getActivity(), arrayList);
-        Log.e("HISTORY ","  : STEP 3");
         recyclerView.setAdapter(adapter);// set adapter on recyclerview
 
     }

@@ -11,12 +11,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.rocks.mafia.entrancesecurity.UserEnd.HistoryHandler;
+import com.rocks.mafia.entrancesecurity.UserEnd.HistoryNode;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -52,10 +54,11 @@ public class MainActivity extends AppCompatActivity {
 
         // setting this context to use in fragments
         contextOfApplication = getApplicationContext();
-//Dummy data insertion in sqlLite for history page
+
+        //Dummy data insertion in sqlLite for history page
         //TODO remove  this Sqllite insertion
 
-        HistoryHandler  handler= new HistoryHandler(this);
+        HistoryHandler handler= new HistoryHandler(this);
         handler.deleteAll();
         historyData = new ArrayList<HistoryNode>();
 

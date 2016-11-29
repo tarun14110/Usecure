@@ -37,6 +37,10 @@ import static android.R.attr.bitmap;
 /**
  * Created by pankaj on 21/10/16.
  */
+
+
+
+//Showing the profiles
 public class ProfileFrag extends Fragment
 {
     private String mParam1;

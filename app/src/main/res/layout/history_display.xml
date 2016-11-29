@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/historyFrag"
-        android:name="com.rocks.mafia.entrancesecurity.HistoryFragment"
+        android:name="com.rocks.mafia.entrancesecurity.UserEnd.HistoryFragment"
         android:layout_width="match_parent"
         android:background="@drawable/x1"
         android:layout_height="match_parent">

@@ -1,4 +1,4 @@
-package com.rocks.mafia.entrancesecurity;
+package com.rocks.mafia.entrancesecurity.UserEnd;
 
 /**
  * Created by pankaj on 22/10/16.

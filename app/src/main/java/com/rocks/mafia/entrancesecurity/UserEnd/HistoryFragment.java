@@ -1,4 +1,4 @@
-package com.rocks.mafia.entrancesecurity;
+package com.rocks.mafia.entrancesecurity.UserEnd;
 
 
 import android.os.AsyncTask;
@@ -6,20 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.rocks.mafia.entrancesecurity.R;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 

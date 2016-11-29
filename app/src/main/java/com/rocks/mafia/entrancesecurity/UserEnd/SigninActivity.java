@@ -1,4 +1,4 @@
-package com.rocks.mafia.entrancesecurity;
+package com.rocks.mafia.entrancesecurity.UserEnd;
 
 /**
  * Created by mafia on 10/16/16.
@@ -21,6 +21,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.rocks.mafia.entrancesecurity.AppConfig;
+import com.rocks.mafia.entrancesecurity.AppController;
+import com.rocks.mafia.entrancesecurity.MainActivity;
+import com.rocks.mafia.entrancesecurity.R;
+import com.rocks.mafia.entrancesecurity.SQLiteHandler;
+import com.rocks.mafia.entrancesecurity.SecurityLoginActivity;
+import com.rocks.mafia.entrancesecurity.SecurityMainActivity;
+import com.rocks.mafia.entrancesecurity.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;

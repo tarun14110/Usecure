@@ -31,6 +31,9 @@ import java.util.ArrayList;
  */
 
 
+//Sqllite handler of the Historytab
+
+
 public class SecurityHistoryHandler extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
@@ -75,16 +78,15 @@ public class SecurityHistoryHandler extends SQLiteOpenHelper
     }
     public void delete()
     {
-       // Log.v("DELETING TABLE  :","lol");
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
         onCreate(db);
     }
 
+    //adding new node in the list
     public void addSecurityHistory(SecurityRequestNode node)
 
     {
-        System.out.println("XXXXXXXXXX:"+node.getEntryTime().toString());
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_OUTSIDERNAME, node.getOutsiderName());
@@ -97,6 +99,7 @@ public class SecurityHistoryHandler extends SQLiteOpenHelper
 
     }
 
+    //get all details
     public ArrayList< SecurityRequestNode> getAllSecurityHistory()
     {
         ArrayList<SecurityRequestNode> HistoryList = new ArrayList< SecurityRequestNode>();

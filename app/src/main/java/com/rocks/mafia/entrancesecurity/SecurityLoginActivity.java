@@ -36,6 +36,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+
+//login page of the app
+
 public class SecurityLoginActivity extends Activity {
     private static final String TAG = SecurityLoginActivity.class.getSimpleName();
     private Button btnLogin;
@@ -54,7 +57,6 @@ public class SecurityLoginActivity extends Activity {
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         btnLogin = (Button) findViewById(R.id.btnRegister);
-        //btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
 
         // Progress dialog
         pDialog = new ProgressDialog(this);
@@ -65,7 +67,7 @@ public class SecurityLoginActivity extends Activity {
 
         // Session manager
         session = new SessionManager(getApplicationContext());
-        Log.e("INNNNNNN","SECURLOGIn");
+
         // Check if user is already logged in or not
         if (session.isSecurityLoggedIn()) {
             // User is already logged in. Take him to main activity
@@ -95,17 +97,6 @@ public class SecurityLoginActivity extends Activity {
 
         });
 
-        // Link to Register Screen
-/*        btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),
-                        SecurityLoginActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });*/
-
     }
 
     /**
@@ -128,8 +119,6 @@ public class SecurityLoginActivity extends Activity {
 
                 try {
 
-                    Log.e("OOOOOO", response.toString());
-                   // response =response.split("\\{")[1];
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
                     // Check for error node in json
@@ -140,15 +129,10 @@ public class SecurityLoginActivity extends Activity {
                         session.setContact(contact);
 
                         // Now store the user in SQLite
-                        //String uid = jObj.getString("contact");
-                        ///Toast.makeText(getApplicationContext(), "DATATA: " + jObj.toString(), Toast.LENGTH_LONG).show();
                         JSONObject user = jObj.getJSONObject("user");
                         String name = user.getString("name");
                         String email = user.getString("email");
                         String contact = user.getString("contact");
-
-                        // Inserting row in users table
-                        //db.addUser(name, email, contact);
 
 
                         // sending new regId token to the server
@@ -197,7 +181,6 @@ public class SecurityLoginActivity extends Activity {
         };
 
         // Adding request to request queue
-        Log.v("KKKKKKKKKKKKKKK", String.valueOf(strReq) + tag_string_req);
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 

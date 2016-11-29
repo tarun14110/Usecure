@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.rocks.mafia.entrancesecurity.Services.ProfileHandler;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,19 +51,34 @@ public class SecurityRequestRecyclerViewAdapter extends RecyclerView.Adapter<Sec
         //Setting text over textview
         if(arrayList!=null) {
             mainHolder.title.setText(arrayList.get(position).getOutsiderName());
-            mainHolder.time.setText(arrayList.get(position).getEntryTime().toString());
-            mainHolder.d.setText(arrayList.get(position).getReason());
-            String contact=arrayList.get(position).getInsiderContact();
-            System.out.println("CONTACT" + contact);
-            ProfileHandler profileHandler =new ProfileHandler(this.context);
 
-           String name= profileHandler.getUserName(contact);
+
+            //taking time and converting itinto two entity DATA AND TIME
+
+            String dateTime =arrayList.get(position).getEntryTime();
+            String[] str=dateTime.trim().split(" ");
+            if(str[0]!=null)
+                mainHolder.time.setText(str[0]);
+            mainHolder.d.setText(arrayList.get(position).getReason());
+
+
+            if(str[1]!=null)
+                mainHolder.date.setText(str[1]);
+            String contact=arrayList.get(position).getInsiderContact();
+
+
+            //get the user name by contact to show the insider data on request
+
+            ProfileHandler profileHandler =new ProfileHandler(this.context);
+            String name= profileHandler.getUserName(contact);
             mainHolder.by.setText(contact+"\n"+name);
             if (arrayList.get(position).getImage() != null)
                 mainHolder.takenImage.setImageBitmap(getBitmapImage(arrayList.get(position).getImage()));
 
 
             int s = arrayList.get(position).getStatus();
+
+            //changing the status depending upon the value stored in DATAbase
 
             final int pos = position;
             if (s == 1)
@@ -96,7 +112,6 @@ public class SecurityRequestRecyclerViewAdapter extends RecyclerView.Adapter<Sec
     public void  add(int pos, SecurityRequestNode node)
     {
         arrayList.add(pos,node);
-        //Collections.reverse(arrayList);
     }
     // convert from byte array to bitmap
     public Bitmap getBitmapImage(byte[] image) {

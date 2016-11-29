@@ -62,7 +62,7 @@ public class SecurityRequestFragment extends Fragment
 
     public SecurityRequestFragment()
     {
-
+//empty constructor
     }
 
     public SecurityRequestFragment(String title) {
@@ -73,10 +73,10 @@ public class SecurityRequestFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        //Log.e("LISTEN","EDIT");
-        Log.e("Mode ","REQUEST");
         view = inflater.inflate(R.layout.security_request_layout, container, false);
        setRecyclerView();
+
+//seding the push Notification
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver,
                 new IntentFilter(AppConfig.PUSH_NOTIFICATION));
@@ -87,9 +87,8 @@ public class SecurityRequestFragment extends Fragment
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e("LOLU", "POPU");
-
             if (intent.getStringExtra("type").equals("request-response")) {
+
                 // Get extra data included in the Intent
                 String requestId = intent.getStringExtra("requestId");
                 String statusStr = intent.getStringExtra("status");
@@ -100,16 +99,12 @@ public class SecurityRequestFragment extends Fragment
                     status = 2;
                 }
                 for (int i = 0; i < arrayList.size(); ++i) {
-                    Log.e("LOLUREQUEST ID" + requestId + statusStr, arrayList.get(i).getRequestId());
                     if (arrayList.get(i).getRequestId().equals(requestId)) {
-                        Log.e("LOLU", arrayList.get(i).getInsiderContact());
                         arrayList.get(i).setStatus(status);
                     }
                 }
                 adapter.notifyDataSetChanged();
             }
-          //  Log.e("receiver", "Got message: " + message);
-
         }
     };
 
@@ -129,18 +124,16 @@ public class SecurityRequestFragment extends Fragment
         recyclerView = (RecyclerView) view
                 .findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView
-                .setLayoutManager(new LinearLayoutManager(getActivity()));//Linear Items
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));//Linear Items
+
+       //get all data from the SQlite first
         SecurityRequestHandler handler=new SecurityRequestHandler(getActivity());
-        Log.e("REQUEST ","  : STEP 1");
        arrayList=handler.getAllSecurityRequest();
-        Log.e("REQUEST ","  : STEP 2");
-        //  System.out.println("DATATATA : "+ arrayList.get(0).getOutsiderName());
+
+        //reversing the list sothe newly request comes on the top
         Collections.reverse(arrayList);
         adapter = new SecurityRequestRecyclerViewAdapter(getActivity(), arrayList);
-        Log.e("REQUEST ","  : STEP 3");
         recyclerView.setAdapter(adapter);// set adapter on recyclerview
-      //  recyclerView.addOnItemTouchListener(this);
 
     }
 

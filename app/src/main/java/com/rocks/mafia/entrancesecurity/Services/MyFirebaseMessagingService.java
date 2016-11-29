@@ -1,7 +1,6 @@
 package com.rocks.mafia.entrancesecurity.Services;
 
 
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
@@ -11,13 +10,9 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.rocks.mafia.entrancesecurity.AppConfig;
-import com.rocks.mafia.entrancesecurity.HistoryHandler;
-import com.rocks.mafia.entrancesecurity.HistoryNode;
-import com.rocks.mafia.entrancesecurity.MainActivity;
 import com.rocks.mafia.entrancesecurity.NotificationUtils;
-import com.rocks.mafia.entrancesecurity.R;
-import com.rocks.mafia.entrancesecurity.RequestHandler;
-import com.rocks.mafia.entrancesecurity.RequestNode;
+import com.rocks.mafia.entrancesecurity.UserEnd.RequestHandler;
+import com.rocks.mafia.entrancesecurity.UserEnd.RequestNode;
 import com.rocks.mafia.entrancesecurity.SecurityMainActivity;
 import com.rocks.mafia.entrancesecurity.SecurityPreRequestHandler;
 import com.rocks.mafia.entrancesecurity.SecurityPreRequestNode;
@@ -27,7 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Time;
-import java.util.ArrayList;
 
 /**
  * Created by mafia on 19/10/16.

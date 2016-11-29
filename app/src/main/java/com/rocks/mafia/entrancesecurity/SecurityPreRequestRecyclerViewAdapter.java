@@ -11,11 +11,16 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+
+
+
 public class SecurityPreRequestRecyclerViewAdapter extends
         RecyclerView.Adapter<SecurityPreRequestViewHolder>
 {
     private ArrayList<SecurityPreRequestNode> arrayList;
     private Context context;
+
+
 
     public SecurityPreRequestRecyclerViewAdapter(Context context,
                                                  ArrayList<SecurityPreRequestNode> arrayList)

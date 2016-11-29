@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/p4" />
+                    android:src="@drawable/pro" />
 
                 <TextView
                     android:id="@+id/cardTitle"

@@ -74,6 +74,11 @@ import static android.R.id.list;
 import static com.rocks.mafia.entrancesecurity.R.id.sendRequest;
 /*
 activity for search in contacts to send Confirmation requests.
+it will contain a list all profiles currently registered.
+PROVIDES
+- it provide you to search though the profiles.
+- search can be don on bases of address, name, contact.
+- each profile also have direct create request button for creating request query.
  */
 
 
@@ -83,13 +88,18 @@ public class security_request_search extends AppCompatActivity
     ListView listView;
     SearchView searchView;
     ListViewAdapter adapter;
+    //containg the profiles
     ArrayList<profile_node> arraylist;
     String requestId = null;
 
-
     private static final String TAG = SecurityMainActivity.class.getSimpleName();
+
+    ////////--- twilio sid for sending messeges
     public static final String ACCOUNT_SID = "ACcd5209b80f9ee5935b41dd30f44263be";
     public static final String AUTH_TOKEN = "6579a844b1bf92d7a5908d2e62a4618f";
+    //////-----
+
+
     private int DetailsStatus=0;
     private static final int CAMERA_REQUEST = 1888;
 
@@ -100,17 +110,20 @@ public class security_request_search extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+      //layout attached
         setContentView(R.layout.activity_security_request_search);
         searchView = (SearchView) this.findViewById(R.id.searchView);
-
-
-
         EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(getResources().getColor(R.color.white));
         searchEditText.setHintTextColor(getResources().getColor(R.color.white));
         searchView.setIconifiedByDefault(false);
+
+
+       //list containg the profiles
         listView = (ListView) findViewById(R.id.listView);
         arraylist = new ArrayList<profile_node>();
+
+        //get data of profiles from  the database SQLlITE TABLE
          ProfileHandler handler= new ProfileHandler(this);
         arraylist =  handler.getAllProfiles();
 
@@ -120,6 +133,8 @@ public class security_request_search extends AppCompatActivity
         // Binds the Adapter to the ListView
         listView.setAdapter(adapter);
         // Capture Text in EditText
+
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -209,7 +224,6 @@ public class security_request_search extends AppCompatActivity
                     .getAddress());
             // Set the results into ImageView
 
-           // Log.e("JOOKK" + position, profile_nodelist.get(position).getImg().toString());
             holder.img.setImageBitmap(getBitmapImage(profile_nodelist.get(position)
                     .getImg()));
             // Listen for ListView Item Click
@@ -261,7 +275,7 @@ public class security_request_search extends AppCompatActivity
         }
 
         // Filter Class
-        // Filter Class
+        // search filter on the bases of name. contact, address
         public void filter(String charText)
         {
             charText = charText.toLowerCase(Locale.getDefault());
@@ -292,6 +306,9 @@ public class security_request_search extends AppCompatActivity
 
     }
 
+
+
+    //showing dialogue for creating new REquest
     public void showInputDialog(String contact)
     {
 
@@ -318,7 +335,7 @@ public class security_request_search extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialog, int id)
                     {
-
+//overriding the methods
                     }
 
                 })
@@ -327,6 +344,7 @@ public class security_request_search extends AppCompatActivity
                         {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
+                                //simply canceling the dialofuw on cancel.
                             }
                         });
 
@@ -334,6 +352,8 @@ public class security_request_search extends AppCompatActivity
         // create an alert dialog
         final AlertDialog alert = alertDialogBuilder.create();
         alert.show();
+
+        //poitive action of the dialogue
         alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -347,7 +367,6 @@ public class security_request_search extends AppCompatActivity
 
                 if((givenName.length()>0)&&(givenReason.length()>0)&&(givenTime.length()>0)&&(givenWhomToContact.length()>0))
                 {
-                    Log.e("BHAI", givenWhomToContact);
                     //checking image is click or not
                     SendOutsiderdata sendOutsiderdata = new SendOutsiderdata(givenName, givenReason, givenTime, givenWhomToContact);
                     sendOutsiderdata.execute();
@@ -373,7 +392,6 @@ public class security_request_search extends AppCompatActivity
                     SecurityRequestFragment.adapter.add(0,node);
                     SecurityRequestFragment.adapter.notifyDataSetChanged();
 
-                    System.out.println("LOOOOOOK " +requestHandler.getAllSecurityRequest().size());
                     Toast.makeText(getApplicationContext(), "Sent!", Toast.LENGTH_LONG).show();
 
                     startActivity(new Intent(getBaseContext(),SecurityMainActivity.class));
@@ -382,25 +400,30 @@ public class security_request_search extends AppCompatActivity
                 }
                 else
                 {
+
+                    //some details is not filled
                     Toast.makeText(getApplicationContext(), "Please fill completely !", Toast.LENGTH_LONG).show();
 
                 }
             }
         });
-        takeImage.setOnClickListener(new View.OnClickListener() {
+        takeImage.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
+                //click action for takeimage.
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
             }
         });
+
+        //back button problem hiding the keyboard.
         alert.setOnKeyListener(new Dialog.OnKeyListener() {
 
             @Override
             public boolean onKey(DialogInterface arg0, int keyCode,
                                  KeyEvent event) {
-                // TODO Auto-generated method stub
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     finish();
                     hideKeyboard(getParent());
@@ -450,6 +473,13 @@ public class security_request_search extends AppCompatActivity
 
 
         HttpClient httpclient = new DefaultHttpClient();
+        NetworkUtils n=new NetworkUtils();
+        if(n.isConnected(getApplicationContext())==false)
+            Toast.makeText(getApplicationContext(), "No Internet !", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(getApplicationContext(), "connection in progress !", Toast.LENGTH_LONG).show();
+
+
         HttpPost httppost = new HttpPost(
                 "https://api.twilio.com/2010-04-01/Accounts/" + ACCOUNT_SID + "/SMS/Messages");
         String base64EncodedCredentials = "Basic "
@@ -477,10 +507,6 @@ public class security_request_search extends AppCompatActivity
             // Execute HTTP Post Request
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
-            Log.e("KOKOKOKO", EntityUtils.toString(entity));
-            //System.out.println("Entity post is: "
-              //      + EntityUtils.toString(entity));
-
 
         } catch (ClientProtocolException e) {
             e.printStackTrace();
@@ -505,7 +531,6 @@ public class security_request_search extends AppCompatActivity
             data += "&" + URLEncoder.encode("requestId", "UTF-8") + "="
                     + requestId;
 
-            Log.e("DATATATA", data);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -576,25 +601,29 @@ public class security_request_search extends AppCompatActivity
             try {
                 HttpClient httpclien = new DefaultHttpClient();
                 HttpPost httppos = new HttpPost(URL);
+
+                //checcking internet
+                NetworkUtils net=new NetworkUtils();
+                if(net.isConnected(getApplicationContext())==false)
+                    Toast.makeText(getApplicationContext(), "No Internet !", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(getApplicationContext(), "connection in progress !", Toast.LENGTH_LONG).show();
+
+
+
                 httppos.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 HttpResponse response = httpclien.execute(httppos);
                 String st = EntityUtils.toString(response.getEntity());
-                Log.e("log_tag", "In the try Loop" + st);
 
             } catch (Exception e) {
-                Log.e("log_tag", "Error in http connection " + e.toString());
             }
         }
 
-
-
-
-
-
-
-
-
     }
+
+
+
+    //asynask for sending the data to the server created
 
     public class SendOutsiderdata extends AsyncTask<Void, Void, Void> {
 
@@ -607,8 +636,6 @@ public class security_request_search extends AppCompatActivity
             this.whomToContact = whomToContact;
 
         }
-
-
 
 
         @Override
@@ -624,6 +651,11 @@ public class security_request_search extends AppCompatActivity
         }
     }
 
+
+
+
+
+    // funcion formatting & giving current time
     private String getDateTime()
     {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -655,7 +687,7 @@ public class security_request_search extends AppCompatActivity
         }
     }
 
-
+//FUNCTION used for setting image height and width fix
     public Bitmap getResizedBitmap(Bitmap image, int maxSize)
     {
         int width = image.getWidth();

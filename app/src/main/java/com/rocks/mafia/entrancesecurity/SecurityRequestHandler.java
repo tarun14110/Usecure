@@ -17,6 +17,9 @@ import java.util.ArrayList;
  * Created by pankaj on 7/11/16.
  */
 
+
+//Sqllit handler attached withe the Request created and stored in Sqllite
+
 public class SecurityRequestHandler extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 3;
