@@ -113,7 +113,11 @@ public class security_request_search extends AppCompatActivity
         super.onCreate(savedInstanceState);
       //layout attached
         setContentView(R.layout.activity_security_request_search);
+        android.support.v7.app.ActionBar ab = getSupportActionBar();
+        ab.setTitle("USecure ");
+        ab.setDisplayHomeAsUpEnabled(true);
         searchView = (SearchView) this.findViewById(R.id.searchView);
+
         EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(getResources().getColor(R.color.white));
         searchEditText.setHintTextColor(getResources().getColor(R.color.white));

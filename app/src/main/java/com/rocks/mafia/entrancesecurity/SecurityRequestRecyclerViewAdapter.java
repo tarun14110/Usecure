@@ -49,10 +49,9 @@ public class SecurityRequestRecyclerViewAdapter extends RecyclerView.Adapter<Sec
     {
         final SecurityRequestViewHolder mainHolder = (SecurityRequestViewHolder) holder;
         //Setting text over textview
-        if(arrayList!=null) {
+        if(arrayList!=null)
+        {
             mainHolder.title.setText(arrayList.get(position).getOutsiderName());
-
-
             //taking time and converting itinto two entity DATA AND TIME
 
             String dateTime =arrayList.get(position).getEntryTime();

@@ -57,15 +57,17 @@
             </intent-filter>
         </service>
         <!-- ./Firebase Notifications -->
-        <activity
-            android:name=".floating"
-            android:label="@string/title_activity_floating" />
-        <activity
-            android:name=".Main2Activity"
-            android:label="@string/title_activity_main2" />
         <activity android:name=".security_request_search"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".single_item_search"/>
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SecurityMainActivity" />
+        </activity>
+        <activity android:name=".single_item_search">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SecurityMainActivity" />
+            </activity>
     </application>
 
 </manifest>

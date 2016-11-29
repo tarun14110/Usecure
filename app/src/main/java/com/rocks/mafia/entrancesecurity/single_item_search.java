@@ -84,6 +84,9 @@ public class single_item_search extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_item_search);
+        android.support.v7.app.ActionBar ab = getSupportActionBar();
+        ab.setTitle("USecure ");
+        ab.setDisplayHomeAsUpEnabled(true);
         // Get the intent from ListViewAdapter
         Intent i = getIntent();
         // Get the results of name

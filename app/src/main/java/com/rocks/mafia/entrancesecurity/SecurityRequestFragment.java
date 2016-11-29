@@ -132,7 +132,27 @@ public class SecurityRequestFragment extends Fragment
 
         //reversing the list sothe newly request comes on the top
         Collections.reverse(arrayList);
-        adapter = new SecurityRequestRecyclerViewAdapter(getActivity(), arrayList);
+        ArrayList<SecurityRequestNode> shiftArray1 = null, shiftArray2=null;
+         if(arrayList.size()>20)
+         {
+            shiftArray1=new  ArrayList<SecurityRequestNode>();
+             for(int i=0;i<20;i++)
+             {
+                 shiftArray1.add(arrayList.get(i));
+             }
+              shiftArray2=new  ArrayList<SecurityRequestNode>();
+             for(int i=21;i<arrayList.size();i++)
+             {
+                 shiftArray2.add(arrayList.get(i));
+             }
+
+         }
+
+
+        if(shiftArray1!=null)
+        adapter = new SecurityRequestRecyclerViewAdapter(getActivity(), shiftArray1);
+       else
+            adapter = new SecurityRequestRecyclerViewAdapter(getActivity(), arrayList);
         recyclerView.setAdapter(adapter);// set adapter on recyclerview
 
     }

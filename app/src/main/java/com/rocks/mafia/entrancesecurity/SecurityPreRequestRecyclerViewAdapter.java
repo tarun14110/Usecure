@@ -43,7 +43,11 @@ public class SecurityPreRequestRecyclerViewAdapter extends
         final SecurityPreRequestViewHolder mainHolder = (SecurityPreRequestViewHolder) holder;
         //Setting text over textview
         mainHolder.title.setText(arrayList.get(position).getOutsiderName());
-        mainHolder.time.setText(arrayList.get(position).getEntryTime());
+        String dateTime =arrayList.get(position).getEntryTime();
+
+        if(dateTime!=null)
+            dateTime.replace("T"," ");
+        mainHolder.time.setText(dateTime);
         mainHolder.d.setText(arrayList.get(position).getReason());
         mainHolder.by.setText(arrayList.get(position).getInsiderContact());
 
