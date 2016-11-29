@@ -11,7 +11,7 @@
     <application
         android:name=".AppController"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/gatesec"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
@@ -28,9 +28,7 @@
         <activity
             android:name=".UserEnd.SigninActivity"
             android:label="@string/title_activity_login" />
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
+
         <activity
             android:name=".SecurityLoginActivity"
             android:label="@string/app_name"
@@ -57,12 +55,7 @@
             </intent-filter>
         </service>
         <!-- ./Firebase Notifications -->
-        <activity
-            android:name=".floating"
-            android:label="@string/title_activity_floating" />
-        <activity
-            android:name=".Main2Activity"
-            android:label="@string/title_activity_main2" />
+
         <activity android:name=".security_request_search"
             android:screenOrientation="portrait"/>
         <activity android:name=".single_item_search"/>
