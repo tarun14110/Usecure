@@ -55,7 +55,10 @@
             </intent-filter>
         </service>
         <!-- ./Firebase Notifications -->
+<<<<<<< HEAD
+=======
 
+>>>>>>> 6e500ea2a4236704b35453f24c043066d429865a
         <activity android:name=".security_request_search"
             android:screenOrientation="portrait">
             <meta-data
